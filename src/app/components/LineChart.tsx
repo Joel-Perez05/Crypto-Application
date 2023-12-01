@@ -165,7 +165,7 @@ export default function LineChart() {
         <h2 className="text-2xl">${todaysPrice}</h2>
         <h3>{todaysDate}</h3>
       </div>
-      <div>
+      <div className="w-full h-full pt-10">
         <Line options={options} data={data} />
       </div>
     </div>
