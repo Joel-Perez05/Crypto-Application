@@ -104,7 +104,7 @@ export default function LineChart() {
     },
     scales: {
       x: {
-        min: 150,
+        min: 151,
         max: 180,
         grid: {
           display: false,
@@ -165,7 +165,7 @@ export default function LineChart() {
         <h2 className="text-2xl">${todaysPrice}</h2>
         <h3>{todaysDate}</h3>
       </div>
-      <div className="w-full h-full pt-10">
+      <div className="w-full h-full pt-12">
         <Line options={options} data={data} />
       </div>
     </div>
