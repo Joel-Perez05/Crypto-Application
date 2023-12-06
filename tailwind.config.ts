@@ -20,6 +20,10 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      backgroundColor: {
+        "custom-dark1": "rgb(30, 30, 40)",
+        "custom-dark2": "rgb(20, 20, 30)",
+      },
     },
   },
   plugins: [],
