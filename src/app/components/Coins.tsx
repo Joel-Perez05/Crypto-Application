@@ -46,16 +46,11 @@ type SparklinePrice = {
 };
 
 const colorPairs = [
-  { primary: "orange", secondary: "yellow" },
-  { primary: "grey", secondary: "lightGrey" },
-  { primary: "green", secondary: "darkGreen" },
-  { primary: "magenta", secondary: "purple" },
-  { primary: "blue", secondary: "lightBlue" },
-  { primary: "red", secondary: "pink" },
-  { primary: "darkBlue", secondary: "teal" },
-  { primary: "aqua", secondary: "aquamarine" },
-  { primary: "lightCoral", secondary: "lightCyan" },
-  { primary: "springGreen", secondary: "thistle" },
+  { primary: "#e2e8f0", secondary: "#1e293b" },
+  { primary: "#ef4444", secondary: "#fb923c" },
+  { primary: "#fde047", secondary: "#65a30d" },
+  { primary: "#4ade80", secondary: "#115e59" },
+  { primary: "#22d3ee", secondary: "#082f49" },
 ];
 
 export default function Coins() {
@@ -235,7 +230,7 @@ export default function Coins() {
                 })),
               };
 
-              const colorPair = colorPairs[idx % 10];
+              const colorPair = colorPairs[idx % 5];
               return (
                 <tr
                   className={`${
@@ -321,7 +316,7 @@ export default function Coins() {
                   </td>
                   <td className="w-36">
                     <span className="flex justify-around">
-                      <p className={`text-${colorPair.primary}-500`}>
+                      <p className={`text-${colorPair.primary}`}>
                         {circulating}
                       </p>
                       <p className={`colorPair.secondary`}>{totalSupply}</p>
