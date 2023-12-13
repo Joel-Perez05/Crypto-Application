@@ -58,7 +58,7 @@ const colorPairs = [
 
 export default function Coins() {
   const [allCoins, setAllCoins] = useLocalState<Coin[]>("coins", []);
-  const [coinSparkLineData, setCoinSparkLineData] = useState<[]>([]);
+  const [totalSupplySort, setTotalSupplySort] = useState<boolean>(false);
   const [displayCount, setDisplayCount] = useState<number>(10);
   useEffect(() => {
     axios
@@ -169,6 +169,22 @@ export default function Coins() {
 
   const lables = ["D1", "D2", "D3", "D4", "D5", "D6", "D7"];
 
+  const toggleCoinSort = () => {
+    setTotalSupplySort((prevState) => {
+      const totalSupplySortToggle = !prevState;
+
+      const coins = allCoins.slice();
+
+      if (totalSupplySortToggle === false) {
+        coins.sort((a, b) => b.market_cap - a.market_cap);
+      } else {
+        coins.sort((a, b) => b.total_supply - a.total_supply);
+      }
+      setAllCoins(coins);
+      return totalSupplySortToggle;
+    });
+  };
+
   return (
     <div className="bg-custom-dark2 w-11/12 rounded-2xl h-full p-4">
       <div className="flex text-white">
@@ -178,8 +194,13 @@ export default function Coins() {
           </span>
           TOP 50 COINS
         </h2>
-        <button className="flex items-end mb-1">
-          BY MARKET CAP{" "}
+        <button
+          onClick={() => {
+            toggleCoinSort();
+          }}
+          className="flex items-end mb-1"
+        >
+          {totalSupplySort ? "BY TOTAL SUPPLY" : "BY MARKET CAP"}
           <span>
             <ChevronDoubleDownIcon className="w-4 h-4 mb-1" />
           </span>
