@@ -5,6 +5,8 @@ import {
   AdjustmentsVerticalIcon,
   ArrowTrendingDownIcon,
   ArrowTrendingUpIcon,
+  ChevronUpDownIcon,
+  ChevronDoubleDownIcon,
 } from "@heroicons/react/20/solid";
 import numeral from "numeral";
 import axios from "axios";
@@ -21,6 +23,7 @@ import {
   LinearScale,
 } from "chart.js";
 import ProgressBar from "@ramonak/react-progress-bar";
+import { useLocalState } from "@/hooks/useLocalState";
 
 const apiUrl =
   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d";
@@ -54,7 +57,7 @@ const colorPairs = [
 ];
 
 export default function Coins() {
-  const [allCoins, setAllCoins] = useState<Coin[]>([]);
+  const [allCoins, setAllCoins] = useLocalState<Coin[]>("coins", []);
   const [coinSparkLineData, setCoinSparkLineData] = useState<[]>([]);
   const [displayCount, setDisplayCount] = useState<number>(10);
   useEffect(() => {
@@ -95,7 +98,7 @@ export default function Coins() {
     }
   };
 
-  const sparklineData = allCoins.map((coin, idx) => {
+  const sparklineData = allCoins.map((coin) => {
     if (coin.sparkline_in_7d.price) {
       const dailyPrices = [];
       let dailyPriceAccumulator = 0;
@@ -168,6 +171,20 @@ export default function Coins() {
 
   return (
     <div className="bg-custom-dark2 w-11/12 rounded-2xl h-full p-4">
+      <div className="flex text-white">
+        <h2 className="text-3xl font-bold flex items-end mr-2">
+          <span>
+            <ChevronUpDownIcon className="w-5 h-5 mb-1" />
+          </span>
+          TOP 50 COINS
+        </h2>
+        <button className="flex items-end mb-1">
+          BY MARKET CAP{" "}
+          <span>
+            <ChevronDoubleDownIcon className="w-4 h-4 mb-1" />
+          </span>
+        </button>
+      </div>
       <table className="table-auto w-full">
         <thead className="">
           <tr className="text-white text-xs flex justify-between border-b h-14 mt-6">
