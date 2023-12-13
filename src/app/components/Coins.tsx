@@ -24,6 +24,7 @@ import {
 } from "chart.js";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useLocalState } from "@/hooks/useLocalState";
+import classes from "../../styles/scrollbar.module.css";
 
 const apiUrl =
   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d";
@@ -232,6 +233,7 @@ export default function Coins() {
         hasMore={displayCount < 50}
         loader={<h4>Loading...</h4>}
         height={650}
+        className={classes.customInfiniteScroll}
       >
         <table className="table-auto w-full">
           <tbody className=" text-white">
