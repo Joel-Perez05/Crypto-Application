@@ -1,4 +1,3 @@
-"use client";
 import { useState, useEffect } from "react";
 
 function getWindow(): Window | null {
@@ -10,10 +9,20 @@ export function useLocalState<T>(
   initialVal: T
 ): [T, (value: T) => void] {
   const windowObject = getWindow();
+  if (!windowObject || !windowObject.localStorage) {
+    return [initialVal, () => {}];
+  }
   const storedVal = windowObject
     ? windowObject.localStorage.getItem(key)
     : null;
-  const item = storedVal ? JSON.parse(storedVal) : initialVal;
+  let item: T;
+  try {
+    item = storedVal ? JSON.parse(storedVal) : initialVal;
+  } catch (error) {
+    console.error(`Error parsing local storage for key "${key}";`, error);
+    item = initialVal;
+  }
+
   const [state, setState] = useState<T>(item);
 
   useEffect(() => {

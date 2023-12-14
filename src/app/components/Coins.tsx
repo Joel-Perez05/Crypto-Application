@@ -48,17 +48,9 @@ type Coin = {
 type SparklinePrice = {
   price: [number];
 };
-
-const colorPairs = [
-  { primary: "#e2e8f0", secondary: "#1e293b" },
-  { primary: "#ef4444", secondary: "#fb923c" },
-  { primary: "#fde047", secondary: "#65a30d" },
-  { primary: "#4ade80", secondary: "#115e59" },
-  { primary: "#22d3ee", secondary: "#082f49" },
-];
-
 export default function Coins() {
-  const [allCoins, setAllCoins] = useLocalState<Coin[]>("coins", []);
+  // const [allCoins, setAllCoins] = useLocalState<Coin[]>("coins", []);
+  const [allCoins, setAllCoins] = useState<Coin[]>([]);
   const [totalSupplySort, setTotalSupplySort] = useState<boolean>(false);
   const [displayCount, setDisplayCount] = useState<number>(10);
   useEffect(() => {
@@ -269,8 +261,6 @@ export default function Coins() {
                   backgroundColor: "rgb(20, 20, 30)",
                 })),
               };
-
-              const colorPair = colorPairs[idx % 5];
               return (
                 <tr
                   className={`${
@@ -338,15 +328,15 @@ export default function Coins() {
                   </td>
                   <td className="w-36">
                     <span className="flex justify-around">
-                      <p>{totalVolume}</p>
-                      <p>{totalMarket}</p>
+                      <p className="text-green-400">{totalVolume}</p>
+                      <p className="text-teal-800">{totalMarket}</p>
                     </span>
                     <span>
                       <ProgressBar
                         completed={coin.total_volume}
                         maxCompleted={coin.market_cap}
-                        bgColor={colorPair.primary}
-                        baseBgColor={colorPair.secondary}
+                        bgColor="#4ade80"
+                        baseBgColor="#115e59"
                         height="10px"
                         width="80%"
                         isLabelVisible={false}
@@ -356,17 +346,15 @@ export default function Coins() {
                   </td>
                   <td className="w-36">
                     <span className="flex justify-around">
-                      <p className={`text-${colorPair.primary}`}>
-                        {circulating}
-                      </p>
-                      <p className={`colorPair.secondary`}>{totalSupply}</p>
+                      <p className="text-pink-500">{circulating}</p>
+                      <p className="text-rose-800">{totalSupply}</p>
                     </span>
                     <span>
                       <ProgressBar
                         completed={coin.circulating_supply}
                         maxCompleted={coin.total_supply}
-                        bgColor={colorPair.primary}
-                        baseBgColor={colorPair.secondary}
+                        bgColor="#ec4899"
+                        baseBgColor="#9f1239"
                         height="10px"
                         width="80%"
                         isLabelVisible={false}
