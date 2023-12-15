@@ -25,6 +25,7 @@ import {
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useLocalState } from "@/hooks/useLocalState";
 import classes from "../../styles/scrollbar.module.css";
+import queryString from "query-string";
 
 const apiUrl =
   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d";
@@ -54,11 +55,18 @@ export default function Coins() {
   const [totalSupplySort, setTotalSupplySort] = useState<boolean>(false);
   const [displayCount, setDisplayCount] = useState<number>(10);
   useEffect(() => {
+    const urlParams = queryString.parse(window.location.search);
+    const initialSort = urlParams.sort === "totalSupply";
+
+    setTotalSupplySort(initialSort);
+
     axios
       .get(apiUrl)
       .then((res) => {
-        const sortedCoins = res.data.sort(
-          (a: Coin, b: Coin) => b.market_cap - a.market_cap
+        const sortedCoins = res.data.sort((a: Coin, b: Coin) =>
+          initialSort
+            ? b.total_supply - a.total_supply
+            : b.market_cap - a.market_cap
         );
         setAllCoins(sortedCoins);
       })
@@ -174,6 +182,15 @@ export default function Coins() {
         coins.sort((a, b) => b.total_supply - a.total_supply);
       }
       setAllCoins(coins);
+
+      const sortUrl = totalSupplySortToggle ? "totalSupply" : "marketCap";
+      const newQueryString = queryString.stringify({
+        ...queryString.parse(window.location.search),
+        sort: sortUrl,
+      });
+
+      window.history.pushState(null, "", `?${newQueryString}`);
+
       return totalSupplySortToggle;
     });
   };
