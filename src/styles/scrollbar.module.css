@@ -1,0 +1,19 @@
+.customInfiniteScroll {
+  overflow-y: auto;
+  max-height: 650px;
+  scrollbar-width: thin;
+  scrollbar-color: #3498db #ffffff;
+}
+
+.customInfiniteScroll::-webkit-scrollbar-track {
+  background-color: rgb(20, 20, 30);
+}
+
+.customInfiniteScroll::-webkit-scrollbar-thumb {
+  background-color: #34c2db;
+  border-radius: 5px;
+}
+
+.customInfiniteScroll::-webkit-scrollbar {
+  width: 10px;
+}
