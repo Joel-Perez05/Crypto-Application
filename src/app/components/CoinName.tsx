@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { ReactNode } from "react";
 
 type CoinNameType = {
   coinId: string;

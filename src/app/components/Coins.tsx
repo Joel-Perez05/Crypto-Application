@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import CoinName from "./CoinName";
+import CoinPriceChange from "./CoinPriceChange";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {
   AdjustmentsVerticalIcon,
@@ -295,53 +296,29 @@ export default function Coins() {
                     />
                   </td>
                   <td className="w-20">${price}</td>
-                  <td
-                    className={`${
-                      coin.price_change_percentage_1h_in_currency < 0
-                        ? "text-red-600"
-                        : "text-green-600"
-                    } flex justify-center`}
-                  >
-                    <span>
-                      {coin.price_change_percentage_1h_in_currency < 0 ? (
-                        <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
-                      ) : (
-                        <ArrowTrendingUpIcon className="w-4 h-4 text-green-600" />
-                      )}
-                    </span>
-                    {pricePercent1}%
+                  <td>
+                    <CoinPriceChange
+                      percentChangeRounded={pricePercent1}
+                      percentChangeActual={
+                        coin.price_change_percentage_1h_in_currency
+                      }
+                    />
                   </td>
-                  <td
-                    className={`${
-                      coin.price_change_percentage_24h_in_currency < 0
-                        ? "text-red-600"
-                        : "text-green-600"
-                    } flex justify-center`}
-                  >
-                    <span>
-                      {coin.price_change_percentage_24h_in_currency < 0 ? (
-                        <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
-                      ) : (
-                        <ArrowTrendingUpIcon className="w-4 h-4 text-green-600" />
-                      )}
-                    </span>
-                    {pricePercent24}%
+                  <td>
+                    <CoinPriceChange
+                      percentChangeRounded={pricePercent24}
+                      percentChangeActual={
+                        coin.price_change_percentage_24h_in_currency
+                      }
+                    />
                   </td>
-                  <td
-                    className={`${
-                      coin.price_change_percentage_7d_in_currency < 0
-                        ? "text-red-600"
-                        : "text-green-600"
-                    } flex justify-center`}
-                  >
-                    <span>
-                      {coin.price_change_percentage_7d_in_currency < 0 ? (
-                        <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
-                      ) : (
-                        <ArrowTrendingUpIcon className="w-4 h-4 text-green-600" />
-                      )}
-                    </span>
-                    {pricePercent7}%
+                  <td>
+                    <CoinPriceChange
+                      percentChangeRounded={pricePercent7}
+                      percentChangeActual={
+                        coin.price_change_percentage_7d_in_currency
+                      }
+                    />
                   </td>
                   <td className="w-36">
                     <span className="flex justify-around">
