@@ -51,7 +51,6 @@ type SparklinePrice = {
   price: [number];
 };
 export default function Coins() {
-  // const [allCoins, setAllCoins] = useLocalState<Coin[]>("coins", []);
   const [allCoins, setAllCoins] = useState<Coin[]>([]);
   const [totalSupplySort, setTotalSupplySort] = useState<boolean>(false);
   const [displayCount, setDisplayCount] = useState<number>(10);
