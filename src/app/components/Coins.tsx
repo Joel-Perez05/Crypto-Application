@@ -10,19 +10,11 @@ import {
 } from "@heroicons/react/20/solid";
 import numeral from "numeral";
 import axios from "axios";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  ChartData,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  Tooltip,
-  LinearScale,
-} from "chart.js";
+import { ChartData } from "chart.js";
 import classes from "../../styles/scrollbar.module.css";
 import queryString from "query-string";
 import CoinProgressBars from "./CoinProgressBars";
+import CoinLineGraph from "./CoinLineGraph";
 
 const apiUrl =
   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d";
@@ -119,49 +111,6 @@ export default function Coins() {
 
   const handleNext = () => {
     setDisplayCount((prevCount) => prevCount + 10);
-  };
-
-  ChartJS.register(
-    LineElement,
-    PointElement,
-    CategoryScale,
-    LinearScale,
-    Tooltip
-  );
-
-  const options = {
-    responsive: true,
-    plugins: {
-      title: {
-        display: false,
-      },
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        enabled: true,
-      },
-    },
-    scales: {
-      x: {
-        min: 0,
-        max: 7,
-        grid: {
-          display: false,
-        },
-        ticks: {
-          display: false,
-        },
-      },
-      y: {
-        ticks: {
-          display: false,
-        },
-        grid: {
-          display: false,
-        },
-      },
-    },
   };
 
   const lables = ["D1", "D2", "D3", "D4", "D5", "D6", "D7"];
@@ -339,8 +288,8 @@ export default function Coins() {
                       maxCompletedColor="#9f1239"
                     />
                   </td>
-                  <td className="w-32">
-                    <Line data={data} options={options} />
+                  <td>
+                    <CoinLineGraph chartData={data} />
                   </td>
                 </tr>
               );
