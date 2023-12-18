@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import CoinName from "./CoinName";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {
   AdjustmentsVerticalIcon,
@@ -286,15 +286,13 @@ export default function Coins() {
                   key={coin.id}
                 >
                   <td className="w-6">{idx + 1}</td>
-                  <td className="w-32 flex items-center">
-                    <img
-                      className="w-8 h-8 mr-1"
-                      src={coin.image}
-                      alt="coin logo"
+                  <td>
+                    <CoinName
+                      coinId={coin.id}
+                      coinName={coin.name}
+                      coinNameAllCaps={allCaps}
+                      coinImg={coin.image}
                     />
-                    <Link href={`/coin/${coin.id}`}>
-                      {coin.name}({allCaps})
-                    </Link>
                   </td>
                   <td className="w-20">${price}</td>
                   <td
