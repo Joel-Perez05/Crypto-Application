@@ -5,8 +5,6 @@ import CoinPriceChange from "./CoinPriceChange";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {
   AdjustmentsVerticalIcon,
-  ArrowTrendingDownIcon,
-  ArrowTrendingUpIcon,
   ChevronUpDownIcon,
   ChevronDoubleDownIcon,
 } from "@heroicons/react/20/solid";
@@ -16,18 +14,15 @@ import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   ChartData,
-  ChartDataset,
   LineElement,
   PointElement,
   CategoryScale,
   Tooltip,
-  Legend,
   LinearScale,
 } from "chart.js";
-import ProgressBar from "@ramonak/react-progress-bar";
-import { useLocalState } from "@/hooks/useLocalState";
 import classes from "../../styles/scrollbar.module.css";
 import queryString from "query-string";
+import CoinProgressBars from "./CoinProgressBars";
 
 const apiUrl =
   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d";
@@ -320,41 +315,29 @@ export default function Coins() {
                       }
                     />
                   </td>
-                  <td className="w-36">
-                    <span className="flex justify-around">
-                      <p className="text-green-400">{totalVolume}</p>
-                      <p className="text-teal-800">{totalMarket}</p>
-                    </span>
-                    <span>
-                      <ProgressBar
-                        completed={coin.total_volume}
-                        maxCompleted={coin.market_cap}
-                        bgColor="#4ade80"
-                        baseBgColor="#115e59"
-                        height="10px"
-                        width="80%"
-                        isLabelVisible={false}
-                        className="flex justify-center"
-                      />
-                    </span>
+                  <td>
+                    <CoinProgressBars
+                      titleColor="text-green-400"
+                      titleCompleted={totalVolume}
+                      completed={coin.total_volume}
+                      completedColor="#4ade80"
+                      titleMaxColor={"text-teal-800"}
+                      titleMaxCompleted={totalMarket}
+                      maxCompleted={coin.market_cap}
+                      maxCompletedColor="#115e59"
+                    />
                   </td>
-                  <td className="w-36">
-                    <span className="flex justify-around">
-                      <p className="text-pink-500">{circulating}</p>
-                      <p className="text-rose-800">{totalSupply}</p>
-                    </span>
-                    <span>
-                      <ProgressBar
-                        completed={coin.circulating_supply}
-                        maxCompleted={coin.total_supply}
-                        bgColor="#ec4899"
-                        baseBgColor="#9f1239"
-                        height="10px"
-                        width="80%"
-                        isLabelVisible={false}
-                        className="flex justify-center"
-                      />
-                    </span>
+                  <td>
+                    <CoinProgressBars
+                      titleColor="text-pink-500"
+                      titleCompleted={circulating}
+                      completed={coin.circulating_supply}
+                      completedColor="#ec4899"
+                      titleMaxColor={"text-rose-800"}
+                      titleMaxCompleted={totalSupply}
+                      maxCompleted={coin.total_supply}
+                      maxCompletedColor="#9f1239"
+                    />
                   </td>
                   <td className="w-32">
                     <Line data={data} options={options} />
