@@ -1,32 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import CoinName from "./CoinName";
+import CoinPriceChange from "./CoinPriceChange";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {
   AdjustmentsVerticalIcon,
-  ArrowTrendingDownIcon,
-  ArrowTrendingUpIcon,
   ChevronUpDownIcon,
   ChevronDoubleDownIcon,
 } from "@heroicons/react/20/solid";
 import numeral from "numeral";
 import axios from "axios";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  ChartData,
-  ChartDataset,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  Tooltip,
-  Legend,
-  LinearScale,
-} from "chart.js";
-import ProgressBar from "@ramonak/react-progress-bar";
-import { useLocalState } from "@/hooks/useLocalState";
+import { ChartData } from "chart.js";
 import classes from "../../styles/scrollbar.module.css";
 import queryString from "query-string";
+import CoinProgressBars from "./CoinProgressBars";
+import CoinLineGraph from "./CoinLineGraph";
 
 const apiUrl =
   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d";
@@ -123,49 +111,6 @@ export default function Coins() {
 
   const handleNext = () => {
     setDisplayCount((prevCount) => prevCount + 10);
-  };
-
-  ChartJS.register(
-    LineElement,
-    PointElement,
-    CategoryScale,
-    LinearScale,
-    Tooltip
-  );
-
-  const options = {
-    responsive: true,
-    plugins: {
-      title: {
-        display: false,
-      },
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        enabled: true,
-      },
-    },
-    scales: {
-      x: {
-        min: 0,
-        max: 7,
-        grid: {
-          display: false,
-        },
-        ticks: {
-          display: false,
-        },
-      },
-      y: {
-        ticks: {
-          display: false,
-        },
-        grid: {
-          display: false,
-        },
-      },
-    },
   };
 
   const lables = ["D1", "D2", "D3", "D4", "D5", "D6", "D7"];
@@ -286,103 +231,65 @@ export default function Coins() {
                   key={coin.id}
                 >
                   <td className="w-6">{idx + 1}</td>
-                  <td className="w-32 flex items-center">
-                    <img
-                      className="w-8 h-8 mr-1"
-                      src={coin.image}
-                      alt="coin logo"
+                  <td>
+                    <CoinName
+                      coinId={coin.id}
+                      coinName={coin.name}
+                      coinNameAllCaps={allCaps}
+                      coinImg={coin.image}
                     />
-                    <Link href={`/coin/${coin.id}`}>
-                      {coin.name}({allCaps})
-                    </Link>
                   </td>
                   <td className="w-20">${price}</td>
-                  <td
-                    className={`${
-                      coin.price_change_percentage_1h_in_currency < 0
-                        ? "text-red-600"
-                        : "text-green-600"
-                    } flex justify-center`}
-                  >
-                    <span>
-                      {coin.price_change_percentage_1h_in_currency < 0 ? (
-                        <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
-                      ) : (
-                        <ArrowTrendingUpIcon className="w-4 h-4 text-green-600" />
-                      )}
-                    </span>
-                    {pricePercent1}%
+                  <td>
+                    <CoinPriceChange
+                      percentChangeRounded={pricePercent1}
+                      percentChangeActual={
+                        coin.price_change_percentage_1h_in_currency
+                      }
+                    />
                   </td>
-                  <td
-                    className={`${
-                      coin.price_change_percentage_24h_in_currency < 0
-                        ? "text-red-600"
-                        : "text-green-600"
-                    } flex justify-center`}
-                  >
-                    <span>
-                      {coin.price_change_percentage_24h_in_currency < 0 ? (
-                        <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
-                      ) : (
-                        <ArrowTrendingUpIcon className="w-4 h-4 text-green-600" />
-                      )}
-                    </span>
-                    {pricePercent24}%
+                  <td>
+                    <CoinPriceChange
+                      percentChangeRounded={pricePercent24}
+                      percentChangeActual={
+                        coin.price_change_percentage_24h_in_currency
+                      }
+                    />
                   </td>
-                  <td
-                    className={`${
-                      coin.price_change_percentage_7d_in_currency < 0
-                        ? "text-red-600"
-                        : "text-green-600"
-                    } flex justify-center`}
-                  >
-                    <span>
-                      {coin.price_change_percentage_7d_in_currency < 0 ? (
-                        <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
-                      ) : (
-                        <ArrowTrendingUpIcon className="w-4 h-4 text-green-600" />
-                      )}
-                    </span>
-                    {pricePercent7}%
+                  <td>
+                    <CoinPriceChange
+                      percentChangeRounded={pricePercent7}
+                      percentChangeActual={
+                        coin.price_change_percentage_7d_in_currency
+                      }
+                    />
                   </td>
-                  <td className="w-36">
-                    <span className="flex justify-around">
-                      <p className="text-green-400">{totalVolume}</p>
-                      <p className="text-teal-800">{totalMarket}</p>
-                    </span>
-                    <span>
-                      <ProgressBar
-                        completed={coin.total_volume}
-                        maxCompleted={coin.market_cap}
-                        bgColor="#4ade80"
-                        baseBgColor="#115e59"
-                        height="10px"
-                        width="80%"
-                        isLabelVisible={false}
-                        className="flex justify-center"
-                      />
-                    </span>
+                  <td>
+                    <CoinProgressBars
+                      titleColor="text-green-400"
+                      titleCompleted={totalVolume}
+                      completed={coin.total_volume}
+                      completedColor="#4ade80"
+                      titleMaxColor={"text-teal-800"}
+                      titleMaxCompleted={totalMarket}
+                      maxCompleted={coin.market_cap}
+                      maxCompletedColor="#115e59"
+                    />
                   </td>
-                  <td className="w-36">
-                    <span className="flex justify-around">
-                      <p className="text-pink-500">{circulating}</p>
-                      <p className="text-rose-800">{totalSupply}</p>
-                    </span>
-                    <span>
-                      <ProgressBar
-                        completed={coin.circulating_supply}
-                        maxCompleted={coin.total_supply}
-                        bgColor="#ec4899"
-                        baseBgColor="#9f1239"
-                        height="10px"
-                        width="80%"
-                        isLabelVisible={false}
-                        className="flex justify-center"
-                      />
-                    </span>
+                  <td>
+                    <CoinProgressBars
+                      titleColor="text-pink-500"
+                      titleCompleted={circulating}
+                      completed={coin.circulating_supply}
+                      completedColor="#ec4899"
+                      titleMaxColor={"text-rose-800"}
+                      titleMaxCompleted={totalSupply}
+                      maxCompleted={coin.total_supply}
+                      maxCompletedColor="#9f1239"
+                    />
                   </td>
-                  <td className="w-32">
-                    <Line data={data} options={options} />
+                  <td>
+                    <CoinLineGraph chartData={data} />
                   </td>
                 </tr>
               );
