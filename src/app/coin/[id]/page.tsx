@@ -1,11 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import CoinMainInfo from "@/app/components/CoinMainInfo";
 
 type CoinType = {
   id: string;
   symbol: string;
   name: string;
+  image: {
+    thumb: string;
+    small: string;
+    large: string;
+  };
+  links: {
+    homepage: string;
+  };
 };
 
 type CoinPageProps = {
@@ -35,7 +44,21 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
     }
   }, [params.id]);
 
-  return <div>{coin?.name}</div>;
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div className="h-full md:w-full xl:w-1/2 p-4 bg-custom-dark1">
+        <h2 className="text-white text-3xl">Your Summary:</h2>
+        <div className="mt-6">
+          <CoinMainInfo
+            links={coin?.links}
+            image={coin?.image}
+            symbol={coin?.symbol}
+            name={coin?.name}
+          />
+        </div>
+      </div>
+    </main>
+  );
 };
 
 export default CoinPage;
