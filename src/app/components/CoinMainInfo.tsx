@@ -33,6 +33,15 @@ const CoinMainInfo: React.FC<CoinMainInfoTypes> = (props) => {
 
   const homepageUrl = links.homepage ? links.homepage : "#";
 
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(homepageUrl[0]);
+      alert("Copied to Clipboard!");
+    } catch (error) {
+      console.error("Unable to copy to clipboard:", error);
+    }
+  };
+
   return (
     <div className="text-white bg-custom-dark2 w-80 h-64 rounded-2xl flex items-center justify-evenly flex-col">
       <div className="h-24 w-24 rounded bg-custom-dark1 flex items-center justify-center">
@@ -49,7 +58,9 @@ const CoinMainInfo: React.FC<CoinMainInfoTypes> = (props) => {
           <Link href={homepageUrl[0]} target="_blank">
             bitcoin.org
           </Link>
-          <DocumentDuplicateIcon className="w-5 h-5" />
+          <button onClick={copyToClipboard}>
+            <DocumentDuplicateIcon className="w-5 h-5" />
+          </button>
         </div>
       </div>
     </div>
