@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { LinkIcon } from "@heroicons/react/20/solid";
-import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
+import { Square2StackIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
 type CoinMainInfoTypes = {
@@ -59,7 +59,7 @@ const CoinMainInfo: React.FC<CoinMainInfoTypes> = (props) => {
             bitcoin.org
           </Link>
           <button onClick={copyToClipboard}>
-            <DocumentDuplicateIcon className="w-5 h-5" />
+            <Square2StackIcon className="w-5 h-5" />
           </button>
         </div>
       </div>
