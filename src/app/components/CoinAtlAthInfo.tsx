@@ -17,8 +17,7 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
 
   const formatToNearestTenth = (num: number | undefined) => {
     if (num !== undefined) {
-      const roundedPercent = Math.ceil(num * 10) / 10;
-      return numeral(roundedPercent).format("0.0");
+      return numeral(num).format("0.00");
     }
   };
 
@@ -66,14 +65,16 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
         <h2 className="text-2xl mb-1">${formattedPrice}</h2>
         <h3
           className={`${
-            market_data?.price_change_percentage_24h ?? 0 < 0
+            market_data?.price_change_percentage_24h !== undefined &&
+            market_data?.price_change_percentage_24h < 0
               ? "text-red-600"
               : "text-green-600"
           } flex items-center text-xl mb-1`}
         >
           {" "}
           <span className="mr-1">
-            {market_data?.price_change_percentage_24h ?? 0 < 0 ? (
+            {market_data?.price_change_percentage_24h !== undefined &&
+            market_data?.price_change_percentage_24h < 0 ? (
               <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
             ) : (
               <ArrowTrendingUpIcon className="w-4 h-4 text-green-600" />

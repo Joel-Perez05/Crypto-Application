@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CoinMainInfo from "@/app/components/CoinMainInfo";
 import CoinAtlAthInfo from "@/app/components/CoinAtlAthInfo";
+import CoinMarketInfo from "@/app/components/CoinMarketInfo";
 
 export type CoinType = {
   id: string;
-  symbol: string;
+  symbol?: string;
   name: string;
   image: {
     thumb: string;
@@ -16,7 +17,7 @@ export type CoinType = {
   links: {
     homepage: string;
   };
-  market_data: {
+  market_data?: {
     ath: {
       usd?: number;
     };
@@ -39,6 +40,21 @@ export type CoinType = {
       usd?: number;
     };
     price_change_percentage_24h?: number;
+    market_cap: {
+      usd?: number;
+    };
+    market_cap_change_percentage_24h?: number;
+    fully_diluted_valuation: {
+      usd?: number;
+    };
+    total_volume: {
+      usd?: number;
+    };
+    high_24h: {
+      usd?: number;
+    };
+    circulating_supply?: number;
+    max_supply?: number;
   };
 };
 
@@ -80,6 +96,10 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
             name={coin?.name}
           />
           <CoinAtlAthInfo market_data={coin?.market_data} />
+          <CoinMarketInfo
+            symbol={coin?.symbol}
+            market_data={coin?.market_data}
+          />
         </div>
       </div>
     </main>
