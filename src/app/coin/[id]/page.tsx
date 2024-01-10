@@ -4,6 +4,7 @@ import axios from "axios";
 import CoinMainInfo from "@/app/components/CoinMainInfo";
 import CoinAtlAthInfo from "@/app/components/CoinAtlAthInfo";
 import CoinMarketInfo from "@/app/components/CoinMarketInfo";
+import CoinDescription from "@/app/components/CoinDescription";
 
 export type CoinType = {
   id: string;
@@ -14,8 +15,12 @@ export type CoinType = {
     small: string;
     large: string;
   };
-  links: {
+  links?: {
     homepage: string;
+    blockchain_site: string;
+  };
+  description?: {
+    en?: string;
   };
   market_data?: {
     ath: {
@@ -101,6 +106,8 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
             market_data={coin?.market_data}
           />
         </div>
+        <h2 className="text-white text-3xl mt-6">Description:</h2>
+        <CoinDescription description={coin?.description} links={coin?.links} />
       </div>
     </main>
   );
