@@ -17,7 +17,7 @@ const CoinDescription: React.FC<CoinDescriptionPropTypes> = (props) => {
   const linkThree = links?.blockchain_site[2];
 
   return (
-    <div>
+    <div className="mb-2">
       <div className="w-full bg-custom-dark2 rounded-xl p-4 mt-6 prose text-white text-sm mb-10">
         <div>{ReactHtmlParser(description?.en as string)}</div>
       </div>

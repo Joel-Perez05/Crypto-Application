@@ -52,11 +52,11 @@ const CoinMainInfo: React.FC<CoinMainInfoTypes> = (props) => {
           {name} ({allCaps})
         </h2>
       </div>
-      <div className="bg-custom-dark1 w-3/4 h-8 rounded-xl flex justify-center items-center">
+      <div className="bg-custom-dark1 w-11/12 h-8 rounded-xl flex justify-center items-center">
         <div className="w-full flex justify-evenly items-center">
           <LinkIcon className="w-5 h-5" />
           <Link href={homepageUrl[0]} target="_blank">
-            bitcoin.org
+            {homepageUrl[0]}
           </Link>
           <button onClick={copyToClipboard}>
             <Square2StackIcon className="w-5 h-5" />

@@ -5,6 +5,7 @@ import CoinMainInfo from "@/app/components/CoinMainInfo";
 import CoinAtlAthInfo from "@/app/components/CoinAtlAthInfo";
 import CoinMarketInfo from "@/app/components/CoinMarketInfo";
 import CoinDescription from "@/app/components/CoinDescription";
+import CoinConvertor from "@/app/components/CoinConvertor";
 
 export type CoinType = {
   id: string;
@@ -108,6 +109,7 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
         </div>
         <h2 className="text-white text-3xl mt-6">Description:</h2>
         <CoinDescription description={coin?.description} links={coin?.links} />
+        <CoinConvertor symbol={coin?.symbol} market_data={coin?.market_data} />
       </div>
     </main>
   );
