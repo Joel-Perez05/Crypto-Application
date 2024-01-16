@@ -8,12 +8,11 @@ import {
 } from "../utils/formatFunctions";
 import { CoinType } from "../coin/[id]/page";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import {
-  ArrowTrendingDownIcon,
-  ArrowTrendingUpIcon,
-} from "@heroicons/react/20/solid";
 import numeral from "numeral";
 import ProgressBar from "@ramonak/react-progress-bar";
+import MarketInfoTwo from "./MarketInfoTwo";
+import MarketInfoMarketCap from "./MarketInfoMarketCap";
+import MarketInfoOne from "./MarketInfoOne";
 
 type MarketPropsType = {
   symbol: CoinType["symbol"];
@@ -50,74 +49,50 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
   return (
     <div className="text-white bg-custom-dark2 w-96 h-64 rounded-2xl p-4">
       <div className="mb-6">
-        <div className="flex mb-2">
-          <PlusIcon className="w-5 h-5 p-1 bg-blue-500 rounded mr-3" />
-          <h3 className="mr-3 text-sm">
-            <span className="font-extrabold">Market Cap:</span> $
-            {roundedMarketCap}
-          </h3>
-          <h3
-            className={`${
-              market_data?.market_cap_change_percentage_24h !== undefined &&
-              market_data?.market_cap_change_percentage_24h < 0
-                ? "text-red-600"
-                : "text-green-600"
-            } flex items-center text-sm`}
-          >
-            {" "}
-            <span className="">
-              {market_data?.market_cap_change_percentage_24h !== undefined &&
-              market_data?.market_cap_change_percentage_24h < 0 ? (
-                <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
-              ) : (
-                <ArrowTrendingUpIcon className="w-4 h-4 text-green-600" />
-              )}
-            </span>
-            {roundedPercentChange}%
-          </h3>
+        <div>
+          <MarketInfoMarketCap
+            roundedMarketCap={roundedMarketCap}
+            marketData={market_data?.market_cap_change_percentage_24h}
+            roundedPercentChange={roundedPercentChange}
+          />
         </div>
-        <div className="flex mb-2">
-          <PlusIcon className="w-5 h-5 p-1 bg-blue-500 rounded mr-3" />
-          <h3 className="mr-3 text-sm">
-            <span className="font-extrabold">Fully Diluted Valuation:</span> $
-            {roundedValuation}
-          </h3>
+        <div>
+          <MarketInfoOne
+            title="Fully Diluted Valuation"
+            data={roundedValuation}
+          />
         </div>
-        <div className="flex mb-2">
-          <PlusIcon className="w-5 h-5 p-1 bg-blue-500 rounded mr-3" />
-          <h3 className="mr-3 text-sm">
-            <span className="font-extrabold">Volume 24h:</span> ${roundedVolume}
-          </h3>
+        <div>
+          <MarketInfoOne title="Volume 24h" data={roundedVolume} />
         </div>
-        <div className="flex mb-2">
-          <PlusIcon className="w-5 h-5 p-1 bg-blue-500 rounded mr-3" />
-          <h3 className="mr-3 text-sm">
-            <span className="font-extrabold mr-1">Volume / Market:</span>
-            {volumeToMarket}...
-          </h3>
+        <div>
+          <MarketInfoOne title="Volume / Market" data={volumeToMarket} />
         </div>
       </div>
       <div>
-        <div className="flex mb-2">
-          <PlusIcon className="w-5 h-5 p-1 bg-blue-500 rounded mr-3" />
-          <h3 className="mr-3 text-sm">
-            <span className="font-extrabold text-green-500">Total Volume:</span>{" "}
-            {totalVolume} {allCaps}
-          </h3>
+        <div>
+          <MarketInfoTwo
+            title="Total Volume"
+            data={totalVolume}
+            symbol={allCaps}
+            textColor="text-green-500"
+          />
         </div>
-        <div className="flex mb-2">
-          <PlusIcon className="w-5 h-5 p-1 bg-blue-500 rounded mr-3" />
-          <h3 className="mr-3 text-sm">
-            <span className="font-extrabold">Circulating Supply:</span>{" "}
-            {circulatingSupply} {allCaps}
-          </h3>
+        <div>
+          <MarketInfoTwo
+            title="Circulating Supply"
+            data={circulatingSupply}
+            symbol={allCaps}
+            textColor="text-white"
+          />
         </div>
-        <div className="flex mb-2">
-          <PlusIcon className="w-5 h-5 p-1 bg-blue-500 rounded mr-3" />
-          <h3 className="mr-3 text-sm">
-            <span className="font-extrabold text-blue-500">Max Supply:</span>{" "}
-            {maxSupply} {allCaps}
-          </h3>
+        <div>
+          <MarketInfoTwo
+            title="Max Supply"
+            data={maxSupply}
+            symbol={allCaps}
+            textColor="text-blue-500"
+          />
         </div>
         <div>
           <ProgressBar

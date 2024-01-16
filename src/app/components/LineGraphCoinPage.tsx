@@ -44,7 +44,6 @@ const LineGraphCoinPage: React.FC<CoinNamePropsType> = (props) => {
 
   const handleOptionSelect = (interval: string) => {
     setOptionSelected(interval);
-    console.log(interval);
     if (interval === "180d") {
       setIntervalChoice(0);
     } else if (interval === "90d") {
