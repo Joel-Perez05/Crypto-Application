@@ -1,5 +1,11 @@
 "use client";
 import React from "react";
+import {
+  convertToShorterNum,
+  formatToNearestTenth,
+  getTotalVol,
+  getVolToMarket,
+} from "../utils/formatFunctions";
 import { CoinType } from "../coin/[id]/page";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import {
@@ -18,43 +24,6 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
   const { symbol, market_data } = props;
 
   const allCaps = symbol?.toUpperCase();
-
-  const convertToShorterNum = (num: number | undefined) => {
-    if (num !== undefined) {
-      if (num >= 1000000000000) {
-        return numeral(num / 1000000000000).format("0.00") + "T";
-      } else if (num >= 1000000000) {
-        return numeral(num / 1000000000).format("0.00") + "B";
-      } else if (num >= 1000000) {
-        return numeral(num / 1000000).format("0.00") + "M";
-      } else if (num >= 100000) {
-        return numeral(num / 100000).format("0.00") + "K";
-      } else {
-        return numeral(num).format("0,0");
-      }
-    }
-  };
-
-  const formatToNearestTenth = (num: number | undefined) => {
-    if (num !== undefined) {
-      return numeral(num).format("0.00");
-    }
-  };
-
-  const getTotalVol = (vol: number | undefined, price: number | undefined) => {
-    if (vol !== undefined && price !== undefined) {
-      return numeral(vol / price).format("00,000");
-    }
-  };
-
-  const getVolToMarket = (
-    vol: number | undefined,
-    market: number | undefined
-  ) => {
-    if (vol !== undefined && market !== undefined) {
-      return numeral(vol / market).format("0.000000");
-    }
-  };
 
   const roundedMarketCap = convertToShorterNum(market_data?.market_cap.usd);
   const roundedPercentChange = formatToNearestTenth(

@@ -3,6 +3,7 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import { CoinType } from "../coin/[id]/page";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/solid";
 import numeral from "numeral";
+import { current } from "@reduxjs/toolkit";
 
 type CoinConvertorPropsType = {
   symbol: CoinType["symbol"];
@@ -32,7 +33,7 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement>,
-    inputType: "a" | "b"
+    inputType: "currency" | "coin"
   ) => {
     let numericalVal = e.target.value.replace(/[^0-9.]/g, "");
 
@@ -48,10 +49,27 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
     }
 
     const numericalValue = parseFloat(numericalVal);
-    const multiplier = coinPrice;
+    const multiplier = coinPrice ?? 0;
 
-    if (inputType === "a" && multiplier !== undefined) {
+    if (inputType === "currency" && multiplier !== undefined) {
       let result = multiplier * numericalValue;
+      conversionFunction(result, numericalVal, multiplier, inputType);
+    } else if (
+      inputType === "coin" &&
+      market_data?.current_price.usd !== undefined
+    ) {
+      let result = numericalValue * market_data.current_price.usd;
+      conversionFunction(result, numericalVal, multiplier, inputType);
+    }
+  };
+
+  const conversionFunction = (
+    result: number,
+    numericalVal: string,
+    multiplier: number,
+    inputType: string
+  ) => {
+    if (inputType === "currency") {
       if (result > 1) {
         const resultFormatted = numeral(result).format("00,000.00");
         setCoinAmount(resultFormatted);
@@ -62,11 +80,7 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
         setCoinAmount(resultFormatted);
       }
       setCurrencyAmount(numericalVal);
-    } else if (
-      inputType === "b" &&
-      market_data?.current_price.usd !== undefined
-    ) {
-      let result = numericalValue * market_data.current_price.usd;
+    } else if (inputType === "coin") {
       if (result > 1) {
         const resultFormatted = numeral(result).format("00,000.00");
         setCurrencyAmount(resultFormatted);
@@ -93,7 +107,7 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
           type="text"
           placeholder="1"
           value={currencyAmount}
-          onChange={(e) => handleInputChange(e, "a")}
+          onChange={(e) => handleInputChange(e, "currency")}
         />
       </div>
       <button>
@@ -109,7 +123,7 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
           type="text"
           placeholder={initialPlaceholder}
           value={coinAmount}
-          onChange={(e) => handleInputChange(e, "b")}
+          onChange={(e) => handleInputChange(e, "coin")}
         />
       </div>
     </div>

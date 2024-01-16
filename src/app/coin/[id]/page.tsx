@@ -80,22 +80,24 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const [coinPrice, setCoinPrice] = useState<CoinPriceType>();
 
   useEffect(() => {
-    axios
-      .get(
-        `https://api.coingecko.com/api/v3/coins/${params.id}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`
-      )
-      .then((res) => {
-        setCoin(res.data);
-      })
-      .catch((err) => err);
-    axios
-      .get(
-        `https://api.coingecko.com/api/v3/coins/${params.id}/market_chart?vs_currency=usd&days=180&interval=daily`
-      )
-      .then((res) => {
-        setCoinPrice(res.data);
-      })
-      .catch((err) => err);
+    const fetchData = async () => {
+      try {
+        const coinResponse = await axios.get(
+          `https://api.coingecko.com/api/v3/coins/${params.id}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`
+        );
+
+        const coinPriceResponse = await axios.get(
+          `https://api.coingecko.com/api/v3/coins/${params.id}/market_chart?vs_currency=usd&days=180&interval=daily`
+        );
+
+        setCoin(coinResponse.data);
+        setCoinPrice(coinPriceResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, [params.id]);
 
   return (
