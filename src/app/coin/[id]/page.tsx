@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 import CoinMainInfo from "@/app/components/CoinMainInfo";
 import CoinAtlAthInfo from "@/app/components/CoinAtlAthInfo";
 import CoinMarketInfo from "@/app/components/CoinMarketInfo";
@@ -78,6 +79,7 @@ export type CoinPriceType = {
 const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const [coin, setCoin] = useState<CoinType>();
   const [coinPrice, setCoinPrice] = useState<CoinPriceType>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,6 +94,7 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
 
         setCoin(coinResponse.data);
         setCoinPrice(coinPriceResponse.data);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -102,36 +105,44 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
 
   return (
     <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div className="h-full md:w-full xl:w-1/2 p-4 bg-custom-dark1">
-          <h2 className="text-white text-3xl">Your Summary:</h2>
-          <div className="mt-6 flex justify-around">
-            <CoinMainInfo
-              links={coin?.links}
-              image={coin?.image}
-              symbol={coin?.symbol}
-              name={coin?.name}
-            />
-            <CoinAtlAthInfo market_data={coin?.market_data} />
-            <CoinMarketInfo
-              symbol={coin?.symbol}
-              market_data={coin?.market_data}
-            />
-          </div>
-          <h2 className="text-white text-3xl mt-6">Description:</h2>
-          <CoinDescription
-            description={coin?.description}
-            links={coin?.links}
-          />
-          <CoinConvertor
-            symbol={coin?.symbol}
-            market_data={coin?.market_data}
-          />
+      {isLoading ? (
+        <div>
+          <LoadingSpinner />
         </div>
-      </main>
-      <div className="-mt-24">
-        <LineGraphCoinPage prices={coinPrice?.prices} />
-      </div>
+      ) : (
+        <div>
+          <main className="flex min-h-screen flex-col items-center justify-between p-24">
+            <div className="h-full md:w-full xl:w-1/2 p-4 bg-custom-dark1">
+              <h2 className="text-white text-3xl">Your Summary:</h2>
+              <div className="mt-6 flex justify-around">
+                <CoinMainInfo
+                  links={coin?.links}
+                  image={coin?.image}
+                  symbol={coin?.symbol}
+                  name={coin?.name}
+                />
+                <CoinAtlAthInfo market_data={coin?.market_data} />
+                <CoinMarketInfo
+                  symbol={coin?.symbol}
+                  market_data={coin?.market_data}
+                />
+              </div>
+              <h2 className="text-white text-3xl mt-6">Description:</h2>
+              <CoinDescription
+                description={coin?.description}
+                links={coin?.links}
+              />
+              <CoinConvertor
+                symbol={coin?.symbol}
+                market_data={coin?.market_data}
+              />
+            </div>
+          </main>
+          <div className="-mt-24">
+            <LineGraphCoinPage prices={coinPrice?.prices} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
