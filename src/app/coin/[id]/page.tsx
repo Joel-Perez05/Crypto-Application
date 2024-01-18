@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ErrorHandler from "./ErrorHandler";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import CoinMainInfo from "@/app/components/CoinMainInfo";
 import CoinAtlAthInfo from "@/app/components/CoinAtlAthInfo";
@@ -80,6 +81,7 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const [coin, setCoin] = useState<CoinType>();
   const [coinPrice, setCoinPrice] = useState<CoinPriceType>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | undefined>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,8 +97,9 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
         setCoin(coinResponse.data);
         setCoinPrice(coinPriceResponse.data);
         setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      } catch (error: any) {
+        console.error("Error fetching data:", error.message);
+        setError(error.message);
       }
     };
 
@@ -105,7 +108,9 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
 
   return (
     <div>
-      {isLoading ? (
+      {error ? (
+        <ErrorHandler error={error} />
+      ) : isLoading ? (
         <div>
           <LoadingSpinner />
         </div>
