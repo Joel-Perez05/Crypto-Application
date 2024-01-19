@@ -6,7 +6,7 @@ import {
   getTotalVol,
   getVolToMarket,
 } from "../utils/formatFunctions";
-import { CoinType } from "../coin/[id]/page";
+import { CoinType } from "../utils/CoinPageTypes";
 import numeral from "numeral";
 import ProgressBar from "@ramonak/react-progress-bar";
 import MarketInfoTwo from "./MarketInfoTwo";

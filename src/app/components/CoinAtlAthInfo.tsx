@@ -1,5 +1,5 @@
 "use client";
-import { CoinType } from "../coin/[id]/page";
+import { CoinType } from "../utils/CoinPageTypes";
 import { Square3Stack3DIcon } from "@heroicons/react/24/solid";
 import {
   ArrowTrendingDownIcon,

@@ -1,9 +1,8 @@
 "use client";
 import React, { useState, useEffect, ChangeEvent } from "react";
-import { CoinType } from "../coin/[id]/page";
+import { CoinType } from "../utils/CoinPageTypes";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/solid";
 import numeral from "numeral";
-import { current } from "@reduxjs/toolkit";
 
 type CoinConvertorPropsType = {
   symbol: CoinType["symbol"];

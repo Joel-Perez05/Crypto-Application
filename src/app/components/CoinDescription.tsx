@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { CoinType } from "../coin/[id]/page";
+import { CoinType } from "../utils/CoinPageTypes";
 import { LinkIcon } from "@heroicons/react/20/solid";
 import ReactHtmlParser from "react-html-parser";
 

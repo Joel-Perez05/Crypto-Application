@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import format from "date-fns/format";
 import getGradient from "../utils/getGradient";
-import { CoinPriceType } from "../coin/[id]/page";
+import { CoinPriceType } from "../utils/CoinPageTypes";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
