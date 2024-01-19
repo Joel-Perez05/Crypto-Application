@@ -52,13 +52,13 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
     const multiplier = coinPrice ?? 0;
 
     if (inputType === "currency" && multiplier !== undefined) {
-      let result = multiplier * numericalValue;
+      const result = multiplier * numericalValue;
       conversionFunction(result, numericalVal, multiplier, inputType);
     } else if (
       inputType === "coin" &&
       market_data?.current_price.usd !== undefined
     ) {
-      let result = numericalValue * market_data.current_price.usd;
+      const result = numericalValue * market_data.current_price.usd;
       conversionFunction(result, numericalVal, multiplier, inputType);
     }
   };
