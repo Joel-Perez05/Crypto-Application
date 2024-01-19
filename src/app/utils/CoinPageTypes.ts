@@ -16,40 +16,40 @@ export type CoinType = {
   };
   market_data?: {
     ath: {
-      usd?: number;
+      [key: string]: number;
     };
     ath_change_percentage: {
-      usd?: number;
+      [key: string]: number;
     };
     ath_date: {
-      usd?: string;
+      [key: string]: string;
     };
     atl: {
-      usd?: number;
+      [key: string]: number;
     };
     atl_change_percentage: {
-      usd?: number;
+      [key: string]: number;
     };
     atl_date: {
-      usd?: string;
+      [key: string]: string;
     };
     current_price: {
-      usd?: number;
+      [key: string]: number;
     };
-    price_change_percentage_24h?: number;
     market_cap: {
-      usd?: number;
+      [key: string]: number;
     };
-    market_cap_change_percentage_24h?: number;
     fully_diluted_valuation: {
-      usd?: number;
+      [key: string]: number;
     };
     total_volume: {
-      usd?: number;
+      [key: string]: number;
     };
     high_24h: {
-      usd?: number;
+      [key: string]: number;
     };
+    price_change_percentage_24h?: number;
+    market_cap_change_percentage_24h?: number;
     circulating_supply?: number;
     max_supply?: number;
   };
