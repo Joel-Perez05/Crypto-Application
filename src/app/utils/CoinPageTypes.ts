@@ -15,44 +15,30 @@ export type CoinType = {
     en?: string;
   };
   market_data?: {
-    ath: {
-      [key: string]: number;
-    };
-    ath_change_percentage: {
-      [key: string]: number;
-    };
-    ath_date: {
-      [key: string]: string;
-    };
-    atl: {
-      [key: string]: number;
-    };
-    atl_change_percentage: {
-      [key: string]: number;
-    };
-    atl_date: {
-      [key: string]: string;
-    };
-    current_price: {
-      [key: string]: number;
-    };
-    market_cap: {
-      [key: string]: number;
-    };
-    fully_diluted_valuation: {
-      [key: string]: number;
-    };
-    total_volume: {
-      [key: string]: number;
-    };
-    high_24h: {
-      [key: string]: number;
-    };
+    ath: CurrencyNumberType;
+    ath_change_percentage: CurrencyNumberType;
+    ath_date: CurrencyStringType;
+    atl: CurrencyNumberType;
+    atl_change_percentage: CurrencyNumberType;
+    atl_date: CurrencyStringType;
+    current_price: CurrencyNumberType;
+    market_cap: CurrencyNumberType;
+    fully_diluted_valuation: CurrencyNumberType;
+    total_volume: CurrencyNumberType;
+    high_24h: CurrencyNumberType;
     price_change_percentage_24h?: number;
     market_cap_change_percentage_24h?: number;
     circulating_supply?: number;
     max_supply?: number;
   };
+};
+
+type CurrencyNumberType = {
+  [key: string]: number;
+};
+
+type CurrencyStringType = {
+  [key: string]: string;
 };
 
 export type CoinPriceType = {
