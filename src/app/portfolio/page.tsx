@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FormToggler from "../components/FormToggler";
+import CoinForm from "../components/CoinForm";
 
 const Portfolio = () => {
   const [error, setError] = useState<string | undefined>();
@@ -30,12 +31,16 @@ const Portfolio = () => {
     <div>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="h-full md:w-full xl:w-1/2 p-4 bg-custom-dark1">
-          <div>
-            <FormToggler
+          <FormToggler
+            formToggler={formToggler}
+            setFormToggler={setFormToggler}
+          />
+          {formToggler && (
+            <CoinForm
               formToggler={formToggler}
               setFormToggler={setFormToggler}
             />
-          </div>
+          )}
         </div>
       </main>
     </div>
