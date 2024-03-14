@@ -10,9 +10,10 @@ const FormToggler: React.FC<FormTogglerProps> = (props) => {
   const { formToggler, setFormToggler } = props;
 
   return (
-    <div className="flex justify-center mt-14">
+    <div className="flex justify-between items-center mt-14">
+      <h2 className="text-white  text-3xl">Portfolio</h2>
       <button
-        className="w-96 h-24 rounded-3xl bg-green-500 text-white text-2xl border border-green-500 hover:bg-custom-dark2 hover:border-white"
+        className="w-72 h-12 shadow-md shadow-green-500/50 rounded-xl bg-green-500 text-white text-xl border border-green-500 hover:bg-custom-dark2 hover:border-white"
         onClick={() => setFormToggler(!formToggler)}
       >
         Add Asset

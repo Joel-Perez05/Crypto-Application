@@ -44,3 +44,19 @@ type CurrencyStringType = {
 export type CoinPriceType = {
   prices?: Array<[number, number]>;
 };
+
+export type FormCoin = {
+  id: string;
+  symbol: string;
+  name: string;
+  current_price: number;
+  image: string;
+};
+
+export type FormData = {
+  id: string;
+  symbol: string;
+  name: string;
+  current_price: number;
+  image: string;
+};

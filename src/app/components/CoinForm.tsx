@@ -1,25 +1,86 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import SelectCoinInput from "./SelectCoinInput";
 import SelectPriceInput from "./SelectPriceInput";
 import SelectDateInput from "./SelectDateInput";
+import { InitialAssetType, addNewAsset } from "@/redux/features/assets-Slice";
+import { useDispatch } from "react-redux";
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import { FormCoin, FormData } from "../utils/CoinPageTypes";
+import CoinSelectPreview from "./CoinSelectPreview";
 
 type CoinFormProps = {
+  coinData: FormData[];
   formToggler: boolean;
   setFormToggler: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const CoinForm: React.FC<CoinFormProps> = (props) => {
-  const { formToggler, setFormToggler } = props;
+const initialAssetState: InitialAssetType = {
+  coinId: "",
+  purchasePrice: 0,
+  currentPrice: 0,
+  date: "",
+};
 
+const initialSelectedCoin = {
+  coin: "",
+  img: "",
+  symbol: "",
+};
+
+const CoinForm: React.FC<CoinFormProps> = (props) => {
+  const { formToggler, setFormToggler, coinData } = props;
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  const [coinName, setCoinName] = useState<string>("");
-  const [coinPrice, setCoinPrice] = useState<string>("");
-  const [coinDate, setCoinDate] = useState<string>("");
+  const [assetObj, setAssetObj] = useState(initialAssetState);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [coinNameList, setCoinNameList] = useState<string[]>([]);
+  const [selectedCoin, setSelectedCoin] = useState(initialSelectedCoin);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    setIsDisabled(!(coinName && coinPrice && coinDate));
-  }, [coinName, coinPrice, coinDate]);
+    setIsLoading(true);
+    const nameList: string[] = coinData
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((coin: FormCoin) => coin.name);
+    setCoinNameList(nameList);
+  }, [coinData]);
+
+  useEffect(() => {
+    const { coinId, purchasePrice, date } = assetObj;
+
+    const foundCoin = coinData.find((coin: FormData) => coin.name === coinId);
+
+    if (foundCoin) {
+      setAssetObj((prevState) => {
+        if (prevState.currentPrice !== foundCoin.current_price) {
+          return {
+            ...prevState,
+            currentPrice: foundCoin.current_price,
+          };
+        }
+        return prevState;
+      });
+
+      setSelectedCoin((prevState) => ({
+        ...prevState,
+        coin: foundCoin.name,
+        img: foundCoin.image,
+        symbol: foundCoin.symbol,
+      }));
+    }
+
+    const areInputsFilled = coinId && purchasePrice !== 0 && date;
+    setIsDisabled(!areInputsFilled);
+  }, [assetObj, coinData]);
+
+  console.log(assetObj);
+
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(addNewAsset(assetObj));
+    setFormToggler(!formToggler);
+  };
 
   return (
     <div>
@@ -29,17 +90,16 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
           <h2 className="text-white text-2xl">Select Coins</h2>
         </div>
         <div className="flex justify-around mt-8">
-          <div className="w-1/4 h-56 rounded-md bg-custom-dark2">
-            <h2>Coin(Symbol)</h2>
-          </div>
+          <CoinSelectPreview selectedCoin={selectedCoin} />
           <div className="w-3/5">
-            <form className="flex flex-col gap-7">
-              <SelectCoinInput coinName={coinName} setCoinName={setCoinName} />
-              <SelectPriceInput
-                coinPrice={coinPrice}
-                setCoinPrice={setCoinPrice}
+            <form onSubmit={submitHandler} className="flex flex-col gap-7">
+              <SelectCoinInput
+                coinNameList={coinNameList}
+                assetObj={assetObj}
+                setAssetObj={setAssetObj}
               />
-              <SelectDateInput coinDate={coinDate} setCoinDate={setCoinDate} />
+              <SelectPriceInput assetObj={assetObj} setAssetObj={setAssetObj} />
+              <SelectDateInput assetObj={assetObj} setAssetObj={setAssetObj} />
               <div className="flex justify-between">
                 <div className="h-14 w-56 text-white bg-custom-dark2 rounded-lg flex justify-center items-center">
                   <button
@@ -56,7 +116,11 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
                       : "text-white bg-green-500"
                   } h-14 w-56  rounded-lg flex justify-center items-center`}
                 >
-                  <button className="w-full h-full" disabled={isDisabled}>
+                  <button
+                    type="submit"
+                    className="w-full h-full"
+                    disabled={isDisabled}
+                  >
                     Save and Continue
                   </button>
                 </div>

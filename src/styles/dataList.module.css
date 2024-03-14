@@ -1,0 +1,10 @@
+.datalistOption {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 5px;
+}
+
+.selectedOption {
+  background-color: #28a745;
+  color: black;
+}
