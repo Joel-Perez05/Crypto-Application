@@ -5,7 +5,7 @@ import SelectPriceInput from "./SelectPriceInput";
 import SelectDateInput from "./SelectDateInput";
 import { InitialAssetType, addNewAsset } from "@/redux/features/assets-Slice";
 import { useDispatch } from "react-redux";
-import { AppDispatch, useAppSelector } from "@/redux/store";
+import { AppDispatch } from "@/redux/store";
 import { FormCoin, FormData } from "../utils/CoinPageTypes";
 import CoinSelectPreview from "./CoinSelectPreview";
 
@@ -73,8 +73,6 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
     const areInputsFilled = coinId && purchasePrice !== 0 && date;
     setIsDisabled(!areInputsFilled);
   }, [assetObj, coinData]);
-
-  console.log(assetObj);
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

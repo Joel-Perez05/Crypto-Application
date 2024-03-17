@@ -23,6 +23,8 @@ const config: Config = {
       backgroundColor: {
         "custom-dark1": "rgb(30, 30, 40)",
         "custom-dark2": "rgb(20, 20, 30)",
+        "custom-asset1": "rgb(33, 33, 64)",
+        "custom-asset2": "rgb(20, 20, 35)",
       },
     },
   },

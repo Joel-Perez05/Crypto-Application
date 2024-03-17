@@ -1,4 +1,5 @@
 import numeral from "numeral";
+import { format } from "date-fns";
 
 export const convertToShorterNum = (num: number | undefined) => {
   if (num !== undefined) {
@@ -38,4 +39,8 @@ export const getVolToMarket = (
   if (vol !== undefined && market !== undefined) {
     return numeral(vol / market).format("0.000000");
   }
+};
+
+export const dateFormatter = (date: string) => {
+  return format(new Date(date), "MM.dd.yyyy");
 };
