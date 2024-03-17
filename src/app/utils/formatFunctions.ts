@@ -41,6 +41,24 @@ export const getVolToMarket = (
   }
 };
 
+export const getMarketToVolume = (
+  market: number | undefined,
+  vol: number | undefined
+) => {
+  if (vol !== undefined && market !== undefined) {
+    return numeral((vol / market) * 100).format("0.00");
+  }
+};
+
+export const getCircVsMax = (
+  circ: number | undefined,
+  max: number | undefined
+) => {
+  if (circ !== undefined && max !== undefined) {
+    return numeral((circ / max) * 100).format("0.00");
+  }
+};
+
 export const dateFormatter = (date: string) => {
   return format(new Date(date), "MM.dd.yyyy");
 };

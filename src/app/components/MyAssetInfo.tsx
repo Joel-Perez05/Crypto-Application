@@ -46,8 +46,6 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
     setDateFormatted(formattedDate);
   }, []);
 
-  console.log(dateFormatted);
-
   return (
     <div className="flex flex-col justify-evenly h-full w-2/5 p-4 rounded-l-md bg-gradient-to-r from-[#212140] to-[#14142b]">
       <div className="flex items-center">
@@ -64,14 +62,14 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
           </h3>
           <div className="flex items-center">
             {currentPrice > priceWhenPurchased ? (
-              <ArrowTrendingUpIcon className="text-cyan-500 w-5 h-5 mr-1" />
+              <ArrowTrendingUpIcon className="text-cyan-400 w-5 h-5 mr-1" />
             ) : (
               <ArrowTrendingDownIcon className="text-red-500 w-5 h-5 mr-1" />
             )}
             <h4
               className={`${
                 currentPrice > priceWhenPurchased
-                  ? "text-cyan-500"
+                  ? "text-cyan-400"
                   : "text-red-500"
               } text-lg`}
             >

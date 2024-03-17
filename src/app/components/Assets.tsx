@@ -24,7 +24,7 @@ const Assets: React.FC<CoinDataProps> = (props) => {
         purchasePrice={asset.purchasePrice}
         purchaseDate={asset.date}
       />
-      <MarketDataInfo />
+      <MarketDataInfo allCoins={allCoins} />
     </main>
   );
 };
