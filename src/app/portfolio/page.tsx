@@ -8,6 +8,9 @@ import Assets from "../components/Assets";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { getAssets } from "@/redux/features/assets-Slice";
+import ErrorHandler from "./ErrorHandler";
+import LoadingSpinner from "../components/LoadingSpinner";
+import NoSavedCoins from "../components/NoSavedCoins";
 
 const Portfolio = () => {
   const [error, setError] = useState<string | undefined>();
@@ -65,21 +68,28 @@ const Portfolio = () => {
 
   return (
     <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div className="h-full md:w-full xl:w-1/2 p-4 bg-custom-dark1">
-          <FormToggler
-            formToggler={formToggler}
-            setFormToggler={setFormToggler}
-          />
-          {formToggler && (
-            <CoinForm
-              coinData={coinData}
+      {error ? (
+        <ErrorHandler error={error} />
+      ) : isLoading ? (
+        <div>
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+          <div className="h-full md:w-full xl:w-1/2 p-4 bg-custom-dark1">
+            <FormToggler
               formToggler={formToggler}
               setFormToggler={setFormToggler}
             />
-          )}
-          {assets
-            ? assets.map((asset) => {
+            {formToggler && (
+              <CoinForm
+                coinData={coinData}
+                formToggler={formToggler}
+                setFormToggler={setFormToggler}
+              />
+            )}
+            {assets.length > 0 ? (
+              assets.map((asset) => {
                 const matchedCoinData = allCoins.find(
                   (coin) => coin.name === asset.coinId
                 );
@@ -91,11 +101,14 @@ const Portfolio = () => {
                       asset={asset}
                     />
                   );
-                } else return null;
+                }
               })
-            : null}
-        </div>
-      </main>
+            ) : (
+              <NoSavedCoins />
+            )}
+          </div>
+        </main>
+      )}
     </div>
   );
 };

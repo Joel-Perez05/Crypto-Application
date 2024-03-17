@@ -50,6 +50,17 @@ export const assets = createSlice({
 
       localStorage.setItem("assets", JSON.stringify(state.value));
     },
+    deleteAsset: (state, action: PayloadAction<string>) => {
+      const assetIdToDelete = action.payload;
+      const existingAssets: AssetStateType[] = JSON.parse(
+        localStorage.getItem("assets") || "[]"
+      );
+      const updatedAssets = existingAssets.filter(
+        (asset) => asset.id !== assetIdToDelete
+      );
+
+      localStorage.setItem("assets", JSON.stringify(updatedAssets));
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -61,5 +72,5 @@ export const assets = createSlice({
   },
 });
 
-export const { addNewAsset } = assets.actions;
+export const { addNewAsset, deleteAsset } = assets.actions;
 export default assets.reducer;

@@ -16,6 +16,7 @@ const Assets: React.FC<CoinDataProps> = (props) => {
   return (
     <main className="w-full h-60 flex justify-center mt-12 rounded-md border border-[#212140]">
       <MyAssetInfo
+        coinId={asset.id}
         coinName={asset.coinId}
         coinImg={allCoins.image}
         coinSymbol={allCoins.symbol}
