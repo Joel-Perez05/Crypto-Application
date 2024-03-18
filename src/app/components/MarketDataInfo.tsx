@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { PortfolioCoinData } from "../utils/CoinPageTypes";
 import {
   formatToNearestTenth,
@@ -18,36 +18,25 @@ type MarketDataInfoPropsTypes = {
 
 const MarketDataInfo: React.FC<MarketDataInfoPropsTypes> = (props) => {
   const { allCoins } = props;
-  const [currentPrice, setCurrentPrice] = useState<string>("");
-  const [twentyFourHourPercent, setTwentyFourHourPercent] =
-    useState<string>("");
-  const [marketToVolume, setMarketToVolume] = useState<string>("");
-  const [circVsMax, setCircVsMax] = useState<string>("");
 
-  useEffect(() => {
-    const supply = allCoins.max_supply
-      ? allCoins.max_supply
-      : allCoins.total_supply;
-    const formattedPrice = formatToNearestTenth(allCoins.current_price);
-    setCurrentPrice(formattedPrice!);
-    const formattedPercent = formatToNearestTenth(
-      allCoins.price_change_percentage_24h
-    );
-    setTwentyFourHourPercent(formattedPercent!);
-    const marketToVol = getMarketToVolume(
-      allCoins.market_cap,
-      allCoins.total_volume
-    );
-    setMarketToVolume(marketToVol!);
-    const circulatingToMax = getCircVsMax(allCoins.circulating_supply, supply);
-    setCircVsMax(circulatingToMax!);
-  }, []);
+  const supply = allCoins.max_supply
+    ? allCoins.max_supply
+    : allCoins.total_supply;
+  const circulatingToMax = getCircVsMax(allCoins.circulating_supply, supply);
+  const marketToVol = getMarketToVolume(
+    allCoins.market_cap,
+    allCoins.total_volume
+  );
+  const formattedPercent = formatToNearestTenth(
+    allCoins.price_change_percentage_24h
+  );
+  const formattedPrice = formatToNearestTenth(allCoins.current_price);
 
   return (
     <div className="flex flex-col justify-evenly h-full w-3/4 rounded-r-md bg-custom-asset2">
       <div className="flex justify-evenly">
         <div className="flex flex-col justify-evenly h-20 w-2/5 rounded-md border border-[#212140] p-2">
-          <h2 className="text-white text-2xl">${currentPrice}</h2>
+          <h2 className="text-white text-2xl">${formattedPrice}</h2>
           <h3 className="text-gray-500">Current Price</h3>
         </div>
         <div className="flex flex-col justify-evenly h-20 w-2/5 rounded-md border border-[#212140] p-2">
@@ -64,7 +53,7 @@ const MarketDataInfo: React.FC<MarketDataInfoPropsTypes> = (props) => {
                   : "text-red-500"
               } text-2xl`}
             >
-              {twentyFourHourPercent}%
+              {formattedPercent}%
             </h2>
           </div>
           <h3 className="text-gray-500">24h%</h3>
@@ -73,7 +62,7 @@ const MarketDataInfo: React.FC<MarketDataInfoPropsTypes> = (props) => {
       <div className="flex justify-evenly">
         <div className="flex flex-col justify-evenly h-20 w-2/5 rounded-md border border-[#212140] p-2">
           <div className="flex items-center">
-            <h2 className="text-cyan-400 text-2xl mr-4">{marketToVolume}%</h2>
+            <h2 className="text-cyan-400 text-2xl mr-4">{marketToVol}%</h2>
             <ProgressBar
               completed={allCoins.total_volume}
               maxCompleted={allCoins.market_cap}
@@ -88,7 +77,7 @@ const MarketDataInfo: React.FC<MarketDataInfoPropsTypes> = (props) => {
           <h3 className="text-gray-500">Volume vs Market Cap</h3>
         </div>
         <div className="flex flex-col justify-evenly h-20 w-2/5 rounded-md border border-[#212140] p-2">
-          <h2 className="text-cyan-400 text-2xl">{circVsMax}%</h2>
+          <h2 className="text-cyan-400 text-2xl">{circulatingToMax}%</h2>
           <h3 className="text-gray-500">Circ Supply vs Max Supply</h3>
         </div>
       </div>
