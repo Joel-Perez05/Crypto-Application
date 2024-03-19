@@ -74,3 +74,19 @@ export type PortfolioCoinData = {
   total_supply: number;
   max_supply: number;
 };
+
+export type MarketOverviewTypes = {
+  active_cryptocurrencies: number | undefined;
+  markets: number | undefined;
+  market_cap_change_percentage_24h_usd: number | undefined;
+  market_cap_percentage: MarketSubTypes;
+};
+
+type MarketSubTypes = {
+  [key: string]: number | undefined;
+};
+
+export type MarketPercentageTypes = {
+  btc: number | undefined;
+  eth: number | undefined;
+};
