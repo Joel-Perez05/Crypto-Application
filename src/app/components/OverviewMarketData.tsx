@@ -25,7 +25,6 @@ const OverviewMarketData = () => {
         setMarketCap(marketDataResponse.data.data.market_cap_percentage);
       } catch (error: any) {
         console.error("Error fetching Market Data", error);
-        throw error;
       }
     };
     fetchData();
@@ -35,7 +34,7 @@ const OverviewMarketData = () => {
   const ethereumImg: string = ethereum;
 
   return (
-    <div className="flex justify-center w-full h-16 bg-gradient-to-r from-[#212140] via-[#500724] via-30% to-[#14142b]">
+    <div className="sticky top-0 z-50 flex justify-center w-full h-16 bg-gradient-to-r from-[#212140] via-[#500724] via-30% to-[#14142b]">
       <div className="flex justify-evenly h-full md:w-full xl:w-1/2 p-4">
         <TotalCoins totalCoins={totalCoins?.active_cryptocurrencies} />
         <TotalExchanges totalExchanges={totalCoins?.markets} />
