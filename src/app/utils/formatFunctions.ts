@@ -23,6 +23,12 @@ export const formatToNearestTenth = (num: number | undefined) => {
   }
 };
 
+export const formatToNearestWhole = (num: number | undefined) => {
+  if (num !== undefined) {
+    return numeral(num).format("0");
+  }
+};
+
 export const getTotalVol = (
   vol: number | undefined,
   price: number | undefined
