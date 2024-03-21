@@ -2,6 +2,7 @@
 import React from "react";
 import { GlobeAltIcon } from "@heroicons/react/20/solid";
 import ActiveLinkToggler from "./ActiveLinkToggler";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   return (
@@ -15,7 +16,9 @@ const Navbar = () => {
           <h2 className="text-white text-xl">|</h2>
           <ActiveLinkToggler />
         </div>
-        <div className="w-1/2">hello</div>
+        <div className="w-1/2">
+          <SearchBar />
+        </div>
       </div>
     </div>
   );

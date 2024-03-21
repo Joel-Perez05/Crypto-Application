@@ -90,3 +90,7 @@ export type MarketPercentageTypes = {
   btc: number | undefined;
   eth: number | undefined;
 };
+
+export type SearchBarNamesTypes = {
+  name: string;
+};
