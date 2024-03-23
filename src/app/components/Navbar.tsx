@@ -3,6 +3,7 @@ import React from "react";
 import { GlobeAltIcon } from "@heroicons/react/20/solid";
 import ActiveLinkToggler from "./ActiveLinkToggler";
 import SearchBar from "./SearchBar";
+import ThemeToggler from "./ThemeToggler";
 
 const Navbar = () => {
   return (
@@ -16,8 +17,9 @@ const Navbar = () => {
           <h2 className="text-white text-xl">|</h2>
           <ActiveLinkToggler />
         </div>
-        <div className="w-1/2">
+        <div className="flex items-center justify-around w-1/2">
           <SearchBar />
+          <ThemeToggler />
         </div>
       </div>
     </div>
