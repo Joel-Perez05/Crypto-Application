@@ -55,29 +55,35 @@ const SearchBar = () => {
         />
         <MagnifyingGlassIcon className="absolute left-3 top-3 w-5 h-5 text-gray-500 pointer-events-none" />
 
-        {error && <div className="text-red-500">{error}</div>}
-        {searchInput.trim() !== "" && !error && (
-          <div className="bg-custom-dark1 w-full text-white absolute top-11 left-0 z-50">
-            <InfiniteScroll
-              dataLength={displayCount}
-              next={handleNext}
-              hasMore={displayCount < 50}
-              loader={<h4>Loading...</h4>}
-              height={300}
-              className={classes.customInfiniteScroll}
-            >
-              {filteredCoins.map((coin: string) => (
-                <div key={coin} className="p-4 border-b border-gray-600">
-                  <Link
-                    onClick={() => setSearchInput("")}
-                    href={`/coin/${coin.toLowerCase()}`}
-                  >
-                    {coin}
-                  </Link>
-                </div>
-              ))}
-            </InfiniteScroll>
+        {searchInput.trim() !== "" && error ? (
+          <div className="p-4 bg-custom-dark1 w-full text-red-500 absolute top-11 left-0 z-50">
+            API: {error}
           </div>
+        ) : (
+          searchInput.trim() !== "" &&
+          !error && (
+            <div className="bg-custom-dark1 w-full text-white absolute top-11 left-0 z-50">
+              <InfiniteScroll
+                dataLength={displayCount}
+                next={handleNext}
+                hasMore={displayCount < 50}
+                loader={<h4>Loading...</h4>}
+                height={300}
+                className={classes.customInfiniteScroll}
+              >
+                {filteredCoins.map((coin: string) => (
+                  <div key={coin} className="p-4 border-b border-gray-600">
+                    <Link
+                      onClick={() => setSearchInput("")}
+                      href={`/coin/${coin.toLowerCase()}`}
+                    >
+                      {coin}
+                    </Link>
+                  </div>
+                ))}
+              </InfiniteScroll>
+            </div>
+          )
         )}
       </div>
     </div>
