@@ -10,6 +10,7 @@ import TotalCoins from "./TotalCoins";
 import TotalExchanges from "./TotalExchanges";
 import MarketCapPercentage from "./MarketCapPercentage";
 import TotalMarketPercentChange from "./TotalMarketPercentChange";
+import { useAppSelector } from "@/redux/store";
 
 const OverviewMarketData = () => {
   const [totalCoins, setTotalCoins] = useState<MarketOverviewTypes>();
@@ -32,9 +33,16 @@ const OverviewMarketData = () => {
 
   const bitcoinImg: string = bitcoin;
   const ethereumImg: string = ethereum;
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className="sticky top-0 z-50 flex justify-center w-full h-16 bg-gradient-to-r from-[#212140] via-[#500724] via-30% to-[#14142b]">
+    <div
+      className={`sticky top-0 z-50 flex justify-center w-full h-16 bg-gradient-to-r ${
+        isDarkMode
+          ? "from-[#212140] via-[#500724] via-30% to-[#14142b] text-white"
+          : "from-white via-gray-500 to-cyan-400 text-black"
+      }`}
+    >
       <div className="flex justify-evenly h-full md:w-full xl:w-1/2 p-4">
         <TotalCoins totalCoins={totalCoins?.active_cryptocurrencies} />
         <TotalExchanges totalExchanges={totalCoins?.markets} />

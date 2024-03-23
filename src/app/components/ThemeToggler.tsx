@@ -20,11 +20,14 @@ const ThemeToggler = () => {
 
   return (
     <div className="flex items-center justify-center border-2 rounded-md border-[#212140] h-11 w-12">
-      <button onClick={handleThemeToggler}>
+      <button
+        className="h-full w-full flex justify-center items-center"
+        onClick={handleThemeToggler}
+      >
         {isDarkMode ? (
           <MoonIcon className="w-6 h-6 text-white" />
         ) : (
-          <SunIcon className="w-6 h-6 text-white" />
+          <SunIcon className="w-6 h-6 text-custom-dark2" />
         )}
       </button>
     </div>
