@@ -62,6 +62,7 @@ export default function LineChart() {
     scales?: {
       x?: {
         type?: "linear";
+        display?: boolean;
         min?: number;
         max?: number;
         grid?: {
@@ -76,6 +77,7 @@ export default function LineChart() {
       };
       y?: {
         type?: "linear";
+        display?: boolean;
         ticks?: {
           display?: boolean;
         };
@@ -104,6 +106,7 @@ export default function LineChart() {
     },
     scales: {
       x: {
+        display: true,
         min: 151,
         max: 180,
         grid: {
@@ -117,6 +120,7 @@ export default function LineChart() {
         },
       },
       y: {
+        display: false,
         ticks: {
           display: false,
         },

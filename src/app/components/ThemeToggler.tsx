@@ -21,7 +21,9 @@ const ThemeToggler = () => {
   return (
     <div className="flex items-center justify-center border-2 rounded-md border-[#212140] h-11 w-12">
       <button
-        className="h-full w-full flex justify-center items-center"
+        className={`${
+          isDarkMode ? "bg-custom-dark1" : "bg-white"
+        } h-full w-full flex justify-center items-center rounded-md`}
         onClick={handleThemeToggler}
       >
         {isDarkMode ? (

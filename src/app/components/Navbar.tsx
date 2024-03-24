@@ -17,11 +17,17 @@ const Navbar = () => {
     >
       <div className="flex justify-center items-center h-full md:w-full xl:w-1/2">
         <div className="flex justify-evenly items-center w-1/2">
-          <div className="text-white flex items-center">
-            <GlobeAltIcon className="w-8 h-8 text-white mr-1" />
+          <div
+            className={`${
+              isDarkMode ? "text-white" : "text-black"
+            } flex items-center`}
+          >
+            <GlobeAltIcon className="w-8 h-8 mr-1" />
             <h1 className="text-3xl">CoinTrader</h1>
           </div>
-          <h2 className="text-white text-xl">|</h2>
+          <h2 className={`${isDarkMode ? "text-white" : "text-black"} text-xl`}>
+            |
+          </h2>
           <ActiveLinkToggler />
         </div>
         <div className="flex items-center justify-around w-1/2">
