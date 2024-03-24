@@ -49,6 +49,7 @@ const CoinLineGraph: React.FC<ChartDataType> = (props) => {
         },
       },
       y: {
+        display: false,
         ticks: {
           display: false,
         },

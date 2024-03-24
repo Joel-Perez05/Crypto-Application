@@ -22,7 +22,7 @@ const TotalMarketPercentChange: React.FC<TotalMarketPercentChangePropsType> = (
 
   return (
     <div className="flex items-center">
-      <h2 className={`${isDarkMode ? "text-white" : "text-black"}mr-2`}>
+      <h2 className={`${isDarkMode ? "text-white" : "text-black"} mr-2`}>
         Market: {formattedPercent}%
       </h2>
       {percentChange !== undefined && percentChange > 0 ? (
