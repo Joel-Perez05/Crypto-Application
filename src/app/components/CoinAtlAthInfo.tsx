@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/20/solid";
 import numeral from "numeral";
 import format from "date-fns/format";
+import { useAppSelector } from "@/redux/store";
 
 type MarketDataPropsType = {
   market_data?: CoinType["market_data"];
@@ -59,8 +60,14 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
   const formattedDateAth = formatDate(market_data?.ath_date.usd);
   const formattedDateAtl = formatDate(market_data?.atl_date.usd);
 
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+
   return (
-    <div className="text-white bg-custom-dark2 w-80 h-64 rounded-2xl flex items-center justify-evenly flex-col p-3">
+    <div
+      className={`${
+        isDarkMode ? "text-white bg-custom-dark2" : "text-black bg-gray-300"
+      }  w-80 h-64 rounded-2xl flex items-center justify-evenly flex-col p-3`}
+    >
       <div className="flex flex-col items-center">
         <h2 className="text-2xl mb-1">${formattedPrice}</h2>
         <h3

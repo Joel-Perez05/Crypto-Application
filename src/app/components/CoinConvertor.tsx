@@ -3,6 +3,7 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import { CoinType } from "../utils/CoinPageTypes";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/solid";
 import numeral from "numeral";
+import { useAppSelector } from "@/redux/store";
 
 type CoinConvertorPropsType = {
   symbol: CoinType["symbol"];
@@ -94,6 +95,8 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
     }
   };
 
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+
   return (
     <div className="w-full flex justify-evenly mt-6">
       <div className="w-96 h-14 flex">
@@ -101,7 +104,9 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
           <label htmlFor="currency">USD</label>
         </span>
         <input
-          className="bg-custom-dark2 w-full text-white rounded-r-lg appearance-none focus:outline-none p-4"
+          className={`${
+            isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
+          } w-full rounded-r-lg appearance-none focus:outline-none p-4`}
           id="currency"
           type="text"
           placeholder="1"
@@ -117,7 +122,9 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
           <label htmlFor="coin">{allCaps}</label>
         </span>
         <input
-          className="bg-custom-dark2 w-full text-white rounded-r-lg appearance-none focus:outline-none p-4"
+          className={`${
+            isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
+          } w-full rounded-r-lg appearance-none focus:outline-none p-4`}
           id="coin"
           type="text"
           placeholder={initialPlaceholder}
