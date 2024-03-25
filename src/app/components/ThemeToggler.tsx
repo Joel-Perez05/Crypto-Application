@@ -1,16 +1,12 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/20/solid";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
-import { getInitialTheme, toggleTheme } from "@/redux/features/theme-Slice";
+import { toggleTheme } from "@/redux/features/theme-Slice";
 
 const ThemeToggler = () => {
   const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(getInitialTheme());
-  }, [dispatch]);
 
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import SelectCoinInput from "./SelectCoinInput";
 import SelectPriceInput from "./SelectPriceInput";
 import SelectDateInput from "./SelectDateInput";
@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { FormCoin, FormData } from "../utils/CoinPageTypes";
 import CoinSelectPreview from "./CoinSelectPreview";
+import { useAppSelector } from "@/redux/store";
 
 type CoinFormProps = {
   coinData: FormData[];
@@ -80,12 +81,22 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
     setFormToggler(!formToggler);
   };
 
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+
   return (
     <div>
       <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-50"></div>
-      <div className="md:w-2/3 xl:w-2/5 p-6 rounded-2xl bg-custom-dark1 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-        <div className="flex justify-center">
-          <h2 className="text-white text-2xl">Select Coins</h2>
+      <div
+        className={`${
+          isDarkMode ? "bg-custom-dark1" : "bg-white"
+        } md:w-2/3 xl:w-2/5 p-6 rounded-2xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50`}
+      >
+        <div
+          className={`${
+            isDarkMode ? "text-white" : "text-black"
+          } flex justify-center`}
+        >
+          <h2 className="text-2xl">Select Coins</h2>
         </div>
         <div className="flex justify-around mt-8">
           <CoinSelectPreview selectedCoin={selectedCoin} />
@@ -99,7 +110,13 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
               <SelectPriceInput assetObj={assetObj} setAssetObj={setAssetObj} />
               <SelectDateInput assetObj={assetObj} setAssetObj={setAssetObj} />
               <div className="flex justify-between">
-                <div className="h-14 w-56 text-white bg-custom-dark2 rounded-lg flex justify-center items-center">
+                <div
+                  className={`h-14 w-56 ${
+                    isDarkMode
+                      ? "text-white bg-custom-dark2"
+                      : "text-black bg-gray-300"
+                  } rounded-lg flex justify-center items-center`}
+                >
                   <button
                     className="w-full h-full"
                     onClick={() => setFormToggler(!formToggler)}
