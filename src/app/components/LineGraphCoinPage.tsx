@@ -18,6 +18,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useAppSelector } from "@/redux/store";
 
 ChartJS.register(
   CategoryScale,
@@ -158,8 +159,10 @@ const LineGraphCoinPage: React.FC<CoinNamePropsType> = (props) => {
     ],
   };
 
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+
   return (
-    <div>
+    <div className={`${isDarkMode ? "bg-custom-dark2" : "bg-gray-300"}`}>
       <div className="flex justify-center">
         {intervals.map((interval) => {
           const uniqueBtnId = `option-${interval}`;
@@ -185,7 +188,9 @@ const LineGraphCoinPage: React.FC<CoinNamePropsType> = (props) => {
                   className={`w-9 h-9 mr-2 border-2 rounded-full flex flex-col items-center justify-center border-green-500 hover:border-green-900 ${
                     isSelected
                       ? "bg-green-500 text-white"
-                      : "bg-custom-dark2 hover:border-green-900"
+                      : isDarkMode
+                      ? "bg-custom-dark2 hover:border-green-900"
+                      : "bg-gray-300  hover:border-green-900"
                   }`}
                 ></div>
                 {interval}

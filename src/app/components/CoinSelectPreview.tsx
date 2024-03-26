@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useAppSelector } from "@/redux/store";
 
 type SelectedCoinPropsType = {
   selectedCoin: {
@@ -13,18 +14,28 @@ const CoinSelectPreview: React.FC<SelectedCoinPropsType> = (props) => {
   const { selectedCoin } = props;
   const allCaps = selectedCoin.symbol.toUpperCase();
 
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+
   return selectedCoin.coin ? (
-    <div className="flex flex-col justify-center items-center w-1/4 h-56 rounded-md bg-custom-dark2">
+    <div
+      className={`${
+        isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
+      } flex flex-col justify-center items-center w-1/4 h-56 rounded-md`}
+    >
       <div className="w-20 h-20">
         <img className="rounded-md" src={selectedCoin.img} alt="coin photo" />
       </div>
-      <h2 className="text-white mt-2 text-sm">
+      <h2 className=" mt-2 text-sm">
         {selectedCoin.coin} ({allCaps})
       </h2>
     </div>
   ) : (
-    <div className="flex flex-col justify-center items-center w-1/4 h-56 rounded-md bg-custom-dark2">
-      <h2 className="text-white">Select Coin</h2>
+    <div
+      className={`${
+        isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
+      } flex flex-col justify-center items-center w-1/4 h-56 rounded-md `}
+    >
+      <h2>Select Coin</h2>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 import React from "react";
 import { formatToNearestWhole } from "../utils/formatFunctions";
 import ProgressBar from "@ramonak/react-progress-bar";
+import { useAppSelector } from "@/redux/store";
 
 type MarketCapPercentagePropsType = {
   image: string;
@@ -14,11 +15,14 @@ const MarketCapPercentage: React.FC<MarketCapPercentagePropsType> = (props) => {
 
   const formattedPercent = formatToNearestWhole(marketCap);
   const backToNum = Number(formattedPercent);
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
     <div className="flex items-center">
       <img className="w-6 h-6 mr-2" src={image} alt="photo of coin" />
-      <h2 className=" text-white mr-2">{formattedPercent}%</h2>
+      <h2 className={`${isDarkMode ? "text-white" : "text-black"} mr-2`}>
+        {formattedPercent}%
+      </h2>
       <ProgressBar
         completed={backToNum}
         maxCompleted={100}

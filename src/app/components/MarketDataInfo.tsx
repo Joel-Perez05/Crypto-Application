@@ -11,6 +11,7 @@ import {
   ArrowTrendingUpIcon,
 } from "@heroicons/react/20/solid";
 import ProgressBar from "@ramonak/react-progress-bar";
+import { useAppSelector } from "@/redux/store";
 
 type MarketDataInfoPropsTypes = {
   allCoins: PortfolioCoinData;
@@ -31,12 +32,21 @@ const MarketDataInfo: React.FC<MarketDataInfoPropsTypes> = (props) => {
     allCoins.price_change_percentage_24h
   );
   const formattedPrice = formatToNearestTenth(allCoins.current_price);
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className="flex flex-col justify-evenly h-full w-3/4 rounded-r-md bg-custom-asset2">
+    <div
+      className={`flex flex-col justify-evenly h-full w-3/4 rounded-r-md ${
+        isDarkMode ? "bg-custom-asset2" : "bg-gray-300"
+      }`}
+    >
       <div className="flex justify-evenly">
         <div className="flex flex-col justify-evenly h-20 w-2/5 rounded-md border border-[#212140] p-2">
-          <h2 className="text-white text-2xl">${formattedPrice}</h2>
+          <h2
+            className={`${isDarkMode ? "text-white" : "text-black"} text-2xl`}
+          >
+            ${formattedPrice}
+          </h2>
           <h3 className="text-gray-500">Current Price</h3>
         </div>
         <div className="flex flex-col justify-evenly h-20 w-2/5 rounded-md border border-[#212140] p-2">

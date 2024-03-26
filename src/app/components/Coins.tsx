@@ -15,6 +15,7 @@ import classes from "../../styles/scrollbar.module.css";
 import queryString from "query-string";
 import CoinProgressBars from "./CoinProgressBars";
 import CoinLineGraph from "./CoinLineGraph";
+import { useAppSelector } from "@/redux/store";
 
 const apiUrl =
   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d";
@@ -140,9 +141,15 @@ export default function Coins() {
     });
   };
 
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+
   return (
-    <div className="bg-custom-dark2 w-11/12 rounded-2xl h-full p-4">
-      <div className="flex text-white">
+    <div
+      className={`${
+        isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
+      } w-11/12 rounded-2xl h-full p-4`}
+    >
+      <div className={`flex ${isDarkMode ? "text-white" : "text-black"} `}>
         <h2 className="text-3xl font-bold flex items-end mr-2">
           <span>
             <ChevronUpDownIcon className="w-5 h-5 mb-1" />
@@ -163,7 +170,11 @@ export default function Coins() {
       </div>
       <table className="table-auto w-full">
         <thead className="">
-          <tr className="text-white text-xs flex justify-between border-b h-14 mt-6">
+          <tr
+            className={`${
+              isDarkMode ? "text-white border-white" : "text-black border-black"
+            } text-xs flex justify-between border-b h-14 mt-6`}
+          >
             <th className="w-6">#</th>
             <th className="w-24">Name</th>
             <th className="w-20">Price</th>
@@ -190,7 +201,7 @@ export default function Coins() {
         className={classes.customInfiniteScroll}
       >
         <table className="table-auto w-full">
-          <tbody className=" text-white">
+          <tbody className={`${isDarkMode ? "text-white" : "text-black"}`}>
             {allCoins.map((coin, idx) => {
               const allCaps = coin.symbol.toUpperCase();
               const price = roundToSixth(coin.current_price);
@@ -220,13 +231,13 @@ export default function Coins() {
                       : "green",
                   fill: true,
                   pointStyle: false,
-                  backgroundColor: "rgb(20, 20, 30)",
+                  backgroundColor: isDarkMode ? "rgb(20, 20, 30)" : "#d1d5db",
                 })),
               };
               return (
                 <tr
-                  className={`${
-                    lastCoin ? "border-b-0" : ""
+                  className={`${lastCoin ? "border-b-0" : ""} ${
+                    isDarkMode ? "border-white" : "border-black"
                   } text-xs flex text-center justify-between items-center h-24 border-b`}
                   key={coin.id}
                 >
@@ -266,7 +277,9 @@ export default function Coins() {
                   </td>
                   <td>
                     <CoinProgressBars
-                      titleColor="text-green-400"
+                      titleColor={`${
+                        isDarkMode ? "text-green-400" : "text-green-600"
+                      }`}
                       titleCompleted={totalVolume}
                       completed={coin.total_volume}
                       completedColor="#4ade80"

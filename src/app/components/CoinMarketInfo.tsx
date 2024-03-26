@@ -12,6 +12,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import MarketInfoTwo from "./MarketInfoTwo";
 import MarketInfoMarketCap from "./MarketInfoMarketCap";
 import MarketInfoOne from "./MarketInfoOne";
+import { useAppSelector } from "@/redux/store";
 
 type MarketPropsType = {
   symbol: CoinType["symbol"];
@@ -45,8 +46,14 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
     market_data?.market_cap.usd
   );
 
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+
   return (
-    <div className="text-white bg-custom-dark2 w-96 h-64 rounded-2xl p-4">
+    <div
+      className={`${
+        isDarkMode ? "text-white bg-custom-dark2 " : "text-black bg-gray-300"
+      } w-96 h-64 rounded-2xl p-4`}
+    >
       <div className="mb-6">
         <div>
           <MarketInfoMarketCap

@@ -65,18 +65,25 @@ const Portfolio = () => {
   }, [dispatch]);
 
   const assets = useAppSelector((state) => state.assetsReducer.value);
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div>
+    <div className={` ${isDarkMode ? "bg-custom-dark2" : "bg-gray-300"}`}>
       {error ? (
         <ErrorHandler error={error} />
       ) : isLoading ? (
-        <div>
-          <LoadingSpinner />
-        </div>
+        <LoadingSpinner />
       ) : (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-          <div className="h-full md:w-full xl:w-1/2 p-4 bg-custom-dark1">
+        <main
+          className={`${
+            isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
+          } flex min-h-screen flex-col items-center justify-between p-24`}
+        >
+          <div
+            className={`h-full md:w-full xl:w-1/2 p-4 ${
+              isDarkMode ? "bg-custom-dark1" : "bg-white"
+            }`}
+          >
             <FormToggler
               formToggler={formToggler}
               setFormToggler={setFormToggler}

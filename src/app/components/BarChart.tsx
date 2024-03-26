@@ -88,6 +88,7 @@ export default function BarChart() {
       };
       y?: {
         type?: "linear";
+        display?: boolean;
         ticks?: {
           display?: boolean;
         };
@@ -129,6 +130,7 @@ export default function BarChart() {
         },
       },
       y: {
+        display: false,
         ticks: {
           display: false,
         },

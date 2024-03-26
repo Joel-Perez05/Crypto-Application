@@ -10,6 +10,7 @@ import CoinMarketInfo from "@/app/components/CoinMarketInfo";
 import CoinDescription from "@/app/components/CoinDescription";
 import CoinConvertor from "@/app/components/CoinConvertor";
 import LineGraphCoinPage from "@/app/components/LineGraphCoinPage";
+import { useAppSelector } from "@/redux/store";
 
 type CoinPageProps = {
   params: {
@@ -46,6 +47,8 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
     fetchData();
   }, [params.id]);
 
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+
   return (
     <div>
       {error ? (
@@ -56,9 +59,23 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
         </div>
       ) : (
         <div>
-          <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <div className="h-full md:w-full xl:w-1/2 p-4 bg-custom-dark1">
-              <h2 className="text-white text-3xl">Your Summary:</h2>
+          <main
+            className={`${
+              isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
+            } flex min-h-screen flex-col items-center justify-between p-24`}
+          >
+            <div
+              className={`h-full md:w-full xl:w-1/2 p-4 ${
+                isDarkMode ? "bg-custom-dark1" : "bg-white"
+              }`}
+            >
+              <h2
+                className={`${
+                  isDarkMode ? "text-white" : "text-black"
+                } text-3xl`}
+              >
+                Your Summary:
+              </h2>
               <div className="mt-6 flex justify-around">
                 <CoinMainInfo
                   links={coin?.links}

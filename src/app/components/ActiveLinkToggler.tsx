@@ -4,17 +4,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HomeIcon } from "@heroicons/react/20/solid";
 import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
+import { useAppSelector } from "@/redux/store";
 
 const ActiveLinkToggler = () => {
   const pathName = usePathname();
   const isActiveHome = pathName === "/";
   const isActivePortfolio = pathName === "/portfolio";
 
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+
   return (
-    <div className="text-white flex items-center justify-between">
+    <div className="flex items-center justify-between">
       <div
         className={`w-1/2 flex items-center ${
-          isActiveHome ? "text-white" : "text-gray-500"
+          isActiveHome
+            ? isDarkMode
+              ? "text-white"
+              : "text-black"
+            : "text-gray-500"
         }`}
       >
         <HomeIcon className="w-6 h-6 mr-2" />
@@ -24,7 +31,11 @@ const ActiveLinkToggler = () => {
       </div>
       <div
         className={`w-1/2 flex items-center ${
-          isActivePortfolio ? "text-white" : "text-gray-500"
+          isActivePortfolio
+            ? isDarkMode
+              ? "text-white"
+              : "text-black"
+            : "text-gray-500"
         }`}
       >
         <Square3Stack3DIcon className="w-12 h-12 mr-2" />
