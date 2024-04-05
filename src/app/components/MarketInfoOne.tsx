@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type MarketInfoPropsType = {
   title: string;
@@ -9,6 +10,8 @@ type MarketInfoPropsType = {
 
 const MarketInfoOne: React.FC<MarketInfoPropsType> = (props) => {
   const { title, data } = props;
+
+  const selectedCurrency = useSelectedCurrency();
 
   return (
     <div className="flex mb-2">
@@ -20,7 +23,9 @@ const MarketInfoOne: React.FC<MarketInfoPropsType> = (props) => {
         </h3>
       ) : (
         <h3 className="mr-3 text-sm">
-          <span className="font-extrabold">{title}:</span> ${data}
+          <span className="font-extrabold">{title}:</span>{" "}
+          {selectedCurrency.symbol}
+          {data}
         </h3>
       )}
     </div>

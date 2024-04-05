@@ -8,6 +8,7 @@ import {
 import numeral from "numeral";
 import format from "date-fns/format";
 import { useAppSelector } from "@/redux/store";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type MarketDataPropsType = {
   market_data?: CoinType["market_data"];
@@ -15,6 +16,8 @@ type MarketDataPropsType = {
 
 const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
   const { market_data } = props;
+
+  const selectedCurrency = useSelectedCurrency();
 
   const formatToNearestTenth = (num: number | undefined) => {
     if (num !== undefined) {
@@ -43,22 +46,32 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
     }
   };
 
-  const formattedPrice = roundToSixth(market_data?.current_price.usd);
+  const formattedPrice = roundToSixth(
+    market_data?.current_price[selectedCurrency.currency]
+  );
 
   const roundedPercentChange = formatToNearestTenth(
     market_data?.price_change_percentage_24h
   );
 
-  const formattedAth = roundToSixth(market_data?.ath.usd);
-  const formattedAtl = roundToSixth(market_data?.atl.usd);
+  const formattedAth = roundToSixth(
+    market_data?.ath[selectedCurrency.currency]
+  );
+  const formattedAtl = roundToSixth(
+    market_data?.atl[selectedCurrency.currency]
+  );
   const formattedPercentAth = formatToNearestTenth(
-    market_data?.ath_change_percentage.usd
+    market_data?.ath_change_percentage[selectedCurrency.currency]
   );
   const formattedPercentAtl = formatToNearestTenth(
-    market_data?.atl_change_percentage.usd
+    market_data?.atl_change_percentage[selectedCurrency.currency]
   );
-  const formattedDateAth = formatDate(market_data?.ath_date.usd);
-  const formattedDateAtl = formatDate(market_data?.atl_date.usd);
+  const formattedDateAth = formatDate(
+    market_data?.ath_date[selectedCurrency.currency]
+  );
+  const formattedDateAtl = formatDate(
+    market_data?.atl_date[selectedCurrency.currency]
+  );
 
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
@@ -69,7 +82,10 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
       }  w-80 h-64 rounded-2xl flex items-center justify-evenly flex-col p-3`}
     >
       <div className="flex flex-col items-center">
-        <h2 className="text-2xl mb-1">${formattedPrice}</h2>
+        <h2 className="text-2xl mb-1">
+          {selectedCurrency.symbol}
+          {formattedPrice}
+        </h2>
         <h3
           className={`${
             market_data?.price_change_percentage_24h !== undefined &&
@@ -94,13 +110,19 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
       <div className="flex justify-around w-full">
         <div>
           <h3 className="mb-2">ATH:</h3>
-          <p>${formattedAth}</p>
+          <p>
+            {selectedCurrency.symbol}
+            {formattedAth}
+          </p>
           <p>{formattedPercentAth}%</p>
           <p>{formattedDateAth}</p>
         </div>
         <div>
           <h3 className="mb-2">ATL:</h3>
-          <p>${formattedAtl}</p>
+          <p>
+            {selectedCurrency.symbol}
+            {formattedAtl}
+          </p>
           <p>{formattedPercentAtl}%</p>
           <p>{formattedDateAtl}</p>
         </div>

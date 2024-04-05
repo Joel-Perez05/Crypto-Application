@@ -5,6 +5,7 @@ import {
   ArrowTrendingDownIcon,
   ArrowTrendingUpIcon,
 } from "@heroicons/react/20/solid";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type MarketCapInfoPropsType = {
   roundedMarketCap: string | undefined;
@@ -15,11 +16,15 @@ type MarketCapInfoPropsType = {
 const MarketInfoMarketCap: React.FC<MarketCapInfoPropsType> = (props) => {
   const { roundedMarketCap, marketData, roundedPercentChange } = props;
 
+  const selectedCurrency = useSelectedCurrency();
+
   return (
     <div className="flex mb-2">
       <PlusIcon className="w-5 h-5 p-1 bg-blue-500 rounded mr-3" />
       <h3 className="mr-3 text-sm">
-        <span className="font-extrabold">Market Cap:</span> ${roundedMarketCap}
+        <span className="font-extrabold">Market Cap:</span>{" "}
+        {selectedCurrency.symbol}
+        {roundedMarketCap}
       </h3>
       <h3
         className={`${

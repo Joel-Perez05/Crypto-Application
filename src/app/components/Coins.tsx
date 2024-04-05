@@ -16,9 +16,7 @@ import queryString from "query-string";
 import CoinProgressBars from "./CoinProgressBars";
 import CoinLineGraph from "./CoinLineGraph";
 import { useAppSelector } from "@/redux/store";
-
-const apiUrl =
-  "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type Coin = {
   id: string;
@@ -43,6 +41,9 @@ export default function Coins() {
   const [allCoins, setAllCoins] = useState<Coin[]>([]);
   const [totalSupplySort, setTotalSupplySort] = useState<boolean>(false);
   const [displayCount, setDisplayCount] = useState<number>(10);
+
+  const selectedCurrency = useSelectedCurrency();
+
   useEffect(() => {
     const urlParams = queryString.parse(window.location.search);
     const initialSort = urlParams.sort === "totalSupply";
@@ -50,7 +51,9 @@ export default function Coins() {
     setTotalSupplySort(initialSort);
 
     axios
-      .get(apiUrl)
+      .get(
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency.currency}&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+      )
       .then((res) => {
         const sortedCoins = res.data.sort((a: Coin, b: Coin) =>
           initialSort
@@ -60,7 +63,7 @@ export default function Coins() {
         setAllCoins(sortedCoins);
       })
       .catch((err) => err);
-  }, [displayCount]);
+  }, [displayCount, selectedCurrency]);
 
   const roundToSixth = (number: number) => {
     const rounded = Math.round(number * 1e6) / 1e6;
@@ -250,7 +253,10 @@ export default function Coins() {
                       coinImg={coin.image}
                     />
                   </td>
-                  <td className="w-20">${price}</td>
+                  <td className="w-20">
+                    {selectedCurrency.symbol}
+                    {price}
+                  </td>
                   <td>
                     <CoinPriceChange
                       percentChangeRounded={pricePercent1}
