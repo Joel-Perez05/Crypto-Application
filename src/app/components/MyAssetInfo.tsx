@@ -13,6 +13,7 @@ import { deleteAsset, getAssets } from "@/redux/features/assets-Slice";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@/redux/store";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type MyAssetInfoPropsType = {
   coinId: string;
@@ -36,6 +37,8 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
     purchasePrice,
     purchaseDate,
   } = props;
+
+  const selectedCurrency = useSelectedCurrency();
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -61,6 +64,8 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
 
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
+  const currencyAllCaps = selectedCurrency.currency.toUpperCase();
+
   return (
     <div
       className={`flex flex-col justify-evenly h-full w-2/5 p-4 rounded-l-md bg-gradient-to-r ${
@@ -81,7 +86,8 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
               isDarkMode ? "text-white" : "text-black"
             } text-3xl mr-2`}
           >
-            ${convertedPurchasePrice} USD
+            {selectedCurrency.symbol}
+            {convertedPurchasePrice} {currencyAllCaps}
           </h3>
           <div className="flex items-center">
             {currentPrice >= priceWhenPurchased ? (

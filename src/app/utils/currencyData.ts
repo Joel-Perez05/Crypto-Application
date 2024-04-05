@@ -5,6 +5,4 @@ export const currencies: CurrencySelect[] = [
   { value: "eur", label: "EUR", symbol: "€" },
   { value: "gbp", label: "GBP", symbol: "£" },
   { value: "jpy", label: "JPY", symbol: "¥" },
-  { value: "btc", label: "BTC", symbol: "₿" },
-  { value: "eth", label: "ETH", symbol: "Ξ" },
 ];

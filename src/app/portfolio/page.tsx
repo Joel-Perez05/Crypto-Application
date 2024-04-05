@@ -11,8 +11,11 @@ import { getAssets } from "@/redux/features/assets-Slice";
 import ErrorHandler from "./ErrorHandler";
 import LoadingSpinner from "../components/LoadingSpinner";
 import NoSavedCoins from "../components/NoSavedCoins";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 const Portfolio = () => {
+  const selectedCurrency = useSelectedCurrency();
+
   const [error, setError] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [coinData, setCoinData] = useState<FormData[]>([]);
@@ -25,7 +28,7 @@ const Portfolio = () => {
     const fetchData = async () => {
       try {
         const coinDataResponse = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d"
+          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency.currency}&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
         );
         const formData: FormData[] = coinDataResponse.data.map(
           (coin: FormCoin) => ({
@@ -62,7 +65,7 @@ const Portfolio = () => {
 
     fetchData();
     dispatch(getAssets());
-  }, [dispatch]);
+  }, [dispatch, selectedCurrency]);
 
   const assets = useAppSelector((state) => state.assetsReducer.value);
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
