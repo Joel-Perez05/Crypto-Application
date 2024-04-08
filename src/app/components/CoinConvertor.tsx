@@ -4,6 +4,7 @@ import { CoinType } from "../utils/CoinPageTypes";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/solid";
 import numeral from "numeral";
 import { useAppSelector } from "@/redux/store";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type CoinConvertorPropsType = {
   symbol: CoinType["symbol"];
@@ -11,25 +12,30 @@ type CoinConvertorPropsType = {
 };
 
 const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
+  const selectedCurrency = useSelectedCurrency();
+
   const { market_data, symbol } = props;
   const [currencyAmount, setCurrencyAmount] = useState<string>("");
   const [coinAmount, setCoinAmount] = useState<string>("");
   const [initialPlaceholder, setInitialPlaceholder] = useState<string>(
-    numeral(1 / (market_data?.current_price.usd || 1)).format("0.000000")
+    numeral(
+      1 / (market_data?.current_price[selectedCurrency.currency] || 1)
+    ).format("0.000000")
   );
 
   useEffect(() => {
     const fetchInitialPlaceholder = async () => {
-      const price = market_data?.current_price.usd;
+      const price = market_data?.current_price[selectedCurrency.currency];
       if (price !== undefined) {
         setInitialPlaceholder(numeral(1 / price).format("0.000000"));
       }
     };
 
     fetchInitialPlaceholder();
-  }, [market_data]);
+  }, [market_data, selectedCurrency]);
 
   const allCaps = symbol?.toUpperCase();
+  const currencySymbolAllCaps = selectedCurrency.symbol.toUpperCase();
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement>,
@@ -42,7 +48,7 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
       numericalVal = `${parts[0]}.${parts.slice(1).join("")}`;
     }
 
-    let coinPrice = market_data?.current_price.usd;
+    let coinPrice = market_data?.current_price[selectedCurrency.currency];
     if (coinPrice !== undefined) {
       const multiplierStr = numeral(1 / coinPrice).format("0.000000");
       coinPrice = parseFloat(multiplierStr);
@@ -56,9 +62,10 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
       conversionFunction(result, numericalVal, multiplier, inputType);
     } else if (
       inputType === "coin" &&
-      market_data?.current_price.usd !== undefined
+      market_data?.current_price[selectedCurrency.currency] !== undefined
     ) {
-      const result = numericalValue * market_data.current_price.usd;
+      const result =
+        numericalValue * market_data.current_price[selectedCurrency.currency];
       conversionFunction(result, numericalVal, multiplier, inputType);
     }
   };
@@ -101,7 +108,7 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
     <div className="w-full flex justify-evenly mt-6">
       <div className="w-96 h-14 flex">
         <span className="text-white bg-green-500 w-28 flex justify-center items-center rounded-l-lg">
-          <label htmlFor="currency">USD</label>
+          <label htmlFor="currency">{currencySymbolAllCaps}</label>
         </span>
         <input
           className={`${

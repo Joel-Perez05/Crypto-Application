@@ -5,7 +5,9 @@ import { ReduxProvider } from "@/redux/provider";
 import OverviewMarketData from "./components/OverviewMarketData";
 import Navbar from "./components/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",

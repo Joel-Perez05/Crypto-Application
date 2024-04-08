@@ -1,14 +1,31 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import assetsReducer from "./features/assets-Slice";
 import themeReducer from "./features/theme-Slice";
+import currencyReducer from "./features/currency-Slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
-export const store = configureStore({
-  reducer: {
-    assetsReducer,
-    themeReducer,
-  },
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["currency", "symbol"],
+};
+
+const rootReducer = combineReducers({
+  currencyReducer: persistReducer(persistConfig, currencyReducer),
+  themeReducer,
+  assetsReducer,
 });
+
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ thunk: true, serializableCheck: false }),
+});
+
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

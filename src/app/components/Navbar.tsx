@@ -5,6 +5,7 @@ import ActiveLinkToggler from "./ActiveLinkToggler";
 import SearchBar from "./SearchBar";
 import ThemeToggler from "./ThemeToggler";
 import { useAppSelector } from "@/redux/store";
+import CurrencySelector from "./CurrencySelector";
 
 const Navbar = () => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
@@ -30,8 +31,9 @@ const Navbar = () => {
           </h2>
           <ActiveLinkToggler />
         </div>
-        <div className="flex items-center justify-around w-1/2">
+        <div className="flex items-center justify-evenly w-1/2">
           <SearchBar />
+          <CurrencySelector />
           <ThemeToggler />
         </div>
       </div>

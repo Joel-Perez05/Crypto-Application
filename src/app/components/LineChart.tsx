@@ -18,6 +18,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 ChartJS.register(
   CategoryScale,
@@ -34,10 +35,13 @@ export default function LineChart() {
   const [bitcoinPrice, setBitcoinPrice] = useState<[]>([]);
   const [todaysDate, setTodaysDate] = useState<string>("");
   const [todaysPrice, setTodaysPrice] = useState<number>(0);
+
+  const selectedCurrency = useSelectedCurrency();
+
   useEffect(() => {
     axios
       .get(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily"
+        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${selectedCurrency.currency}&days=180&interval=daily`
       )
       .then((res) => {
         setBitcoinPrice(res.data.prices);
@@ -45,16 +49,16 @@ export default function LineChart() {
       .catch((err) => err);
     axios
       .get(
-        "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&precision=2"
+        `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${selectedCurrency.currency}&precision=2`
       )
       .then((res) => {
-        setTodaysPrice(res.data.bitcoin.usd);
+        setTodaysPrice(res.data.bitcoin[selectedCurrency.currency]);
       })
       .catch((err) => err);
     const dateObject = new Date();
     const formattedDate = format(dateObject, "MMM dd, yyyy");
     setTodaysDate(formattedDate);
-  }, []);
+  }, [selectedCurrency]);
 
   interface CustomChartOptions extends ChartOptions {
     height?: number;
@@ -166,7 +170,10 @@ export default function LineChart() {
     <div>
       <div className=" z-40 absolute">
         <h3>Bitcoin</h3>
-        <h2 className="text-2xl">${todaysPrice}</h2>
+        <h2 className="text-2xl">
+          {selectedCurrency.symbol}
+          {todaysPrice}
+        </h2>
         <h3>{todaysDate}</h3>
       </div>
       <div className="w-full h-full pt-12">

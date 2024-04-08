@@ -12,6 +12,7 @@ import {
 } from "@heroicons/react/20/solid";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useAppSelector } from "@/redux/store";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type MarketDataInfoPropsTypes = {
   allCoins: PortfolioCoinData;
@@ -19,6 +20,8 @@ type MarketDataInfoPropsTypes = {
 
 const MarketDataInfo: React.FC<MarketDataInfoPropsTypes> = (props) => {
   const { allCoins } = props;
+
+  const selectedCurrency = useSelectedCurrency();
 
   const supply = allCoins.max_supply
     ? allCoins.max_supply
@@ -45,7 +48,8 @@ const MarketDataInfo: React.FC<MarketDataInfoPropsTypes> = (props) => {
           <h2
             className={`${isDarkMode ? "text-white" : "text-black"} text-2xl`}
           >
-            ${formattedPrice}
+            {selectedCurrency.symbol}
+            {formattedPrice}
           </h2>
           <h3 className="text-gray-500">Current Price</h3>
         </div>

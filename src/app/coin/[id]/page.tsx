@@ -11,6 +11,7 @@ import CoinDescription from "@/app/components/CoinDescription";
 import CoinConvertor from "@/app/components/CoinConvertor";
 import LineGraphCoinPage from "@/app/components/LineGraphCoinPage";
 import { useAppSelector } from "@/redux/store";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type CoinPageProps = {
   params: {
@@ -24,6 +25,8 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | undefined>();
 
+  const selectedCurrency = useSelectedCurrency();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,7 +35,7 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
         );
 
         const coinPriceResponse = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/${params.id}/market_chart?vs_currency=usd&days=180&interval=daily`
+          `https://api.coingecko.com/api/v3/coins/${params.id}/market_chart?vs_currency=${selectedCurrency.currency}&days=180&interval=daily`
         );
 
         setCoin(coinResponse.data);
@@ -45,7 +48,7 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
     };
 
     fetchData();
-  }, [params.id]);
+  }, [params.id, selectedCurrency]);
 
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 

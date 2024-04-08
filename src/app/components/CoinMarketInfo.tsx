@@ -13,6 +13,7 @@ import MarketInfoTwo from "./MarketInfoTwo";
 import MarketInfoMarketCap from "./MarketInfoMarketCap";
 import MarketInfoOne from "./MarketInfoOne";
 import { useAppSelector } from "@/redux/store";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type MarketPropsType = {
   symbol: CoinType["symbol"];
@@ -22,19 +23,25 @@ type MarketPropsType = {
 const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
   const { symbol, market_data } = props;
 
+  const selectedCurrency = useSelectedCurrency();
+
   const allCaps = symbol?.toUpperCase();
 
-  const roundedMarketCap = convertToShorterNum(market_data?.market_cap.usd);
+  const roundedMarketCap = convertToShorterNum(
+    market_data?.market_cap[selectedCurrency.currency]
+  );
   const roundedPercentChange = formatToNearestTenth(
     market_data?.market_cap_change_percentage_24h
   );
   const roundedValuation = convertToShorterNum(
-    market_data?.fully_diluted_valuation.usd
+    market_data?.fully_diluted_valuation[selectedCurrency.currency]
   );
-  const roundedVolume = convertToShorterNum(market_data?.total_volume.usd);
+  const roundedVolume = convertToShorterNum(
+    market_data?.total_volume[selectedCurrency.currency]
+  );
   const totalVolume = getTotalVol(
-    market_data?.total_volume.usd,
-    market_data?.high_24h.usd
+    market_data?.total_volume[selectedCurrency.currency],
+    market_data?.high_24h[selectedCurrency.currency]
   );
   const circulatingSupply = numeral(market_data?.circulating_supply).format(
     "00,000"
@@ -42,8 +49,8 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
   const maxSupply = numeral(market_data?.max_supply).format("00,000");
 
   const volumeToMarket = getVolToMarket(
-    market_data?.total_volume.usd,
-    market_data?.market_cap.usd
+    market_data?.total_volume[selectedCurrency.currency],
+    market_data?.market_cap[selectedCurrency.currency]
   );
 
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
