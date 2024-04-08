@@ -50,10 +50,10 @@ const CurrencySelector: React.FC = () => {
         onChange={(e) => handleCurrencyChange(e)}
       >
         <option value="">{allCapsCurrency}</option>
-        {options.map((currency, idx) => {
+        {options.map((currency) => {
           const valueString = `${currency.value}:${currency.symbol}`;
           return (
-            <option key={idx} value={valueString}>
+            <option key={currency.label} value={valueString}>
               {currency.label}
             </option>
           );
