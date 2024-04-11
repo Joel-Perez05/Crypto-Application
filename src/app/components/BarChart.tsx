@@ -100,6 +100,7 @@ export default function BarChart() {
   }
 
   const options: CustomChartOptions = {
+    maintainAspectRatio: false,
     responsive: true,
     plugins: {
       title: {
@@ -171,7 +172,7 @@ export default function BarChart() {
         <h2 className="text-2xl">{formattedVolume}</h2>
         <h3>{todaysDate}</h3>
       </div>
-      <div className="w-full h-full pt-12">
+      <div className="w-full h-full pt-24">
         <Bar options={options} data={data} />
       </div>
     </div>
