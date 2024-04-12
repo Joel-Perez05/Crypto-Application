@@ -162,8 +162,12 @@ const LineGraphCoinPage: React.FC<CoinNamePropsType> = (props) => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className={`${isDarkMode ? "bg-custom-dark2" : "bg-gray-300"}`}>
-      <div className="flex justify-center">
+    <div
+      className={`${
+        isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
+      } max-sm:pt-8 max-sm:w-full`}
+    >
+      <div className="flex justify-center max-sm:pr-6">
         {intervals.map((interval) => {
           const uniqueBtnId = `option-${interval}`;
           const isSelected = optionSelected === interval;
@@ -185,7 +189,7 @@ const LineGraphCoinPage: React.FC<CoinNamePropsType> = (props) => {
                 htmlFor={uniqueBtnId}
               >
                 <div
-                  className={`w-9 h-9 mr-2 border-2 rounded-full flex flex-col items-center justify-center border-green-500 hover:border-green-900 ${
+                  className={`md:w-9 md:h-9 max-sm:w-6 max-sm:h-6 mr-2 border-2 rounded-full flex flex-col items-center justify-center border-green-500 hover:border-green-900 ${
                     isSelected
                       ? "bg-green-500 text-white"
                       : isDarkMode
@@ -200,7 +204,7 @@ const LineGraphCoinPage: React.FC<CoinNamePropsType> = (props) => {
         })}
       </div>
       <div className="w-full">
-        <Line className="h-96" data={data} options={options} />
+        <Line className="md:h-96 max-sm:h-64" data={data} options={options} />
       </div>
     </div>
   );

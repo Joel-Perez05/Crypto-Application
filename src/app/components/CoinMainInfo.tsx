@@ -49,7 +49,7 @@ const CoinMainInfo: React.FC<CoinMainInfoTypes> = (props) => {
     <div
       className={`${
         isDarkMode ? "text-white bg-custom-dark2" : "text-black bg-gray-300"
-      } w-80 h-64 rounded-2xl flex items-center justify-evenly flex-col`}
+      } md:w-80 max-sm:w-full max-sm:mb-4 h-64 rounded-2xl flex items-center justify-evenly flex-col`}
     >
       <div
         className={`h-24 w-24 rounded ${

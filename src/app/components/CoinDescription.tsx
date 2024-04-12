@@ -28,11 +28,11 @@ const CoinDescription: React.FC<CoinDescriptionPropTypes> = (props) => {
       >
         <div>{ReactHtmlParser(description?.en as string)}</div>
       </div>
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between max-sm:flex-col mb-4">
         <div
           className={`${
             isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
-          } w-5/12 h-12 flex justify-center items-center rounded-xl`}
+          } md:w-5/12 max-sm:w-full max-sm:mb-4 h-12 flex justify-center items-center rounded-xl`}
         >
           <LinkIcon className="w-5 h-5 mr-1" />
           <a href={linkOne} target="_blank">
@@ -42,7 +42,7 @@ const CoinDescription: React.FC<CoinDescriptionPropTypes> = (props) => {
         <div
           className={`${
             isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
-          } w-5/12 h-12 flex justify-center items-center rounded-xl`}
+          } md:w-5/12 max-sm:w-full h-12 flex justify-center items-center rounded-xl`}
         >
           <LinkIcon className="w-5 h-5 mr-1" />
           <a href={linkTwo} target="_blank">
