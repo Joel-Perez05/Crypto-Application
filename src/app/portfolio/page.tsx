@@ -17,7 +17,7 @@ const Portfolio = () => {
   const selectedCurrency = useSelectedCurrency();
 
   const [error, setError] = useState<string | undefined>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coinData, setCoinData] = useState<FormData[]>([]);
   const [formToggler, setFormToggler] = useState<boolean>(false);
   const [allCoins, setAllCoins] = useState<PortfolioCoinData[]>([]);
@@ -56,10 +56,10 @@ const Portfolio = () => {
         );
         setCoinData(formData);
         setAllCoins(coinMarketData);
-        setIsLoading(false);
+        // setIsLoading(false);
       } catch (error: any) {
         console.error("Error fetching data:", error.message);
-        setError(error.message);
+        // setError(error.message);
       }
     };
 
@@ -80,10 +80,10 @@ const Portfolio = () => {
         <main
           className={`${
             isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
-          } flex min-h-screen flex-col items-center justify-between p-24`}
+          } flex min-h-screen flex-col items-center justify-between max-sm:pt-20 md:p-24`}
         >
           <div
-            className={`h-full md:w-full xl:w-1/2 p-4 ${
+            className={`h-full max-sm:w-full md:w-full xl:w-1/2 p-4 ${
               isDarkMode ? "bg-custom-dark1" : "bg-white"
             }`}
           >
