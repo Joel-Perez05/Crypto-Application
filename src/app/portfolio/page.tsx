@@ -17,7 +17,7 @@ const Portfolio = () => {
   const selectedCurrency = useSelectedCurrency();
 
   const [error, setError] = useState<string | undefined>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [coinData, setCoinData] = useState<FormData[]>([]);
   const [formToggler, setFormToggler] = useState<boolean>(false);
   const [allCoins, setAllCoins] = useState<PortfolioCoinData[]>([]);
@@ -56,10 +56,10 @@ const Portfolio = () => {
         );
         setCoinData(formData);
         setAllCoins(coinMarketData);
-        // setIsLoading(false);
+        setIsLoading(false);
       } catch (error: any) {
         console.error("Error fetching data:", error.message);
-        // setError(error.message);
+        setError(error.message);
       }
     };
 
