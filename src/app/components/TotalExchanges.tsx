@@ -10,7 +10,7 @@ const TotalExchanges: React.FC<TotalExchangesPropsType> = (props) => {
   const { totalExchanges } = props;
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center max-sm:hidden">
       <ArrowPathIcon className="w-5 h-5 mr-2" />
       <h2>Exchange: {totalExchanges}</h2>
     </div>

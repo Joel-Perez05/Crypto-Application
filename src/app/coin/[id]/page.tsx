@@ -53,7 +53,7 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div>
+    <div className="max-sm:mt-14">
       {error ? (
         <ErrorHandler error={error} />
       ) : isLoading ? (
@@ -65,10 +65,10 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
           <main
             className={`${
               isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
-            } flex min-h-screen flex-col items-center justify-between p-24`}
+            } flex min-h-screen flex-col items-center justify-between md:p-24`}
           >
             <div
-              className={`h-full md:w-full xl:w-1/2 p-4 ${
+              className={`h-full max-sm:w-full md:w-full xl:w-1/2 p-4 ${
                 isDarkMode ? "bg-custom-dark1" : "bg-white"
               }`}
             >
@@ -79,7 +79,7 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
               >
                 Your Summary:
               </h2>
-              <div className="mt-6 flex justify-around">
+              <div className="mt-6 flex md:justify-around max-sm:flex-col">
                 <CoinMainInfo
                   links={coin?.links}
                   image={coin?.image}
@@ -92,7 +92,13 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
                   market_data={coin?.market_data}
                 />
               </div>
-              <h2 className="text-white text-3xl mt-6">Description:</h2>
+              <h2
+                className={`${
+                  isDarkMode ? "text-white" : "text-black"
+                } text-3xl mt-6`}
+              >
+                Description:
+              </h2>
               <CoinDescription
                 description={coin?.description}
                 links={coin?.links}
@@ -103,7 +109,7 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
               />
             </div>
           </main>
-          <div className="-mt-24">
+          <div className="md:-mt-24">
             <LineGraphCoinPage prices={coinPrice?.prices} />
           </div>
         </div>

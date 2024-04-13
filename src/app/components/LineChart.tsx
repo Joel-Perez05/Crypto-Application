@@ -93,6 +93,7 @@ export default function LineChart() {
   }
 
   const options: CustomChartOptions = {
+    maintainAspectRatio: false,
     responsive: true,
     plugins: {
       title: {
@@ -176,7 +177,7 @@ export default function LineChart() {
         </h2>
         <h3>{todaysDate}</h3>
       </div>
-      <div className="w-full h-full pt-12">
+      <div className="w-full h-full pt-24">
         <Line options={options} data={data} />
       </div>
     </div>

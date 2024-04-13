@@ -105,7 +105,7 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className="w-full flex justify-evenly mt-6">
+    <div className="w-full flex justify-evenly mt-6 max-sm:mb-6">
       <div className="w-96 h-14 flex">
         <span className="text-white bg-green-500 w-28 flex justify-center items-center rounded-l-lg">
           <label htmlFor="currency">{currencySymbolAllCaps}</label>

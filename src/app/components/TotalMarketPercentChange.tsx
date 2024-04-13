@@ -21,7 +21,7 @@ const TotalMarketPercentChange: React.FC<TotalMarketPercentChangePropsType> = (
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center max-sm:hidden">
       <h2 className={`${isDarkMode ? "text-white" : "text-black"} mr-2`}>
         Market: {formattedPercent}%
       </h2>

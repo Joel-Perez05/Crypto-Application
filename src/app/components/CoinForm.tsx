@@ -111,7 +111,7 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
               <SelectDateInput assetObj={assetObj} setAssetObj={setAssetObj} />
               <div className="flex justify-between">
                 <div
-                  className={`h-14 w-56 ${
+                  className={`h-14 max-sm:mr-2 md:w-56 max-sm:w-32 ${
                     isDarkMode
                       ? "text-white bg-custom-dark2"
                       : "text-black bg-gray-300"

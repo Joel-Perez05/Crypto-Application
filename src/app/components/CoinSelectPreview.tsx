@@ -22,7 +22,7 @@ const CoinSelectPreview: React.FC<SelectedCoinPropsType> = (props) => {
         isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
       } flex flex-col justify-center items-center w-1/4 h-56 rounded-md`}
     >
-      <div className="w-20 h-20">
+      <div className="md:w-20 md:h-20 max-sm:h-12 max-sm:w-12">
         <img className="rounded-md" src={selectedCoin.img} alt="coin photo" />
       </div>
       <h2 className=" mt-2 text-sm">

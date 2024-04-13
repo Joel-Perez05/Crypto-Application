@@ -79,7 +79,7 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
     <div
       className={`${
         isDarkMode ? "text-white bg-custom-dark2" : "text-black bg-gray-300"
-      }  w-80 h-64 rounded-2xl flex items-center justify-evenly flex-col p-3`}
+      }  md:w-80 max-sm:w-full max-sm:mb-4 h-64 rounded-2xl flex items-center justify-evenly flex-col p-3`}
     >
       <div className="flex flex-col items-center">
         <h2 className="text-2xl mb-1">

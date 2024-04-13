@@ -171,30 +171,6 @@ export default function Coins() {
           </span>
         </button>
       </div>
-      <table className="table-auto w-full">
-        <thead className="">
-          <tr
-            className={`${
-              isDarkMode ? "text-white border-white" : "text-black border-black"
-            } text-xs flex justify-between border-b h-14 mt-6`}
-          >
-            <th className="w-6">#</th>
-            <th className="w-24">Name</th>
-            <th className="w-20">Price</th>
-            <th className="w-8">1h%</th>
-            <th className="w-8">24h%</th>
-            <th className="w-6">7d%</th>
-            <th className="w-36">24h Vol / Market Cap</th>
-            <th className="w-36"> Circulating / Total Sup</th>
-            <th className="w-32 flex justify-center">
-              Last 7d
-              <span>
-                <AdjustmentsVerticalIcon className="h-4 w-4 ml-1" />
-              </span>
-            </th>
-          </tr>
-        </thead>
-      </table>
       <InfiniteScroll
         dataLength={displayCount}
         next={handleNext}
@@ -204,6 +180,30 @@ export default function Coins() {
         className={classes.customInfiniteScroll}
       >
         <table className="table-auto w-full">
+          <thead className="">
+            <tr
+              className={`${
+                isDarkMode
+                  ? "text-white border-white"
+                  : "text-black border-black"
+              } text-xs flex justify-between border-b h-14 mt-6 sticky top-0 z-50`}
+            >
+              <th className="w-6">#</th>
+              <th className="w-24">Name</th>
+              <th className="w-20">Price</th>
+              <th className="w-8">1h%</th>
+              <th className="w-8">24h%</th>
+              <th className="w-6">7d%</th>
+              <th className="w-36">24h Vol / Market Cap</th>
+              <th className="w-36"> Circulating / Total Sup</th>
+              <th className="w-32 flex justify-center">
+                Last 7d
+                <span>
+                  <AdjustmentsVerticalIcon className="h-4 w-4 ml-1" />
+                </span>
+              </th>
+            </tr>
+          </thead>
           <tbody className={`${isDarkMode ? "text-white" : "text-black"}`}>
             {allCoins.map((coin, idx) => {
               const allCaps = coin.symbol.toUpperCase();

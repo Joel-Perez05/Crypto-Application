@@ -68,23 +68,27 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
 
   return (
     <div
-      className={`flex flex-col justify-evenly h-full w-2/5 p-4 rounded-l-md bg-gradient-to-r ${
+      className={`flex flex-col justify-evenly h-full md:w-2/5 max-sm:w-full p-4 rounded-l-md bg-gradient-to-r ${
         isDarkMode ? "from-[#212140] to-[#14142b]" : "from-white to-gray-400"
       } `}
     >
       <div className="flex items-center">
         <img className="w-10 h-10 mr-2" src={coinImg} alt="coin logo image" />
-        <h2 className={`${isDarkMode ? "text-white" : "text-black"} text-3xl`}>
+        <h2
+          className={`${
+            isDarkMode ? "text-white" : "text-black"
+          } max-sm:text-xl md:text-3xl`}
+        >
           {coinName} ({allCaps})
         </h2>
       </div>
       <div className="mt-4">
-        <h3 className="text-gray-500 text-lg">Total Value</h3>
+        <h3 className="text-gray-500 max-sm:text-md md:text-lg">Total Value</h3>
         <div className="flex items-end">
           <h3
             className={`${
               isDarkMode ? "text-white" : "text-black"
-            } text-3xl mr-2`}
+            } max-sm:text-xl md:text-3xl mr-2`}
           >
             {selectedCurrency.symbol}
             {convertedPurchasePrice} {currencyAllCaps}
@@ -107,7 +111,7 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
           </div>
         </div>
       </div>
-      <div className="flex text-gray-500">
+      <div className="flex text-gray-500 max-sm:hidden">
         <h3 className="mr-2">Purchased</h3>
         <h3>{dateFormatted}</h3>
       </div>

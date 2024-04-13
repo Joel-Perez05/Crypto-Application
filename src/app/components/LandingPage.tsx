@@ -9,7 +9,7 @@ export default function LandingPage() {
 
   return (
     <main
-      className={`h-full md:w-full xl:w-1/2 p-4 ${
+      className={`h-full md:w-full max-sm:w-full xl:w-1/2 p-4 ${
         isDarkMode ? "bg-custom-dark1" : "bg-white"
       }`}
     >
@@ -18,9 +18,9 @@ export default function LandingPage() {
       >
         Your Overview
       </h2>
-      <div className="flex justify-around">
+      <div className="flex md:justify-around max-sm:flex-col">
         <div
-          className={`rounded-2xl p-4 w-5/12 h-72 ${
+          className={`rounded-2xl max-sm:mb-6 p-4 md:w-5/12 h-72 ${
             isDarkMode
               ? " text-white bg-custom-dark2"
               : "text-black bg-gray-300"
@@ -29,14 +29,14 @@ export default function LandingPage() {
           <LineChart />
         </div>
         <div
-          className={`rounded-2xl p-4 w-5/12 h-72 ${
+          className={`rounded-2xl p-4 md:w-5/12 h-72 ${
             isDarkMode ? "text-white bg-custom-dark2" : "text-black bg-gray-300"
           } `}
         >
           <BarChart />
         </div>
       </div>
-      <div className="flex justify-center mt-20">
+      <div className="flex justify-center max-sm:mt-10 md:mt-20">
         <Coins />
       </div>
     </main>
