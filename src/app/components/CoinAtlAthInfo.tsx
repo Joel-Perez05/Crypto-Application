@@ -73,11 +73,11 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
     <div
       className={`${
         isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
-      }  md:w-80 max-sm:w-full max-sm:mb-4 h-full pt-10 pb-6 rounded-xl flex items-center justify-evenly flex-col`}
+      } md:w-80 xl:w-1/2 max-sm:w-full max-sm:mb-4 h-full pt-10 pb-6 rounded-xl flex items-center justify-evenly flex-col`}
     >
       <div className="flex flex-col items-center w-full">
-        <div className="flex md:justify-evenly items-end mb-4 w-full">
-          <h2 className="text-4xl">
+        <div className="flex md:justify-evenly max-sm:justify-center items-end mb-4 w-full">
+          <h2 className="text-4xl max-sm:mr-4">
             {selectedCurrency.symbol}
             {formattedPrice}
           </h2>
@@ -103,9 +103,9 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
         </div>
         <Square3Stack3DIcon className="w-8 h-8 mb-4" />
       </div>
-      <div className="flex justify-between items-center flex-col w-full">
+      <div className="flex md:justify-between items-center flex-col w-full">
         <div className="md:w-4/5">
-          <div className="flex items-center justify-start">
+          <div className="flex items-center md:justify-start xl:justify-center">
             <div className="flex items-center">
               <span className="mr-1">
                 <ArrowTrendingUpIcon className="w-6 h-6 text-cyan-500" />
@@ -117,10 +117,10 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
               {formattedAth}
             </p>
           </div>
-          <p className="ml-6 mt-1">{formattedDateAth}</p>
+          <p className="ml-6 xl:ml-32 mt-1">{formattedDateAth}</p>
         </div>
         <div className="mt-2 md:w-4/5">
-          <div className="flex items-center justify-start">
+          <div className="flex items-center md:justify-start xl:justify-center">
             <div className="flex items-center">
               <span className="mr-1">
                 <ArrowTrendingDownIcon className="w-6 h-6 text-red-600" />
@@ -132,7 +132,7 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
               {formattedAtl}
             </p>
           </div>
-          <p className="ml-6 mt-1">{formattedDateAtl}</p>
+          <p className="md:ml-6 xl:ml-32 mt-1">{formattedDateAtl}</p>
         </div>
       </div>
     </div>

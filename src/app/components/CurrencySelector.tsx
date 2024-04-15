@@ -39,7 +39,7 @@ const CurrencySelector: React.FC = () => {
     );
   };
   return (
-    <div className="rounded-md">
+    <div className="rounded-md xl:ml-16">
       <select
         className={`${
           isDarkMode ? "bg-custom-dark1 text-white" : "bg-white text-black"

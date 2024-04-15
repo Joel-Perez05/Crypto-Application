@@ -109,7 +109,7 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
             symbol={allCaps}
           />
         </div>
-        <div className="mt-2">
+        <div className="md:mt-2 xl:mt-6">
           <div className="flex justify-between items-center md:text-sm mb-1">
             <h3 className="text-amber-500">●{circulatingPercent}%</h3>
             <h3 className="text-orange-200">●{maxSupplyPercent}%</h3>

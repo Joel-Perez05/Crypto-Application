@@ -60,15 +60,19 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
             isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
           } flex min-h-screen flex-col items-center justify-between md:p-20`}
         >
-          <div className={`h-full max-sm:w-full md:w-full xl:w-1/2`}>
+          <div className={`h-full max-sm:w-full md:w-full xl:w-4/5`}>
             <h2
-              className={`${isDarkMode ? "text-white" : "text-black"} text-3xl`}
+              className={`${
+                isDarkMode ? "text-white" : "text-black"
+              } text-3xl max-sm:ml-7`}
             >
               Your Summary:
             </h2>
             <div className="mt-6 flex max-sm:flex-col">
-              <div className="flex justify-between flex-col md:w-7/12 w-full">
-                <div className={` rounded-md flex md:w-full justify-between`}>
+              <div className="flex justify-between flex-col md:w-7/12 w-full xl:mr-6">
+                <div
+                  className={` rounded-md flex md:w-full max-sm:flex-col justify-between max-sm:p-7 max-sm:-mt-4`}
+                >
                   <CoinMainInfo
                     links={coin?.links}
                     image={coin?.image}
@@ -77,17 +81,17 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
                   />
                   <CoinAtlAthInfo market_data={coin?.market_data} />
                 </div>
-                <div>
+                <div className="max-sm:-mt-6">
                   <CoinConvertor
                     symbol={coin?.symbol}
                     market_data={coin?.market_data}
                   />
                 </div>
-                <div>
+                <div className="w-full flex max-sm:justify-center max-sm:p-7 max-sm:-mt-4">
                   <CoinDescription description={coin?.description} />
                 </div>
               </div>
-              <div className="md:w-5/12 md:ml-6">
+              <div className="md:w-5/12 md:ml-6 max-sm:p-7 max-sm:-mt-6">
                 <div className="mb-20">
                   <CoinMarketInfo
                     symbol={coin?.symbol}

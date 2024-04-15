@@ -46,11 +46,11 @@ const CoinMainInfo: React.FC<CoinMainInfoTypes> = (props) => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div>
+    <div className="xl:w-1/2 md:w-72 max-sm:w-full xl:mr-6">
       <div
         className={`${
           isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
-        } md:w-72 max-sm:w-full max-sm:mb-4 h-64 rounded-xl flex items-center justify-evenly flex-col`}
+        } w-full max-sm:mb-4 h-64 rounded-xl flex items-center justify-evenly flex-col`}
       >
         <div
           className={`h-24 w-24 rounded ${
@@ -68,15 +68,15 @@ const CoinMainInfo: React.FC<CoinMainInfoTypes> = (props) => {
       <div
         className={`${
           isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
-        } md:w-full h-12 rounded-xl flex justify-center items-center mt-4`}
+        } w-full h-12 rounded-xl flex justify-center items-center mt-4 max-sm:mb-4`}
       >
-        <div className={`w-full flex justify-evenly items-center`}>
-          <LinkIcon className="w-5 h-5" />
+        <div className={`w-full flex justify-center items-center`}>
+          <LinkIcon className="w-5 h-5 mr-2" />
           <Link href={homepageUrl[0]} target="_blank">
             {homepageUrl[0]}
           </Link>
           <button onClick={copyToClipboard}>
-            <Square2StackIcon className="w-5 h-5" />
+            <Square2StackIcon className="w-5 h-5 ml-2" />
           </button>
         </div>
       </div>
