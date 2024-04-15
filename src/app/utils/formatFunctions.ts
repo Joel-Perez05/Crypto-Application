@@ -65,6 +65,15 @@ export const getCircVsMax = (
   }
 };
 
+export const getCircVsMaxWhole = (
+  circ: number | undefined,
+  max: number | undefined
+) => {
+  if (circ !== undefined && max !== undefined) {
+    return numeral((circ / max) * 100).format("00");
+  }
+};
+
 export const dateFormatter = (date: string) => {
   return format(new Date(date), "MM.dd.yyyy");
 };

@@ -3,6 +3,7 @@ import React from "react";
 import {
   convertMarketCap,
   formatToNearestTenth,
+  getCircVsMaxWhole,
   getTotalVol,
   getVolToMarket,
 } from "../utils/formatFunctions";
@@ -52,15 +53,24 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
     market_data?.market_cap[selectedCurrency.currency]
   );
 
+  const circulatingPercent = getCircVsMaxWhole(
+    market_data?.circulating_supply,
+    market_data?.max_supply
+  );
+
+  const maxSupplyPercent = circulatingPercent
+    ? 100 - parseFloat(circulatingPercent)
+    : 100;
+
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
     <div
       className={`${
         isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
-      } md:w-full max-sm:w-full h-96 rounded-2xl p-10`}
+      } md:w-full max-sm:w-full h-full rounded-2xl p-10`}
     >
-      <div className="mb-6 md:w-full">
+      <div className="mb-4 md:w-full">
         <div className="flex justify-center">
           <MarketInfoData title="Market Cap" data={roundedMarketCap} />
         </div>
@@ -99,14 +109,18 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
             symbol={allCaps}
           />
         </div>
-        <div className="flex justify-center">
+        <div className="mt-2">
+          <div className="flex justify-between items-center md:text-sm mb-1">
+            <h3 className="text-amber-500">●{circulatingPercent}%</h3>
+            <h3 className="text-orange-200">●{maxSupplyPercent}%</h3>
+          </div>
           <ProgressBar
             completed={market_data?.circulating_supply ?? 0}
             maxCompleted={market_data?.max_supply ?? 0}
-            bgColor="white"
-            baseBgColor="#3b82f6"
-            height="10px"
-            width="70%"
+            bgColor="#f59e0b"
+            baseBgColor="#fed7aa"
+            height="8px"
+            width="100%"
             isLabelVisible={false}
             className=""
           />

@@ -2,6 +2,7 @@ import React from "react";
 import { CoinType } from "../utils/CoinPageTypes";
 import { useAppSelector } from "@/redux/store";
 import { LinkIcon } from "@heroicons/react/20/solid";
+import { Square2StackIcon } from "@heroicons/react/24/outline";
 
 type CoinLinkPropsType = {
   links: CoinType["links"];
@@ -16,39 +17,59 @@ const CoinLinks: React.FC<CoinLinkPropsType> = (props) => {
 
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
+  const copyToClipboard = async (url: string | undefined) => {
+    try {
+      if (url !== undefined) {
+        await navigator.clipboard.writeText(url);
+        alert("Copied to Clipboard!");
+      }
+    } catch (error) {
+      console.error("Unable to copy to clipboard:", error);
+    }
+  };
+
   return (
-    <div>
-      <div className="flex justify-between max-sm:flex-col mb-4">
+    <div className="w-full">
+      <div className="flex flex-col justify-center">
         <div
           className={`${
-            isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
-          } md:w-5/12 max-sm:w-full max-sm:mb-4 h-12 flex justify-center items-center rounded-xl`}
+            isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
+          } md:w-full h-12 rounded-xl flex justify-center items-center mt-2`}
         >
-          <LinkIcon className="w-5 h-5 mr-1" />
+          <LinkIcon className="w-5 h-5 md:mr-2" />
           <a href={linkOne} target="_blank">
             {linkOne}
           </a>
+          <button onClick={() => copyToClipboard(linkOne)}>
+            <Square2StackIcon className="w-5 h-5 md:ml-2" />
+          </button>
         </div>
         <div
           className={`${
-            isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
-          } md:w-5/12 max-sm:w-full h-12 flex justify-center items-center rounded-xl`}
+            isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
+          } md:w-full h-12 rounded-xl flex justify-center items-center mt-8`}
         >
-          <LinkIcon className="w-5 h-5 mr-1" />
+          <LinkIcon className="w-5 h-5 md:mr-2" />
           <a href={linkTwo} target="_blank">
             {linkTwo}
           </a>
+          <button onClick={() => copyToClipboard(linkTwo)}>
+            <Square2StackIcon className="w-5 h-5 md:ml-2" />
+          </button>
         </div>
-      </div>
-      <div
-        className={`${
-          isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
-        } w-full h-12 flex justify-center items-center rounded-xl`}
-      >
-        <LinkIcon className="w-5 h-5 mr-1" />
-        <a href={linkThree} target="_blank">
-          {linkThree}
-        </a>
+        <div
+          className={`${
+            isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
+          } md:w-full h-12 rounded-xl flex justify-center items-center mt-8`}
+        >
+          <LinkIcon className="w-5 h-5 md:mr-2" />
+          <a href={linkThree} target="_blank">
+            {linkThree}
+          </a>
+          <button onClick={() => copyToClipboard(linkThree)}>
+            <Square2StackIcon className="w-5 h-5 md:ml-2" />
+          </button>
+        </div>
       </div>
     </div>
   );

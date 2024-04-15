@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { CoinType } from "../utils/CoinPageTypes";
-
 import ReactHtmlParser from "react-html-parser";
 import { useAppSelector } from "@/redux/store";
 

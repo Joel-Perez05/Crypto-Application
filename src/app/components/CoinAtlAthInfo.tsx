@@ -73,7 +73,7 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
     <div
       className={`${
         isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
-      }  md:w-80 max-sm:w-full max-sm:mb-4 h-full pt-8 pb-8 rounded-xl flex items-center justify-evenly flex-col`}
+      }  md:w-80 max-sm:w-full max-sm:mb-4 h-full pt-10 pb-6 rounded-xl flex items-center justify-evenly flex-col`}
     >
       <div className="flex flex-col items-center w-full">
         <div className="flex md:justify-evenly items-end mb-4 w-full">
@@ -105,14 +105,14 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
       </div>
       <div className="flex justify-between items-center flex-col w-full">
         <div className="md:w-4/5">
-          <div className="flex items-end justify-start">
+          <div className="flex items-center justify-start">
             <div className="flex items-center">
               <span className="mr-1">
                 <ArrowTrendingUpIcon className="w-6 h-6 text-cyan-500" />
               </span>
               <h3 className="">All time high:</h3>
             </div>
-            <p className="ml-6 text-2xl mt-1 pt-2">
+            <p className="ml-6 text-2xl">
               {selectedCurrency.symbol}
               {formattedAth}
             </p>
@@ -120,14 +120,14 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
           <p className="ml-6 mt-1">{formattedDateAth}</p>
         </div>
         <div className="mt-2 md:w-4/5">
-          <div className="flex items-end justify-start">
+          <div className="flex items-center justify-start">
             <div className="flex items-center">
               <span className="mr-1">
                 <ArrowTrendingDownIcon className="w-6 h-6 text-red-600" />
               </span>
               <h3 className="">All time low:</h3>
             </div>
-            <p className="ml-8 text-2xl mt-1 pt-2">
+            <p className="ml-8 text-2xl">
               {selectedCurrency.symbol}
               {formattedAtl}
             </p>

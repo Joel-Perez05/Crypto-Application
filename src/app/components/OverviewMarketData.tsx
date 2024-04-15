@@ -38,7 +38,7 @@ const OverviewMarketData = () => {
   return (
     <div
       className={`sticky top-0 z-50 flex justify-center w-full xs:w-full md:h-16 ${
-        isDarkMode ? "bg-[#171130] text-white" : "bg-white text-black"
+        isDarkMode ? "bg-[#1f1833] text-white" : "bg-white text-black"
       }`}
     >
       <div className="flex max-sm:text-sm justify-evenly xs:w-full h-full md:w-4/5 xl:w-2/5 p-4">
