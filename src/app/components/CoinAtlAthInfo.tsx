@@ -60,12 +60,6 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
   const formattedAtl = roundToSixth(
     market_data?.atl[selectedCurrency.currency]
   );
-  const formattedPercentAth = formatToNearestTenth(
-    market_data?.ath_change_percentage[selectedCurrency.currency]
-  );
-  const formattedPercentAtl = formatToNearestTenth(
-    market_data?.atl_change_percentage[selectedCurrency.currency]
-  );
   const formattedDateAth = formatDate(
     market_data?.ath_date[selectedCurrency.currency]
   );
@@ -78,53 +72,67 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
   return (
     <div
       className={`${
-        isDarkMode ? "text-white bg-custom-dark2" : "text-black bg-gray-300"
-      }  md:w-80 max-sm:w-full max-sm:mb-4 h-64 rounded-2xl flex items-center justify-evenly flex-col p-3`}
+        isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
+      }  md:w-80 max-sm:w-full max-sm:mb-4 h-full pt-8 pb-8 rounded-xl flex items-center justify-evenly flex-col`}
     >
-      <div className="flex flex-col items-center">
-        <h2 className="text-2xl mb-1">
-          {selectedCurrency.symbol}
-          {formattedPrice}
-        </h2>
-        <h3
-          className={`${
-            market_data?.price_change_percentage_24h !== undefined &&
-            market_data?.price_change_percentage_24h < 0
-              ? "text-red-600"
-              : "text-green-600"
-          } flex items-center text-xl mb-1`}
-        >
-          {" "}
-          <span className="mr-1">
-            {market_data?.price_change_percentage_24h !== undefined &&
-            market_data?.price_change_percentage_24h < 0 ? (
-              <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
-            ) : (
-              <ArrowTrendingUpIcon className="w-4 h-4 text-green-600" />
-            )}
-          </span>
-          {roundedPercentChange}%
-        </h3>
-        <Square3Stack3DIcon className="w-12 h-12" />
-      </div>
-      <div className="flex justify-around w-full">
-        <div>
-          <h3 className="mb-2">ATH:</h3>
-          <p>
+      <div className="flex flex-col items-center w-full">
+        <div className="flex md:justify-evenly items-end mb-4 w-full">
+          <h2 className="text-4xl">
             {selectedCurrency.symbol}
-            {formattedAth}
-          </p>
-          <p>{formattedPercentAth}%</p>
-          <p>{formattedDateAth}</p>
+            {formattedPrice}
+          </h2>
+          <h3
+            className={`${
+              market_data?.price_change_percentage_24h !== undefined &&
+              market_data?.price_change_percentage_24h < 0
+                ? "text-red-600"
+                : "text-cyan-500"
+            } flex items-center text-lg`}
+          >
+            {" "}
+            <span className="mr-1">
+              {market_data?.price_change_percentage_24h !== undefined &&
+              market_data?.price_change_percentage_24h < 0 ? (
+                <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
+              ) : (
+                <ArrowTrendingUpIcon className="w-4 h-4 text-cyan-500" />
+              )}
+            </span>
+            {roundedPercentChange}%
+          </h3>
         </div>
-        <div>
-          <h3 className="mb-2">ATL:</h3>
-          <p>
-            {selectedCurrency.symbol}
-            {formattedAtl}
-          </p>
-          <p>{formattedPercentAtl}%</p>
-          <p>{formattedDateAtl}</p>
+        <Square3Stack3DIcon className="w-8 h-8 mb-4" />
+      </div>
+      <div className="flex justify-between items-center flex-col w-full">
+        <div className="md:w-4/5">
+          <div className="flex items-end justify-start">
+            <div className="flex items-center">
+              <span className="mr-1">
+                <ArrowTrendingUpIcon className="w-6 h-6 text-cyan-500" />
+              </span>
+              <h3 className="">All time high:</h3>
+            </div>
+            <p className="ml-6 text-2xl mt-1 pt-2">
+              {selectedCurrency.symbol}
+              {formattedAth}
+            </p>
+          </div>
+          <p className="ml-6 mt-1">{formattedDateAth}</p>
+        </div>
+        <div className="mt-2 md:w-4/5">
+          <div className="flex items-end justify-start">
+            <div className="flex items-center">
+              <span className="mr-1">
+                <ArrowTrendingDownIcon className="w-6 h-6 text-red-600" />
+              </span>
+              <h3 className="">All time low:</h3>
+            </div>
+            <p className="ml-8 text-2xl mt-1 pt-2">
+              {selectedCurrency.symbol}
+              {formattedAtl}
+            </p>
+          </div>
+          <p className="ml-6 mt-1">{formattedDateAtl}</p>
         </div>
       </div>
     </div>

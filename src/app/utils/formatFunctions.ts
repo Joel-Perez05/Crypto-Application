@@ -68,3 +68,19 @@ export const getCircVsMax = (
 export const dateFormatter = (date: string) => {
   return format(new Date(date), "MM.dd.yyyy");
 };
+
+export const convertMarketCap = (num: number | undefined) => {
+  if (num !== undefined) {
+    if (num >= 1000000000000) {
+      return numeral(num).format("000,000,000,000,000");
+    } else if (num >= 1000000000) {
+      return numeral(num).format("000,000,000,000");
+    } else if (num >= 1000000) {
+      return numeral(num).format("000,000,000");
+    } else if (num >= 100000) {
+      return numeral(num).format("000,000");
+    } else {
+      return numeral(num).format("0,0");
+    }
+  }
+};

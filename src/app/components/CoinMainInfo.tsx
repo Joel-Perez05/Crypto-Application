@@ -46,29 +46,31 @@ const CoinMainInfo: React.FC<CoinMainInfoTypes> = (props) => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div
-      className={`${
-        isDarkMode ? "text-white bg-custom-dark2" : "text-black bg-gray-300"
-      } md:w-80 max-sm:w-full max-sm:mb-4 h-64 rounded-2xl flex items-center justify-evenly flex-col`}
-    >
+    <div>
       <div
-        className={`h-24 w-24 rounded ${
-          isDarkMode ? "bg-custom-dark1" : "bg-white"
-        } flex items-center justify-center`}
+        className={`${
+          isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
+        } md:w-72 max-sm:w-full max-sm:mb-4 h-64 rounded-xl flex items-center justify-evenly flex-col`}
       >
-        <img className="w-16 h-16" src={image.large} alt="coin image" />
-      </div>
-      <div>
-        <h2 className="text-2xl">
-          {name} ({allCaps})
-        </h2>
+        <div
+          className={`h-24 w-24 rounded ${
+            isDarkMode ? "bg-[#31215e]" : "bg-gray-300"
+          } flex items-center justify-center`}
+        >
+          <img className="w-16 h-16" src={image.large} alt="coin image" />
+        </div>
+        <div>
+          <h2 className="text-2xl">
+            {name} ({allCaps})
+          </h2>
+        </div>
       </div>
       <div
         className={`${
-          isDarkMode ? "bg-custom-dark1" : "bg-white"
-        } w-11/12 h-8 rounded-xl flex justify-center items-center`}
+          isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
+        } md:w-full h-12 rounded-xl flex justify-center items-center mt-4`}
       >
-        <div className="w-full flex justify-evenly items-center">
+        <div className={`w-full flex justify-evenly items-center`}>
           <LinkIcon className="w-5 h-5" />
           <Link href={homepageUrl[0]} target="_blank">
             {homepageUrl[0]}

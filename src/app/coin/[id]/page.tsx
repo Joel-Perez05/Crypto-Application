@@ -12,6 +12,7 @@ import CoinConvertor from "@/app/components/CoinConvertor";
 import LineGraphCoinPage from "@/app/components/LineGraphCoinPage";
 import { useAppSelector } from "@/redux/store";
 import { useSelectedCurrency } from "@/redux/features/currency-Slice";
+import CoinLinks from "@/app/components/CoinLinks";
 
 type CoinPageProps = {
   params: {
@@ -21,8 +22,8 @@ type CoinPageProps = {
 
 const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const [coin, setCoin] = useState<CoinType>();
-  const [coinPrice, setCoinPrice] = useState<CoinPriceType>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const [coinPrice, setCoinPrice] = useState<CoinPriceType>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>();
 
   const selectedCurrency = useSelectedCurrency();
@@ -34,16 +35,16 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
           `https://api.coingecko.com/api/v3/coins/${params.id}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`
         );
 
-        const coinPriceResponse = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/${params.id}/market_chart?vs_currency=${selectedCurrency.currency}&days=180&interval=daily`
-        );
+        // const coinPriceResponse = await axios.get(
+        //   `https://api.coingecko.com/api/v3/coins/${params.id}/market_chart?vs_currency=${selectedCurrency.currency}&days=180&interval=daily`
+        // );
 
         setCoin(coinResponse.data);
-        setCoinPrice(coinPriceResponse.data);
-        setIsLoading(false);
+        // setCoinPrice(coinPriceResponse.data);
+        // setIsLoading(false);
       } catch (error: any) {
         console.error("Error fetching data:", error.message);
-        setError(error.message);
+        // setError(error.message);
       }
     };
 
@@ -61,58 +62,52 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
           <LoadingSpinner />
         </div>
       ) : (
-        <div>
-          <main
-            className={`${
-              isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
-            } flex min-h-screen flex-col items-center justify-between md:p-24`}
-          >
-            <div
-              className={`h-full max-sm:w-full md:w-full xl:w-1/2 p-4 ${
-                isDarkMode ? "bg-custom-dark1" : "bg-white"
-              }`}
+        <main
+          className={`${
+            isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
+          } flex min-h-screen flex-col items-center justify-between md:p-20`}
+        >
+          <div className={`h-full max-sm:w-full md:w-full xl:w-1/2`}>
+            <h2
+              className={`${isDarkMode ? "text-white" : "text-black"} text-3xl`}
             >
-              <h2
-                className={`${
-                  isDarkMode ? "text-white" : "text-black"
-                } text-3xl`}
-              >
-                Your Summary:
-              </h2>
-              <div className="mt-6 flex md:justify-around max-sm:flex-col">
-                <CoinMainInfo
-                  links={coin?.links}
-                  image={coin?.image}
-                  symbol={coin?.symbol}
-                  name={coin?.name}
-                />
-                <CoinAtlAthInfo market_data={coin?.market_data} />
-                <CoinMarketInfo
-                  symbol={coin?.symbol}
-                  market_data={coin?.market_data}
-                />
+              Your Summary:
+            </h2>
+            <div className="mt-6 flex max-sm:flex-col">
+              <div className="flex justify-between flex-col md:w-7/12 w-full">
+                <div className={` rounded-md flex md:w-full justify-between`}>
+                  <CoinMainInfo
+                    links={coin?.links}
+                    image={coin?.image}
+                    symbol={coin?.symbol}
+                    name={coin?.name}
+                  />
+                  <CoinAtlAthInfo market_data={coin?.market_data} />
+                </div>
+                <div>
+                  <CoinConvertor
+                    symbol={coin?.symbol}
+                    market_data={coin?.market_data}
+                  />
+                </div>
+                <div>
+                  <CoinDescription description={coin?.description} />
+                </div>
               </div>
-              <h2
-                className={`${
-                  isDarkMode ? "text-white" : "text-black"
-                } text-3xl mt-6`}
-              >
-                Description:
-              </h2>
-              <CoinDescription
-                description={coin?.description}
-                links={coin?.links}
-              />
-              <CoinConvertor
-                symbol={coin?.symbol}
-                market_data={coin?.market_data}
-              />
+              <div className="md:w-5/12 md:ml-6">
+                <div>
+                  <CoinMarketInfo
+                    symbol={coin?.symbol}
+                    market_data={coin?.market_data}
+                  />
+                </div>
+                <div>
+                  <CoinLinks links={coin?.links} />
+                </div>
+              </div>
             </div>
-          </main>
-          <div className="md:-mt-24">
-            <LineGraphCoinPage prices={coinPrice?.prices} />
           </div>
-        </div>
+        </main>
       )}
     </div>
   );
