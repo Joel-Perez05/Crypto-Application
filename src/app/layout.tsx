@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ReduxProvider } from "@/redux/provider";
 import OverviewMarketData from "./components/OverviewMarketData";
@@ -7,6 +7,12 @@ import Navbar from "./components/Navbar";
 
 const inter = Inter({
   subsets: ["latin"],
+});
+
+const space_grotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-space_grotesk",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${space_grotesk.className}`}>
         <ReduxProvider>
           <OverviewMarketData />
           <Navbar />

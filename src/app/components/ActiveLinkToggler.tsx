@@ -16,7 +16,7 @@ const ActiveLinkToggler = () => {
   return (
     <div className="flex items-center justify-between">
       <div
-        className={`w-1/2 flex items-center ${
+        className={`w-1/2 xl:mr-16 flex items-center ${
           isActiveHome
             ? isDarkMode
               ? "text-white"
@@ -38,7 +38,7 @@ const ActiveLinkToggler = () => {
             : "text-gray-500"
         }`}
       >
-        <Square3Stack3DIcon className="w-12 h-12 mr-2" />
+        <Square3Stack3DIcon className="w-11 h-11 mr-2" />
         <Link href="/portfolio">
           <h2 className="text-xl">Portfolio</h2>
         </Link>

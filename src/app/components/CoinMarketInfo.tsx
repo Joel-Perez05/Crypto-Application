@@ -1,17 +1,17 @@
 "use client";
 import React from "react";
 import {
-  convertToShorterNum,
+  convertMarketCap,
   formatToNearestTenth,
+  getCircVsMaxWhole,
   getTotalVol,
   getVolToMarket,
 } from "../utils/formatFunctions";
 import { CoinType } from "../utils/CoinPageTypes";
 import numeral from "numeral";
 import ProgressBar from "@ramonak/react-progress-bar";
-import MarketInfoTwo from "./MarketInfoTwo";
-import MarketInfoMarketCap from "./MarketInfoMarketCap";
-import MarketInfoOne from "./MarketInfoOne";
+import MarketInfoDataTwo from "./MarketInfoDataTwo";
+import MarketInfoData from "./MarketInfoData";
 import { useAppSelector } from "@/redux/store";
 import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
@@ -27,16 +27,16 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
 
   const allCaps = symbol?.toUpperCase();
 
-  const roundedMarketCap = convertToShorterNum(
+  const roundedMarketCap = convertMarketCap(
     market_data?.market_cap[selectedCurrency.currency]
   );
   const roundedPercentChange = formatToNearestTenth(
     market_data?.market_cap_change_percentage_24h
   );
-  const roundedValuation = convertToShorterNum(
+  const roundedValuation = convertMarketCap(
     market_data?.fully_diluted_valuation[selectedCurrency.currency]
   );
-  const roundedVolume = convertToShorterNum(
+  const roundedVolume = convertMarketCap(
     market_data?.total_volume[selectedCurrency.currency]
   );
   const totalVolume = getTotalVol(
@@ -46,75 +46,87 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
   const circulatingSupply = numeral(market_data?.circulating_supply).format(
     "00,000"
   );
-  const maxSupply = numeral(market_data?.max_supply).format("00,000");
+  const maxSupply = numeral(
+    market_data?.max_supply
+      ? market_data?.max_supply
+      : market_data?.total_supply
+  ).format("00,000");
 
   const volumeToMarket = getVolToMarket(
     market_data?.total_volume[selectedCurrency.currency],
     market_data?.market_cap[selectedCurrency.currency]
   );
 
+  const circulatingPercent = getCircVsMaxWhole(
+    market_data?.circulating_supply,
+    market_data?.max_supply
+      ? market_data?.max_supply
+      : market_data?.total_supply
+  );
+
+  const maxSupplyPercent = circulatingPercent
+    ? 100 - parseFloat(circulatingPercent)
+    : 100;
+
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
     <div
       className={`${
-        isDarkMode ? "text-white bg-custom-dark2 " : "text-black bg-gray-300"
-      } md:w-96 max-sm:w-full h-64 rounded-2xl p-4`}
+        isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
+      } md:w-full max-sm:w-full h-full rounded-2xl p-10`}
     >
-      <div className="mb-6">
-        <div>
-          <MarketInfoMarketCap
-            roundedMarketCap={roundedMarketCap}
-            marketData={market_data?.market_cap_change_percentage_24h}
-            roundedPercentChange={roundedPercentChange}
-          />
+      <div className="mb-4 md:w-full">
+        <div className="flex justify-center">
+          <MarketInfoData title="Market Cap" data={roundedMarketCap} />
         </div>
-        <div>
-          <MarketInfoOne
+        <div className="flex justify-center">
+          <MarketInfoData
             title="Fully Diluted Valuation"
             data={roundedValuation}
           />
         </div>
-        <div>
-          <MarketInfoOne title="Volume 24h" data={roundedVolume} />
+        <div className="flex justify-center">
+          <MarketInfoData title="Volum 24h" data={roundedVolume} />
         </div>
-        <div>
-          <MarketInfoOne title="Volume / Market" data={volumeToMarket} />
+        <div className="flex justify-center">
+          <MarketInfoData title="Volume/Market" data={volumeToMarket} />
         </div>
       </div>
       <div>
-        <div>
-          <MarketInfoTwo
+        <div className="flex justify-center">
+          <MarketInfoDataTwo
             title="Total Volume"
             data={totalVolume}
             symbol={allCaps}
-            textColor="text-green-500"
           />
         </div>
-        <div>
-          <MarketInfoTwo
+        <div className="flex justify-center">
+          <MarketInfoDataTwo
             title="Circulating Supply"
             data={circulatingSupply}
             symbol={allCaps}
-            textColor="text-white"
           />
         </div>
-        <div>
-          <MarketInfoTwo
+        <div className="flex justify-center">
+          <MarketInfoDataTwo
             title="Max Supply"
             data={maxSupply}
             symbol={allCaps}
-            textColor="text-blue-500"
           />
         </div>
-        <div>
+        <div className="md:mt-2 xl:mt-6">
+          <div className="flex justify-between items-center md:text-sm mb-1">
+            <h3 className="text-amber-500">●{circulatingPercent}%</h3>
+            <h3 className="text-orange-200">●{maxSupplyPercent}%</h3>
+          </div>
           <ProgressBar
             completed={market_data?.circulating_supply ?? 0}
             maxCompleted={market_data?.max_supply ?? 0}
-            bgColor="white"
-            baseBgColor="#3b82f6"
-            height="10px"
-            width="70%"
+            bgColor="#f59e0b"
+            baseBgColor="#fed7aa"
+            height="8px"
+            width="100%"
             isLabelVisible={false}
             className=""
           />

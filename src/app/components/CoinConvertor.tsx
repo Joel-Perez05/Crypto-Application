@@ -105,14 +105,14 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className="w-full flex justify-evenly mt-6 max-sm:mb-6">
-      <div className="w-96 h-14 flex">
-        <span className="text-white bg-green-500 w-28 flex justify-center items-center rounded-l-lg">
+    <div className="flex md:w-full md:justify-between mt-6 max-sm:p-7">
+      <div className="md:w-64 h-14 flex">
+        <span className="text-white bg-cyan-500 w-28 flex justify-center items-center rounded-l-lg">
           <label htmlFor="currency">{currencySymbolAllCaps}</label>
         </span>
         <input
           className={`${
-            isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
+            isDarkMode ? "bg-[#1f1833] text-white" : "bg-white text-black"
           } w-full rounded-r-lg appearance-none focus:outline-none p-4`}
           id="currency"
           type="text"
@@ -124,13 +124,13 @@ const CoinConvertor: React.FC<CoinConvertorPropsType> = (props) => {
       <button>
         <ArrowsRightLeftIcon className="h-10 w-10 text-white" />
       </button>
-      <div className="w-96 h-14 flex">
-        <span className="text-white bg-green-500 w-28 flex justify-center items-center rounded-l-lg">
+      <div className="md:w-64 h-14 flex">
+        <span className="text-white bg-cyan-500 w-28 flex justify-center items-center rounded-l-lg">
           <label htmlFor="coin">{allCaps}</label>
         </span>
         <input
           className={`${
-            isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
+            isDarkMode ? "bg-[#1f1833] text-white" : "bg-white text-black"
           } w-full rounded-r-lg appearance-none focus:outline-none p-4`}
           id="coin"
           type="text"

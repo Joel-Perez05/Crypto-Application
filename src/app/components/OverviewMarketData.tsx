@@ -37,13 +37,11 @@ const OverviewMarketData = () => {
 
   return (
     <div
-      className={`sticky top-0 z-50 flex justify-center w-full xs:w-full md:h-16 bg-gradient-to-r ${
-        isDarkMode
-          ? "from-[#212140] via-[#500724] via-30% to-[#14142b] text-white"
-          : "from-white via-gray-500 to-cyan-400 text-black"
+      className={`sticky top-0 z-50 flex justify-center w-full xs:w-full md:h-16 ${
+        isDarkMode ? "bg-[#1f1833] text-white" : "bg-white text-black"
       }`}
     >
-      <div className="flex max-sm:text-sm justify-evenly xs:w-full h-full md:w-full xl:w-1/2 p-4">
+      <div className="flex max-sm:text-sm justify-evenly xs:w-full h-full md:w-4/5 xl:w-2/5 p-4">
         <TotalCoins totalCoins={totalCoins?.active_cryptocurrencies} />
         <TotalExchanges totalExchanges={totalCoins?.markets} />
         <TotalMarketPercentChange

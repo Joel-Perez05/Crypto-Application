@@ -16,26 +16,26 @@ const Navbar = () => {
         isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
       }`}
     >
-      <div className="flex justify-center max-xs:flex-col max-xs:items-start items-center h-full md:w-full xl:w-1/2">
-        <div className="flex md:justify-evenly max-xs:w-full max-xs:justify-between items-center md:w-1/2">
+      <div className="flex max-xs:flex-col max-xs:items-start items-center h-full md:w-full xl:w-4/5">
+        <div className="xl:pl-12 md:pl-2 flex md:justify-evenly xl:justify-start max-xs:w-full max-xs:justify-between items-center w-1/2">
           <div
             className={`${
               isDarkMode ? "text-white" : "text-black"
             } flex items-center`}
           >
-            <GlobeAltIcon className="w-8 h-8 mr-1" />
-            <h1 className="text-3xl max-sm:mr-2">CoinTrader</h1>
+            <GlobeAltIcon className="w-8 h-8 mr-2" />
+            <h1 className="text-3xl xl:mr-16 max-sm:mr-2">CoinTrader</h1>
           </div>
           <h2
             className={`${
               isDarkMode ? "text-white" : "text-black"
-            }max-sm:mr-2 text-xl`}
+            }max-sm:mr-2 text-xl xl:mr-16`}
           >
             |
           </h2>
           <ActiveLinkToggler />
         </div>
-        <div className="flex max-sm:mt-2 items-center max-sm:justify-between md:justify-evenly max-sm:w-full md:w-1/2">
+        <div className="xl:pr-12 md:pr-2 flex max-sm:mt-2 xl:justify-end items-center max-sm:justify-between md:justify-evenly max-sm:w-full w-1/2">
           <SearchBar />
           <CurrencySelector />
           <ThemeToggler />
