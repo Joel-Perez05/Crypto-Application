@@ -27,6 +27,9 @@ const config: Config = {
         "custom-asset1": "rgb(33, 33, 64)",
         "custom-asset2": "rgb(20, 20, 35)",
       },
+      fontFamily: {
+        space_grotesk: ["var(--font-space_grotesk)"],
+      },
     },
   },
   plugins: [],

@@ -46,7 +46,11 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
   const circulatingSupply = numeral(market_data?.circulating_supply).format(
     "00,000"
   );
-  const maxSupply = numeral(market_data?.max_supply).format("00,000");
+  const maxSupply = numeral(
+    market_data?.max_supply
+      ? market_data?.max_supply
+      : market_data?.total_supply
+  ).format("00,000");
 
   const volumeToMarket = getVolToMarket(
     market_data?.total_volume[selectedCurrency.currency],
@@ -56,6 +60,8 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
   const circulatingPercent = getCircVsMaxWhole(
     market_data?.circulating_supply,
     market_data?.max_supply
+      ? market_data?.max_supply
+      : market_data?.total_supply
   );
 
   const maxSupplyPercent = circulatingPercent

@@ -117,7 +117,7 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
               {formattedAth}
             </p>
           </div>
-          <p className="ml-6 xl:ml-32 mt-1">{formattedDateAth}</p>
+          <p className="ml-6 xl:ml-32 max-sm:ml-6 mt-1">{formattedDateAth}</p>
         </div>
         <div className="mt-2 md:w-4/5">
           <div className="flex items-center md:justify-start xl:justify-center">
@@ -132,7 +132,9 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
               {formattedAtl}
             </p>
           </div>
-          <p className="md:ml-6 xl:ml-32 mt-1">{formattedDateAtl}</p>
+          <p className="md:ml-6 xl:ml-32 max-sm:ml-6 mt-1">
+            {formattedDateAtl}
+          </p>
         </div>
       </div>
     </div>

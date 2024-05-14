@@ -38,7 +38,7 @@ const ActiveLinkToggler = () => {
             : "text-gray-500"
         }`}
       >
-        <Square3Stack3DIcon className="w-6 h-6 mr-2" />
+        <Square3Stack3DIcon className="w-11 h-11 mr-2" />
         <Link href="/portfolio">
           <h2 className="text-xl">Portfolio</h2>
         </Link>
