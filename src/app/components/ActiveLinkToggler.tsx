@@ -14,9 +14,9 @@ const ActiveLinkToggler = () => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center h-48 w-265 justify-between">
       <div
-        className={`w-1/2 xl:mr-16 flex items-center ${
+        className={`w-110 flex items-center p-4 ${
           isActiveHome
             ? isDarkMode
               ? "text-white"
@@ -26,11 +26,11 @@ const ActiveLinkToggler = () => {
       >
         <HomeIcon className="w-6 h-6 mr-2" />
         <Link href="/">
-          <h2 className="text-xl">Home</h2>
+          <h2>Home</h2>
         </Link>
       </div>
       <div
-        className={`w-1/2 flex items-center ${
+        className={`w-131 flex items-center p-4 ${
           isActivePortfolio
             ? isDarkMode
               ? "text-white"
@@ -38,9 +38,9 @@ const ActiveLinkToggler = () => {
             : "text-gray-500"
         }`}
       >
-        <Square3Stack3DIcon className="w-11 h-11 mr-2" />
+        <Square3Stack3DIcon className="w-6 h-6 mr-2" />
         <Link href="/portfolio">
-          <h2 className="text-xl">Portfolio</h2>
+          <h2>Portfolio</h2>
         </Link>
       </div>
     </div>
