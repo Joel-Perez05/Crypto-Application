@@ -24,8 +24,8 @@ const SelectCoinInput: React.FC<SelectCoinInputProps> = (props) => {
   return (
     <div
       className={`relative ${
-        isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
-      } rounded-md h-14 w-full`}
+        isDarkMode ? "bg-[#191925] text-white" : "bg-gray-300 text-black"
+      } rounded-md h-11 w-full`}
     >
       <label
         htmlFor="coinName"
@@ -33,15 +33,15 @@ const SelectCoinInput: React.FC<SelectCoinInputProps> = (props) => {
       ></label>
       <select
         className={`${
-          isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
-        } border-none focus:outline-none focus:ring-2 focus:ring-green-500 text-xl w-full h-full p-2 pl-4 rounded-md`}
+          isDarkMode ? "bg-[#191925] text-white" : "bg-gray-300 text-black"
+        } border-none focus:outline-none text-sm w-full h-full p-2 pl-4 rounded-md`}
         name="coinName"
         id="coinName"
         placeholder="Select Coin"
         onChange={(e) => handleCoinSelection(e)}
       >
         <option
-          className={`${isDarkMode ? "text-white" : "text-black"}`}
+          className={`text-sm ${isDarkMode ? "text-white" : "text-black"}`}
           value=""
         >
           Select Coin
@@ -49,7 +49,7 @@ const SelectCoinInput: React.FC<SelectCoinInputProps> = (props) => {
         {coinNameList.map((coin, idx) => {
           return (
             <option
-              className={`${isDarkMode ? "text-white" : "text-black"}`}
+              className={`text-sm ${isDarkMode ? "text-white" : "text-black"}`}
               key={idx}
               value={coin}
             >

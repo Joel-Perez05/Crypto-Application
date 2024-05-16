@@ -85,23 +85,31 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
 
   return (
     <div>
-      <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-50"></div>
+      <div className="fixed top-0 left-0 w-full h-full bg-[#262437] opacity-30 z-50"></div>
       <div
         className={`${
-          isDarkMode ? "bg-custom-dark1" : "bg-white"
-        } md:w-2/3 xl:w-2/5 p-6 rounded-2xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50`}
+          isDarkMode ? "bg-[#13121A]" : "bg-white"
+        } w-886 h-393 p-12 rounded-2xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50`}
       >
         <div
           className={`${
             isDarkMode ? "text-white" : "text-black"
-          } flex justify-center`}
+          } flex justify-between w-790 h-6`}
         >
-          <h2 className="text-2xl">Select Coins</h2>
+          <h2 className="text-sm">Select Coins</h2>
+          <div className="h-6 w-6 flex justify-center items-center text-sm border border-white rounded-full">
+            <button
+              className="h-full w-full relative bottom-0.5"
+              onClick={() => setFormToggler(!formToggler)}
+            >
+              x
+            </button>
+          </div>
         </div>
-        <div className="flex justify-around mt-8">
+        <div className="flex justify-between w-790 h-241 mt-8">
           <CoinSelectPreview selectedCoin={selectedCoin} />
-          <div className="w-3/5">
-            <form onSubmit={submitHandler} className="flex flex-col gap-7">
+          <div className="w-461 h-full">
+            <form onSubmit={submitHandler} className="flex flex-col gap-4">
               <SelectCoinInput
                 coinNameList={coinNameList}
                 assetObj={assetObj}
@@ -109,13 +117,13 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
               />
               <SelectPriceInput assetObj={assetObj} setAssetObj={setAssetObj} />
               <SelectDateInput assetObj={assetObj} setAssetObj={setAssetObj} />
-              <div className="flex justify-between">
+              <div className="flex justify-between mt-4">
                 <div
-                  className={`h-14 max-sm:mr-2 md:w-56 max-sm:w-32 ${
+                  className={`h-45 w-222.5 ${
                     isDarkMode
-                      ? "text-white bg-custom-dark2"
+                      ? "text-white bg-[#232336]"
                       : "text-black bg-gray-300"
-                  } rounded-lg flex justify-center items-center`}
+                  } rounded-md flex justify-center items-center`}
                 >
                   <button
                     className="w-full h-full"
@@ -126,10 +134,8 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
                 </div>
                 <div
                   className={`${
-                    isDisabled
-                      ? "bg-green-900 text-gray-500"
-                      : "text-white bg-green-500"
-                  } h-14 w-56  rounded-lg flex justify-center items-center`}
+                    isDisabled ? "bg-[#6161d648]" : " bg-[#6161d67e]"
+                  } h-45 text-white w-222.5 rounded-md flex justify-center items-center`}
                 >
                   <button
                     type="submit"

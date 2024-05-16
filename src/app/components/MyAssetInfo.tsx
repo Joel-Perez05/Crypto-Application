@@ -68,60 +68,48 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
 
   return (
     <div
-      className={`flex flex-col justify-evenly h-full md:w-2/5 max-sm:w-full p-4 rounded-l-md bg-gradient-to-r ${
-        isDarkMode ? "from-[#212140] to-[#14142b]" : "from-white to-gray-400"
+      className={`flex flex-col justify-evenly h-full w-380 p-4 rounded-l-md ${
+        isDarkMode ? "bg-[#191932]" : "bg-white"
       } `}
     >
-      <div className="flex items-center">
-        <img className="w-10 h-10 mr-2" src={coinImg} alt="coin logo image" />
-        <h2
-          className={`${
-            isDarkMode ? "text-white" : "text-black"
-          } max-sm:text-xl md:text-3xl`}
-        >
+      <div className="flex items-center font-bold">
+        <img className="w-8 h-8 mr-2" src={coinImg} alt="coin logo image" />
+        <h2 className={`${isDarkMode ? "text-white" : "text-black"} text-2xl`}>
           {coinName} ({allCaps})
         </h2>
       </div>
       <div className="mt-4">
-        <h3 className="text-gray-500 max-sm:text-md md:text-lg">Total Value</h3>
+        <h3 className="text-gray-500">Total Value</h3>
         <div className="flex items-end">
           <h3
             className={`${
               isDarkMode ? "text-white" : "text-black"
-            } max-sm:text-xl md:text-3xl mr-2`}
+            } text-3xl font-bold mr-3`}
           >
             {selectedCurrency.symbol}
             {convertedPurchasePrice} {currencyAllCaps}
           </h3>
           <div className="flex items-center">
             {currentPrice >= priceWhenPurchased ? (
-              <ArrowTrendingUpIcon className="text-cyan-400 w-5 h-5 mr-1" />
+              <ArrowTrendingUpIcon className="text-[#01F1E3] w-5 h-5 mr-1" />
             ) : (
               <ArrowTrendingDownIcon className="text-red-500 w-5 h-5 mr-1" />
             )}
             <h4
               className={`${
                 currentPrice >= priceWhenPurchased
-                  ? "text-cyan-400"
+                  ? "text-[#01F1E3]"
                   : "text-red-500"
-              } text-lg`}
+              } text-md`}
             >
               {pnlPercent}%
             </h4>
           </div>
         </div>
       </div>
-      <div className="flex text-gray-500 max-sm:hidden">
+      <div className="flex text-gray-500 text-sm">
         <h3 className="mr-2">Purchased</h3>
         <h3>{dateFormatted}</h3>
-      </div>
-      <div>
-        <button
-          onClick={handleDelete}
-          className="bg-cyan-500 p-1 rounded-md text-white hover:bg-red-500"
-        >
-          Sell Asset
-        </button>
       </div>
     </div>
   );

@@ -39,68 +39,66 @@ const MarketDataInfo: React.FC<MarketDataInfoPropsTypes> = (props) => {
 
   return (
     <div
-      className={`flex flex-col justify-evenly h-full md:w-3/4 max-sm:w-full max-sm:rounded-b-md md:rounded-r-md max-sm:p-1 ${
-        isDarkMode ? "bg-custom-asset2" : "bg-gray-300"
+      className={`flex flex-col justify-evenly h-full w-916 max-sm:rounded-b-md md:rounded-r-md max-sm:p-1 ${
+        isDarkMode ? "bg-[#191925]" : "bg-gray-300"
       }`}
     >
       <div className="flex justify-evenly max-sm:mt-2">
-        <div className="flex flex-col justify-evenly max-sm:h-16 md:h-20 max-sm:w-5/12 md:w-2/5 rounded-md border border-[#212140] p-2">
+        <div className="flex flex-col justify-evenly h-74 w-432 rounded-md border border-[#2D2D51] p-2">
           <h2
             className={`${
               isDarkMode ? "text-white" : "text-black"
-            }max-sm:text-xl md:text-2xl`}
+            } font-medium text-xl`}
           >
             {selectedCurrency.symbol}
             {formattedPrice}
           </h2>
-          <h3 className="text-gray-500 max-sm:text-sm">Current Price</h3>
+          <h3 className="text-[#D1D1D1] text-sm">Current Price</h3>
         </div>
-        <div className="flex flex-col justify-evenly max-sm:h-16 md:h-20 max-sm:w-5/12 md:w-2/5 rounded-md border border-[#212140] p-2">
+        <div className="flex flex-col justify-evenly h-74 w-432 rounded-md border border-[#2D2D51] p-2">
           <div className="flex items-center">
             {allCoins.price_change_percentage_24h > 0 ? (
-              <ArrowTrendingUpIcon className="text-cyan-400 w-5 h-5 mr-1" />
+              <ArrowTrendingUpIcon className="text-[#01F1E3] w-4 h-4 mr-1" />
             ) : (
-              <ArrowTrendingDownIcon className="text-red-500 w-5 h-5 mr-1" />
+              <ArrowTrendingDownIcon className="text-red-500 w-4 h-4 mr-1" />
             )}
             <h2
               className={`${
                 allCoins.price_change_percentage_24h > 0
-                  ? "text-cyan-400"
+                  ? "text-[#01F1E3]"
                   : "text-red-500"
-              }max-sm:text-xl md:text-2xl`}
+              } font-medium text-xl`}
             >
               {formattedPercent}%
             </h2>
           </div>
-          <h3 className="text-gray-500 max-sm:text-sm">24h%</h3>
+          <h3 className="text-[#D1D1D1] text-sm">24h%</h3>
         </div>
       </div>
       <div className="flex justify-evenly max-sm:mt-2 max-sm:mb-2">
-        <div className="flex flex-col justify-evenly max-sm:h-16 md:h-20 max-sm:w-5/12 md:w-2/5 rounded-md border border-[#212140] p-2">
+        <div className="flex flex-col justify-evenly h-74 w-432 rounded-md border border-[#2D2D51] p-2">
           <div className="flex items-center">
-            <h2 className="text-cyan-400 max-sm:text-xl md:text-2xl mr-4">
+            <h2 className="text-[#01F1E3] font-medium text-xl mr-4">
               {marketToVol}%
             </h2>
             <ProgressBar
               completed={allCoins.total_volume}
               maxCompleted={allCoins.market_cap}
-              bgColor="#22d3ee"
+              bgColor="#01F1E3"
               baseBgColor="#0f766e"
-              height="10px"
-              width="60px"
+              height="6px"
+              width="340px"
               isLabelVisible={false}
               className=""
             />
           </div>
-          <h3 className="text-gray-500 max-sm:text-sm">Volume vs Market Cap</h3>
+          <h3 className="text-[#D1D1D1] text-sm">Volume vs Market Cap</h3>
         </div>
-        <div className="flex flex-col justify-evenly max-sm:h-16 md:h-20 max-sm:w-5/12 md:w-2/5 rounded-md border border-[#212140] p-2">
-          <h2 className="text-cyan-400 max-sm:text-xl md:text-2xl">
+        <div className="flex flex-col justify-evenly h-74 w-432 rounded-md border border-[#2D2D51] p-2">
+          <h2 className="text-[#01F1E3] font-medium text-xl">
             {circulatingToMax}%
           </h2>
-          <h3 className="text-gray-500 max-sm:text-xs">
-            Circ Supply vs Max Supply
-          </h3>
+          <h3 className="text-[#D1D1D1] text-xs">Circ Supply vs Max Supply</h3>
         </div>
       </div>
     </div>
