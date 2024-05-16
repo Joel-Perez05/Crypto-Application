@@ -16,6 +16,23 @@ const config: Config = {
         xl: "1300px",
         "2xl": "1440px",
       },
+      width: {
+        "1440": "1440px",
+        "1296": "1296px",
+        "483": "483px",
+        "544": "544px",
+        "170": "170px",
+        "265": "265px",
+        "110": "110px",
+        "131": "131px",
+        "108": "108px",
+        "356": "356px",
+        "48": "48px",
+      },
+      height: {
+        "56": "56px",
+        "48": "48px",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

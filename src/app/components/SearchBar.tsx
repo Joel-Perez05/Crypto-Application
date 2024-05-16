@@ -48,20 +48,20 @@ const SearchBar = () => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className="flex items-center relative">
-      <div className="relative">
+    <div className="flex items-center w-356 h-48 relative">
+      <div className="relative h-full w-full">
         <input
           onChange={handleSearch}
           placeholder="Search..."
           className={`${
-            isDarkMode ? " bg-custom-dark1 text-white" : "bg-white text-black"
-          } rounded-md pl-10 pr-4 h-11 border border-[#212140] focus:outline-none`}
+            isDarkMode ? " bg-[#191925] text-white" : "bg-white text-black"
+          } rounded-md pl-10 pr-4 h-full border w-full border-[#212140] focus:outline-none`}
           type="text"
         />
         <MagnifyingGlassIcon
           className={`${
             isDarkMode ? "text-gray-500" : "text-black"
-          } absolute left-3 top-3 w-5 h-5  pointer-events-none`}
+          } absolute left-3 top-3.5 w-5 h-5 pointer-events-none`}
         />
 
         {searchInput.trim() !== "" && error ? (

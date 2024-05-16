@@ -17,6 +17,8 @@ const CurrencySelector: React.FC = () => {
 
   const allCapsCurrency = selectedCurr?.currency.toUpperCase();
 
+  const currSymbol = selectedCurr?.symbol;
+
   const dispatch = useDispatch<AppDispatch>();
   const selectedCurrency = useSelectedCurrency();
 
@@ -39,17 +41,20 @@ const CurrencySelector: React.FC = () => {
     );
   };
   return (
-    <div className="rounded-md xl:ml-16">
+    <div className="rounded-md flex h-48 w-108">
       <select
         className={`${
-          isDarkMode ? "bg-custom-dark1 text-white" : "bg-white text-black"
-        } h-11 w-20 rounded-md p-2`}
+          isDarkMode ? "bg-[#191925] text-white" : "bg-white text-black"
+        } h-full w-full pl-4 rounded-md border border-[#212140]`}
         id="currency"
         name="currency"
         value={selectedCurr?.currency}
         onChange={(e) => handleCurrencyChange(e)}
       >
-        <option value="">{allCapsCurrency}</option>
+        <option value="">
+          <span className="mr-2">{currSymbol}</span>
+          {allCapsCurrency}
+        </option>
         {options.map((currency) => {
           const valueString = `${currency.value}:${currency.symbol}`;
           return (

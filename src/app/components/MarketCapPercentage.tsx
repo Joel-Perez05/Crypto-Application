@@ -19,7 +19,7 @@ const MarketCapPercentage: React.FC<MarketCapPercentagePropsType> = (props) => {
 
   return (
     <div className="flex items-center">
-      <img className="w-6 h-6 mr-2" src={image} alt="photo of coin" />
+      <img className="w-4 h-4 mr-2" src={image} alt="photo of coin" />
       <h2 className={`${isDarkMode ? "text-white" : "text-black"} mr-2`}>
         {formattedPercent}%
       </h2>
