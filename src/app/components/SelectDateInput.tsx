@@ -22,8 +22,8 @@ const SelectDateInput: React.FC<SelectDateInputProps> = (props) => {
   return (
     <div
       className={`relative ${
-        isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
-      } rounded-md h-14 w-full`}
+        isDarkMode ? "bg-[#191925]" : "bg-gray-300"
+      } rounded-md h-11 w-full`}
     >
       <label
         htmlFor="purchaseDate"
@@ -31,8 +31,8 @@ const SelectDateInput: React.FC<SelectDateInputProps> = (props) => {
       ></label>
       <input
         className={`${
-          isDarkMode ? "bg-custom-dark2 text-white" : "bg-gray-300 text-black"
-        } appearance-none border-none focus:outline-none focus:ring-2 focus:ring-green-500 text-xl w-full h-full p-2 pl-4 rounded-md`}
+          isDarkMode ? "bg-[#191925] text-white" : "bg-gray-300 text-black"
+        } appearance-none border-none focus:outline-none text-sm w-full h-full p-2 pl-4 rounded-md`}
         id="purchaseDate"
         type="date"
         onChange={(e) => handleDateSelection(e)}

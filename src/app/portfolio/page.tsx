@@ -71,7 +71,11 @@ const Portfolio = () => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className={` ${isDarkMode ? "bg-custom-dark2" : "bg-gray-300"}`}>
+    <div
+      className={`w-full flex justify-center ${
+        isDarkMode ? "bg-[#13121A]" : "bg-gray-300"
+      }`}
+    >
       {error ? (
         <ErrorHandler error={error} />
       ) : isLoading ? (
@@ -79,12 +83,12 @@ const Portfolio = () => {
       ) : (
         <main
           className={`${
-            isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
-          } flex min-h-screen flex-col items-center justify-between max-sm:pt-20 md:p-24`}
+            isDarkMode ? "bg-[#13121A]" : "bg-gray-300"
+          } flex min-h-screen flex-col items-center justify-between w-1296`}
         >
           <div
-            className={`h-full max-sm:w-full md:w-full xl:w-1/2 p-4 ${
-              isDarkMode ? "bg-custom-dark1" : "bg-white"
+            className={`h-full w-full ${
+              isDarkMode ? "bg-[#13121A]" : "bg-white"
             }`}
           >
             <FormToggler

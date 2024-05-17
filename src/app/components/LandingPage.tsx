@@ -10,7 +10,7 @@ export default function LandingPage() {
   return (
     <main
       className={`h-full md:w-full max-sm:w-full xl:w-1/2 p-4 ${
-        isDarkMode ? "bg-custom-dark1" : "bg-white"
+        isDarkMode ? "bg-[#13121A]" : "bg-white"
       }`}
     >
       <h2
