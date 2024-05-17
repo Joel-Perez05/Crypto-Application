@@ -18,8 +18,8 @@ type CoinFormProps = {
 
 const initialAssetState: InitialAssetType = {
   coinId: "",
-  purchasePrice: 0,
-  currentPrice: 0,
+  purchasedAmount: 0,
+  priceWhenPurchased: 0,
   date: "",
 };
 
@@ -48,13 +48,13 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
   }, [coinData]);
 
   useEffect(() => {
-    const { coinId, purchasePrice, date } = assetObj;
+    const { coinId, purchasedAmount, date } = assetObj;
 
     const foundCoin = coinData.find((coin: FormData) => coin.name === coinId);
 
     if (foundCoin) {
       setAssetObj((prevState) => {
-        if (prevState.currentPrice !== foundCoin.current_price) {
+        if (prevState.priceWhenPurchased !== foundCoin.current_price) {
           return {
             ...prevState,
             currentPrice: foundCoin.current_price,
@@ -71,7 +71,7 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
       }));
     }
 
-    const areInputsFilled = coinId && purchasePrice !== 0 && date;
+    const areInputsFilled = coinId && purchasedAmount !== 0 && date;
     setIsDisabled(!areInputsFilled);
   }, [assetObj, coinData]);
 

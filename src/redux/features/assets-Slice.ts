@@ -4,8 +4,8 @@ import { uid } from "uid";
 export type AssetStateType = {
   id: string;
   coinId: string;
-  purchasePrice: number;
-  currentPrice: number;
+  purchasedAmount: number;
+  priceWhenPurchased: number;
   date: string;
 };
 
@@ -19,8 +19,8 @@ const initialState: InitialStateType = {
 
 export type InitialAssetType = {
   coinId: string;
-  purchasePrice: number;
-  currentPrice: number;
+  purchasedAmount: number;
+  priceWhenPurchased: number;
   date: string;
 };
 
