@@ -46,11 +46,11 @@ const SelectCoinInput: React.FC<SelectCoinInputProps> = (props) => {
         >
           Select Coin
         </option>
-        {coinNameList.map((coin, idx) => {
+        {coinNameList.map((coin) => {
           return (
             <option
               className={`text-sm ${isDarkMode ? "text-white" : "text-black"}`}
-              key={idx}
+              key={coin}
               value={coin}
             >
               {coin}
