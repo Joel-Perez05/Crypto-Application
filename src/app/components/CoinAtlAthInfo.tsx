@@ -38,10 +38,6 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
     purchaseAmount: number | undefined
   ) => {
     if (purchasePrice && currentPrice && purchaseAmount !== undefined) {
-      console.log(purchasePrice);
-      console.log(currentPrice);
-      console.log(purchaseAmount);
-
       const multiplier = currentPrice / purchasePrice;
       const profitOrLoss = purchaseAmount * multiplier;
       if (profitOrLoss - purchaseAmount < 1) {
