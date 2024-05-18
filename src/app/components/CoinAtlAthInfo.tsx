@@ -43,11 +43,23 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
       console.log(purchaseAmount);
 
       const multiplier = currentPrice / purchasePrice;
-      const profit = purchaseAmount * multiplier;
-      return profit;
+      const profitOrLoss = purchaseAmount * multiplier;
+      if (profitOrLoss - purchaseAmount < 1) {
+        return numeral(profitOrLoss - purchaseAmount).format(".00");
+      } else if (profitOrLoss - purchaseAmount >= 1) {
+        return numeral(profitOrLoss - purchaseAmount).format("0.00");
+      } else if (profitOrLoss - purchaseAmount >= 1000) {
+        return numeral(profitOrLoss - purchaseAmount).format("0,000");
+      }
     }
   };
-  console.log(matchedAsset);
+
+  const profitLossPercentage =
+    market_data?.current_price[selectedCurrency.currency] &&
+    matchedAsset?.priceWhenPurchased
+      ? market_data?.current_price[selectedCurrency.currency] /
+        matchedAsset?.priceWhenPurchased
+      : 0;
 
   const profit = calculateProfit(
     matchedAsset?.priceWhenPurchased,
@@ -129,7 +141,17 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
               {roundedPercentChange}%
             </h3>
           </div>
-          <h3 className="w-full h-6 text-lg">Profit: {profit}</h3>
+          <h3 className="w-full h-6 text-xl">
+            Profit:
+            <span
+              className={`${
+                profitLossPercentage >= 1 ? "text-[#01F1E3]" : "text-red-600"
+              } ml-6 text-2xl`}
+            >
+              {selectedCurrency.symbol}
+              {profit}
+            </span>
+          </h3>
         </div>
         <div className="flex justify-center mt-6">
           <Square3Stack3DIcon className="w-6 h-6" />
