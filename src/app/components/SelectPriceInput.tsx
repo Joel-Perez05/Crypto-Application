@@ -17,12 +17,12 @@ const SelectPriceInput: React.FC<SelectPriceInputProps> = (props) => {
       const formattedPurchasePrice = parseFloat(PurchasePrice);
       setAssetObj((prevState) => ({
         ...prevState,
-        purchasePrice: formattedPurchasePrice,
+        purchasedAmount: formattedPurchasePrice,
       }));
     } else {
       setAssetObj((prevState) => ({
         ...prevState,
-        purchasePrice: 0,
+        purchasedAmount: 0,
       }));
     }
   };
@@ -36,14 +36,14 @@ const SelectPriceInput: React.FC<SelectPriceInputProps> = (props) => {
       } rounded-md h-11 w-full`}
     >
       <label
-        htmlFor="purchasePrice"
+        htmlFor="purchasedAmount"
         className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white pointer-events-none transition-all duration-300"
       ></label>
       <NumericFormat
         className={`${
           isDarkMode ? "bg-[#191925] text-white" : "bg-gray-300 text-black"
         } appearance-none border-none focus:outline-none text-sm w-full h-full p-2 pl-4 rounded-md`}
-        id="purchasePrice"
+        id="purchasedAmount"
         placeholder="$0"
         decimalScale={2}
         allowNegative={false}

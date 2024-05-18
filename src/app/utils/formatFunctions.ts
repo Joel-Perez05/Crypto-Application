@@ -93,3 +93,17 @@ export const convertMarketCap = (num: number | undefined) => {
     }
   }
 };
+
+export const coinPageDateFormat = (date: string | undefined) => {
+  if (!date) return "";
+
+  const parsedDate = new Date(date);
+
+  const dayOfWeek = format(parsedDate, "eee");
+  const day = format(parsedDate, "dd");
+  const month = format(parsedDate, "MMM");
+  const year = format(parsedDate, "yyyy");
+  const time = format(parsedDate, "HH:mm:ss");
+
+  return `${dayOfWeek}, ${day} ${month} ${year} ${time} GMT`;
+};

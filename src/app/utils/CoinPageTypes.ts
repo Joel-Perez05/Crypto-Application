@@ -34,7 +34,7 @@ export type CoinType = {
   };
 };
 
-type CurrencyNumberType = {
+export type CurrencyNumberType = {
   [key: string]: number;
 };
 

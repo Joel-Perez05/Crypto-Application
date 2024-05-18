@@ -57,7 +57,7 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
         if (prevState.priceWhenPurchased !== foundCoin.current_price) {
           return {
             ...prevState,
-            currentPrice: foundCoin.current_price,
+            priceWhenPurchased: foundCoin.current_price,
           };
         }
         return prevState;

@@ -74,7 +74,7 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
     <div
       className={`${
         isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
-      } md:w-full max-sm:w-full h-full rounded-2xl p-10`}
+      } w-544 h-full rounded-2xl p-10`}
     >
       <div className="mb-4 md:w-full">
         <div className="flex justify-center">

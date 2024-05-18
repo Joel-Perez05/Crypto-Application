@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { uid } from "uid";
+import { useAppSelector } from "../store";
 
 export type AssetStateType = {
   id: string;
@@ -72,5 +73,8 @@ export const assets = createSlice({
   },
 });
 
+export const useAssets = () => {
+  return useAppSelector((state) => state.assetsReducer.value);
+};
 export const { addNewAsset, deleteAsset } = assets.actions;
 export default assets.reducer;

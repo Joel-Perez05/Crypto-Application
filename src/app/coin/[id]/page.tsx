@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { CoinType } from "@/app/utils/CoinPageTypes";
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import ErrorHandler from "./ErrorHandler";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
@@ -12,6 +13,7 @@ import CoinConvertor from "@/app/components/CoinConvertor";
 import { useAppSelector } from "@/redux/store";
 import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 import CoinLinks from "@/app/components/CoinLinks";
+import Link from "next/link";
 
 type CoinPageProps = {
   params: {
@@ -21,7 +23,7 @@ type CoinPageProps = {
 
 const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const [coin, setCoin] = useState<CoinType>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>();
 
   const selectedCurrency = useSelectedCurrency();
@@ -34,10 +36,10 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
         );
         setCoin(coinResponse.data);
 
-        setIsLoading(false);
+        // setIsLoading(false);
       } catch (error: any) {
         console.error("Error fetching data:", error.message);
-        setError(error.message);
+        // setError(error.message);
       }
     };
 
@@ -47,7 +49,7 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className="max-sm:mt-14">
+    <div className="w-full flex justify-center">
       {error ? (
         <ErrorHandler error={error} />
       ) : isLoading ? (
@@ -57,50 +59,52 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
       ) : (
         <main
           className={`${
-            isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
-          } flex min-h-screen flex-col items-center justify-between md:p-20`}
+            isDarkMode ? "bg-[#13121A]" : "bg-gray-300"
+          } flex min-h-screen flex-col items-center justify-between w-1296`}
         >
-          <div className={`h-full max-sm:w-full md:w-full xl:w-4/5`}>
-            <h2
-              className={`${
-                isDarkMode ? "text-white" : "text-black"
-              } text-3xl max-sm:ml-7`}
-            >
-              Your Summary:
-            </h2>
-            <div className="mt-6 flex max-sm:flex-col">
-              <div className="flex justify-between flex-col md:w-7/12 w-full xl:mr-6">
-                <div
-                  className={` rounded-md flex md:w-full max-sm:flex-col justify-between max-sm:p-7 max-sm:-mt-4`}
-                >
-                  <CoinMainInfo
-                    links={coin?.links}
-                    image={coin?.image}
-                    symbol={coin?.symbol}
-                    name={coin?.name}
-                  />
-                  <CoinAtlAthInfo market_data={coin?.market_data} />
-                </div>
-                <div className="max-sm:-mt-6">
-                  <CoinConvertor
-                    symbol={coin?.symbol}
-                    market_data={coin?.market_data}
-                  />
-                </div>
-                <div className="w-full flex max-sm:justify-center max-sm:p-7 max-sm:-mt-4">
-                  <CoinDescription description={coin?.description} />
-                </div>
+          <div className={`h-full w-full mt-14`}>
+            <div className="flex items-center">
+              <Link href="/">
+                <ArrowLeftIcon className="text-white w-5 h-5 mr-2" />
+              </Link>
+              <h2
+                className={`${
+                  isDarkMode ? "text-white" : "text-black"
+                } text-xl`}
+              >
+                Portfolio / Your {coin?.name} Summary
+              </h2>
+            </div>
+            <div className="w-full h-420 flex justify-between mt-10">
+              <div className="w-692 h333 flex justify-between">
+                <CoinMainInfo
+                  links={coin?.links}
+                  image={coin?.image}
+                  symbol={coin?.symbol}
+                  name={coin?.name}
+                />
+                <CoinAtlAthInfo
+                  market_data={coin?.market_data}
+                  name={coin?.name}
+                />
               </div>
-              <div className="md:w-5/12 md:ml-6 max-sm:p-7 max-sm:-mt-6">
-                <div className="mb-20">
-                  <CoinMarketInfo
-                    symbol={coin?.symbol}
-                    market_data={coin?.market_data}
-                  />
-                </div>
-                <div className="">
-                  <CoinLinks links={coin?.links} />
-                </div>
+              <CoinMarketInfo
+                symbol={coin?.symbol}
+                market_data={coin?.market_data}
+              />
+            </div>
+            <div>
+              <div className="w-full flex max-sm:justify-center max-sm:p-7 max-sm:-mt-4">
+                <CoinDescription description={coin?.description} />
+              </div>
+              <div className="">
+                <CoinLinks links={coin?.links} />
+              </div>
+              <div className="max-sm:-mt-6">
+                <CoinConvertor
+                  symbol={coin?.symbol}
+                  market_data={coin?.market_data}
+                />
               </div>
             </div>
           </div>
