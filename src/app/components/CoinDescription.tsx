@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { CoinType } from "../utils/CoinPageTypes";
 import ReactHtmlParser from "react-html-parser";
 import { useAppSelector } from "@/redux/store";
@@ -11,6 +11,19 @@ type CoinDescriptionPropTypes = {
 const CoinDescription: React.FC<CoinDescriptionPropTypes> = (props) => {
   const { description } = props;
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [showReadMoreButton, setShowReadMoreButton] = useState(false);
+
+  const ref = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      setShowReadMoreButton(
+        ref.current.scrollHeight >= ref.current.clientHeight
+      );
+    }
+  }, []);
+
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
@@ -19,9 +32,20 @@ const CoinDescription: React.FC<CoinDescriptionPropTypes> = (props) => {
         isDarkMode ? " text-white" : " text-black"
       } rounded-xl text-sm `}
     >
-      <p className="w-full text-sm">
+      <p
+        className={`w-full text-sm ${isOpen ? null : "line-clamp-10"}`}
+        ref={ref}
+      >
         {ReactHtmlParser(description?.en as string)}
       </p>
+      {showReadMoreButton && (
+        <button
+          className="text-[#6060FF] text-sm"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? "...read less" : "...read more"}
+        </button>
+      )}
     </div>
   );
 };

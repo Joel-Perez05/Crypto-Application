@@ -149,14 +149,14 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
             </span>
           </h3>
         </div>
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center mt-4">
           <Square3Stack3DIcon className="w-6 h-6" />
         </div>
-        <div className="flex flex-col justify-between mt-6">
+        <div className="flex flex-col justify-between mt-4">
           <div className="h-11 w-full">
             <div className="flex items-end  justify-between">
               <div className="flex items-center">
-                <span className="mr-3">
+                <span className="mr-1">
                   <ArrowTrendingUpIcon className="w-5 h-5 text-[#01F1E3]" />
                 </span>
                 <h3>All time high:</h3>
@@ -166,22 +166,22 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
                 {formattedAth}
               </p>
             </div>
-            <p className="text-sm ml-8 mt-1">{formattedDateAth}</p>
+            <p className="text-sm ml-6 mt-1">{formattedDateAth}</p>
           </div>
-          <div className="h-11 w-full mt-2">
+          <div className="h-11 w-full mt-4">
             <div className="flex items-end justify-between ">
               <div className="flex items-center">
-                <span className="mr-3">
+                <span className="mr-1">
                   <ArrowTrendingDownIcon className="w-5 h-5 text-red-600" />
                 </span>
                 <h3>All time low:</h3>
               </div>
-              <p className="text-2xl">
+              <p className="text-xl">
                 {selectedCurrency.symbol}
                 {formattedAtl}
               </p>
             </div>
-            <p className="text-sm ml-8 mt-1">{formattedDateAtl}</p>
+            <p className="text-sm ml-6 mt-1">{formattedDateAtl}</p>
           </div>
         </div>
       </div>

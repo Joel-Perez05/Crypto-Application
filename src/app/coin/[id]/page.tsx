@@ -103,12 +103,6 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
             <div className="flex w-full justify-between  h-204">
               <CoinDescription description={coin?.description} />
               <CoinLinks links={coin?.links} />
-              {/* <div className="max-sm:-mt-6">
-                <CoinConvertor
-                  symbol={coin?.symbol}
-                  market_data={coin?.market_data}
-                />
-              </div> */}
             </div>
           </div>
         </main>

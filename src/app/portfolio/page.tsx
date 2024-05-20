@@ -73,7 +73,7 @@ const Portfolio = () => {
   return (
     <div
       className={`w-full flex justify-center ${
-        isDarkMode ? "bg-[#13121A]" : "bg-gray-300"
+        isDarkMode ? "bg-[[#13121A]]" : "bg-gray-300"
       }`}
     >
       {error ? (
@@ -83,12 +83,12 @@ const Portfolio = () => {
       ) : (
         <main
           className={`${
-            isDarkMode ? "bg-[#13121A]" : "bg-gray-300"
+            isDarkMode ? "bg-[[#13121A]]" : "bg-gray-300"
           } flex min-h-screen flex-col items-center justify-between w-1296`}
         >
           <div
             className={`h-full w-full ${
-              isDarkMode ? "bg-[#13121A]" : "bg-white"
+              isDarkMode ? "bg-[[#13121A]]" : "bg-white"
             }`}
           >
             <FormToggler
