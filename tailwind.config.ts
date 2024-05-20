@@ -34,6 +34,7 @@ const config: Config = {
         "356": "356px",
         "355": "355px",
         "380": "380px",
+        "383": "383px",
         "916": "916px",
         "48": "48px",
         "886": "886px",
@@ -42,6 +43,7 @@ const config: Config = {
         "692": "692px",
         "305": "305px",
         "222.5": "222.5px",
+        "409": "409px",
       },
       height: {
         "52": "52px",
@@ -53,9 +55,12 @@ const config: Config = {
         "74": "74px",
         "393": "393px",
         "241": "241px",
+        "250": "250px",
         "265": "265px",
         "420": "420px",
         "333": "333px",
+        "104": "104px",
+        "204": "204px",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

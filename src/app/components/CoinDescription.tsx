@@ -14,15 +14,14 @@ const CoinDescription: React.FC<CoinDescriptionPropTypes> = (props) => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className="mb-2">
-      <div
-        className={`w-full ${
-          isDarkMode ? " text-white" : " text-black"
-        } rounded-xl mt-6 prose text-sm mb-10`}
-      >
-        <h2 className="text-2xl mb-4 mt-10">Description</h2>
-        <div>{ReactHtmlParser(description?.en as string)}</div>
-      </div>
+    <div
+      className={`w-692 h-full ${
+        isDarkMode ? " text-white" : " text-black"
+      } rounded-xl text-sm `}
+    >
+      <p className="w-full text-sm">
+        {ReactHtmlParser(description?.en as string)}
+      </p>
     </div>
   );
 };

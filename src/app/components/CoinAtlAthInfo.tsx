@@ -123,7 +123,7 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
                 market_data?.price_change_percentage_24h < 0
                   ? "text-red-600"
                   : "text-[#01F1E3]"
-              } flex items-center`}
+              } flex items-center mr-6`}
             >
               {" "}
               <span className="mr-1">

@@ -76,7 +76,7 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
         isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
       } w-544 h-full rounded-2xl p-10`}
     >
-      <div className="mb-4 md:w-full">
+      <div className="mb-6 w-409 h-36 ml-4">
         <div className="flex justify-center">
           <MarketInfoData title="Market Cap" data={roundedMarketCap} />
         </div>
@@ -93,7 +93,7 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
           <MarketInfoData title="Volume/Market" data={volumeToMarket} />
         </div>
       </div>
-      <div>
+      <div className="w-409 h-104 ml-4">
         <div className="flex justify-center">
           <MarketInfoDataTwo
             title="Total Volume"
@@ -115,16 +115,16 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
             symbol={allCaps}
           />
         </div>
-        <div className="md:mt-2 xl:mt-6">
+        <div className="mt-6 w-432 h-7">
           <div className="flex justify-between items-center md:text-sm mb-1">
-            <h3 className="text-amber-500">●{circulatingPercent}%</h3>
-            <h3 className="text-orange-200">●{maxSupplyPercent}%</h3>
+            <h3 className="text-[#D4770C]">●{circulatingPercent}%</h3>
+            <h3 className="text-[#F8D2A6]">●{maxSupplyPercent}%</h3>
           </div>
           <ProgressBar
             completed={market_data?.circulating_supply ?? 0}
             maxCompleted={market_data?.max_supply ?? 0}
-            bgColor="#f59e0b"
-            baseBgColor="#fed7aa"
+            bgColor="#D4770C"
+            baseBgColor="#F8D2A6"
             height="8px"
             width="100%"
             isLabelVisible={false}
