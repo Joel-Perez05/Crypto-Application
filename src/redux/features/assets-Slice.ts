@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { uid } from "uid";
+import { useAppSelector } from "../store";
 
 export type AssetStateType = {
   id: string;
   coinId: string;
-  purchasePrice: number;
-  currentPrice: number;
+  purchasedAmount: number;
+  priceWhenPurchased: number;
   date: string;
 };
 
@@ -19,8 +20,8 @@ const initialState: InitialStateType = {
 
 export type InitialAssetType = {
   coinId: string;
-  purchasePrice: number;
-  currentPrice: number;
+  purchasedAmount: number;
+  priceWhenPurchased: number;
   date: string;
 };
 
@@ -72,5 +73,8 @@ export const assets = createSlice({
   },
 });
 
+export const useAssets = () => {
+  return useAppSelector((state) => state.assetsReducer.value);
+};
 export const { addNewAsset, deleteAsset } = assets.actions;
 export default assets.reducer;

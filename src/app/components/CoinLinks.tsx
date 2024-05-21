@@ -29,12 +29,12 @@ const CoinLinks: React.FC<CoinLinkPropsType> = (props) => {
   };
 
   return (
-    <div className="w-full">
-      <div className="flex flex-col justify-center">
+    <div className="w-544 h-full">
+      <div className="flex flex-col gap-6">
         <div
           className={`${
-            isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
-          } md:w-full h-12 rounded-xl flex justify-center items-center mt-2`}
+            isDarkMode ? "text-white bg-[#1E1932]" : "text-black bg-white"
+          } w-full h-52 rounded-xl flex justify-center items-center`}
         >
           <LinkIcon className="w-5 h-5 md:mr-2" />
           <a href={linkOne} target="_blank">
@@ -46,8 +46,8 @@ const CoinLinks: React.FC<CoinLinkPropsType> = (props) => {
         </div>
         <div
           className={`${
-            isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
-          } md:w-full h-12 rounded-xl flex justify-center items-center mt-8`}
+            isDarkMode ? "text-white bg-[#1E1932]" : "text-black bg-white"
+          } w-full h-52 rounded-xl flex justify-center items-center`}
         >
           <LinkIcon className="w-5 h-5 md:mr-2" />
           <a href={linkTwo} target="_blank">
@@ -59,8 +59,8 @@ const CoinLinks: React.FC<CoinLinkPropsType> = (props) => {
         </div>
         <div
           className={`${
-            isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
-          } md:w-full h-12 rounded-xl flex justify-center items-center mt-8`}
+            isDarkMode ? "text-white bg-[#1E1932]" : "text-black bg-white"
+          } w-full h-52 rounded-xl flex justify-center items-center`}
         >
           <LinkIcon className="w-5 h-5 md:mr-2" />
           <a href={linkThree} target="_blank">

@@ -1,36 +1,71 @@
 "use client";
-import { CoinType } from "../utils/CoinPageTypes";
+import { useEffect, useState } from "react";
+import { CoinType, CurrencyNumberType } from "../utils/CoinPageTypes";
 import { Square3Stack3DIcon } from "@heroicons/react/24/solid";
 import {
   ArrowTrendingDownIcon,
   ArrowTrendingUpIcon,
 } from "@heroicons/react/20/solid";
 import numeral from "numeral";
-import format from "date-fns/format";
-import { useAppSelector } from "@/redux/store";
+import { useAppSelector, AppDispatch } from "@/redux/store";
+import { useDispatch } from "react-redux";
 import { useSelectedCurrency } from "@/redux/features/currency-Slice";
+import { coinPageDateFormat } from "../utils/formatFunctions";
+import { useAssets, getAssets } from "@/redux/features/assets-Slice";
 
 type MarketDataPropsType = {
   market_data?: CoinType["market_data"];
+  name?: string;
 };
 
 const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
-  const { market_data } = props;
+  const { market_data, name } = props;
 
   const selectedCurrency = useSelectedCurrency();
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(getAssets());
+  }, []);
+
+  const assets = useAssets();
+  const matchedAsset = assets.find((asset) => asset.coinId === name);
+
+  const calculateProfit = (
+    purchasePrice: number | undefined,
+    currentPrice: number | undefined,
+    purchaseAmount: number | undefined
+  ) => {
+    if (purchasePrice && currentPrice && purchaseAmount !== undefined) {
+      const multiplier = currentPrice / purchasePrice;
+      const profitOrLoss = purchaseAmount * multiplier;
+      if (profitOrLoss - purchaseAmount < 1) {
+        return numeral(profitOrLoss - purchaseAmount).format(".00");
+      } else if (profitOrLoss - purchaseAmount >= 1) {
+        return numeral(profitOrLoss - purchaseAmount).format("0.00");
+      } else if (profitOrLoss - purchaseAmount >= 1000) {
+        return numeral(profitOrLoss - purchaseAmount).format("0,000");
+      }
+    }
+  };
+
+  const profitLossPercentage =
+    market_data?.current_price[selectedCurrency.currency] &&
+    matchedAsset?.priceWhenPurchased
+      ? market_data?.current_price[selectedCurrency.currency] /
+        matchedAsset?.priceWhenPurchased
+      : 0;
+
+  const profit = calculateProfit(
+    matchedAsset?.priceWhenPurchased,
+    market_data?.current_price[selectedCurrency.currency],
+    matchedAsset?.purchasedAmount
+  );
 
   const formatToNearestTenth = (num: number | undefined) => {
     if (num !== undefined) {
       return numeral(num).format("0.00");
-    }
-  };
-
-  const formatDate = (date: string | undefined) => {
-    if (date !== undefined) {
-      const parsedDate = new Date(date);
-      if (!isNaN(parsedDate.getTime())) {
-        return format(parsedDate, "MM-dd-yyyy");
-      }
     }
   };
 
@@ -60,10 +95,10 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
   const formattedAtl = roundToSixth(
     market_data?.atl[selectedCurrency.currency]
   );
-  const formattedDateAth = formatDate(
+  const formattedDateAth = coinPageDateFormat(
     market_data?.ath_date[selectedCurrency.currency]
   );
-  const formattedDateAtl = formatDate(
+  const formattedDateAtl = coinPageDateFormat(
     market_data?.atl_date[selectedCurrency.currency]
   );
 
@@ -72,69 +107,82 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
   return (
     <div
       className={`${
-        isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
-      } md:w-80 xl:w-1/2 max-sm:w-full max-sm:mb-4 h-full pt-10 pb-6 rounded-xl flex items-center justify-evenly flex-col`}
+        isDarkMode ? "text-white bg-[#1E1932]" : "text-black bg-white"
+      } w-355 h-333 rounded-xl flex items-center justify-center`}
     >
-      <div className="flex flex-col items-center w-full">
-        <div className="flex md:justify-evenly max-sm:justify-center items-end mb-4 w-full">
-          <h2 className="text-4xl max-sm:mr-4">
-            {selectedCurrency.symbol}
-            {formattedPrice}
-          </h2>
-          <h3
-            className={`${
-              market_data?.price_change_percentage_24h !== undefined &&
-              market_data?.price_change_percentage_24h < 0
-                ? "text-red-600"
-                : "text-cyan-500"
-            } flex items-center text-lg`}
-          >
-            {" "}
-            <span className="mr-1">
-              {market_data?.price_change_percentage_24h !== undefined &&
-              market_data?.price_change_percentage_24h < 0 ? (
-                <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
-              ) : (
-                <ArrowTrendingUpIcon className="w-4 h-4 text-cyan-500" />
-              )}
+      <div className="w-243 h72">
+        <div className="h-69 w-full flex flex-col justify-between">
+          <div className="w-full h-7 flex justify-between items-end">
+            <h2 className="text-3xl font-bold">
+              {selectedCurrency.symbol}
+              {formattedPrice}
+            </h2>
+            <h3
+              className={`${
+                market_data?.price_change_percentage_24h !== undefined &&
+                market_data?.price_change_percentage_24h < 0
+                  ? "text-red-600"
+                  : "text-[#01F1E3]"
+              } flex items-center mr-6`}
+            >
+              {" "}
+              <span className="mr-1">
+                {market_data?.price_change_percentage_24h !== undefined &&
+                market_data?.price_change_percentage_24h < 0 ? (
+                  <ArrowTrendingDownIcon className="w-4 h-4 text-red-600" />
+                ) : (
+                  <ArrowTrendingUpIcon className="w-4 h-4 text-[#01F1E3]" />
+                )}
+              </span>
+              {roundedPercentChange}%
+            </h3>
+          </div>
+          <h3 className="w-full h-6 text-xl">
+            Profit:
+            <span
+              className={`${
+                profitLossPercentage >= 1 ? "text-[#01F1E3]" : "text-red-600"
+              } ml-6 text-2xl`}
+            >
+              {selectedCurrency.symbol}
+              {profit}
             </span>
-            {roundedPercentChange}%
           </h3>
         </div>
-        <Square3Stack3DIcon className="w-8 h-8 mb-4" />
-      </div>
-      <div className="flex md:justify-between items-center flex-col w-full">
-        <div className="md:w-4/5">
-          <div className="flex items-center md:justify-start xl:justify-center">
-            <div className="flex items-center">
-              <span className="mr-1">
-                <ArrowTrendingUpIcon className="w-6 h-6 text-cyan-500" />
-              </span>
-              <h3 className="">All time high:</h3>
-            </div>
-            <p className="ml-6 text-2xl">
-              {selectedCurrency.symbol}
-              {formattedAth}
-            </p>
-          </div>
-          <p className="ml-6 xl:ml-32 max-sm:ml-6 mt-1">{formattedDateAth}</p>
+        <div className="flex justify-center mt-4">
+          <Square3Stack3DIcon className="w-6 h-6" />
         </div>
-        <div className="mt-2 md:w-4/5">
-          <div className="flex items-center md:justify-start xl:justify-center">
-            <div className="flex items-center">
-              <span className="mr-1">
-                <ArrowTrendingDownIcon className="w-6 h-6 text-red-600" />
-              </span>
-              <h3 className="">All time low:</h3>
+        <div className="flex flex-col justify-between mt-4">
+          <div className="h-11 w-full">
+            <div className="flex items-end  justify-between">
+              <div className="flex items-center">
+                <span className="mr-1">
+                  <ArrowTrendingUpIcon className="w-5 h-5 text-[#01F1E3]" />
+                </span>
+                <h3>All time high:</h3>
+              </div>
+              <p className="text-xl">
+                {selectedCurrency.symbol}
+                {formattedAth}
+              </p>
             </div>
-            <p className="ml-8 text-2xl">
-              {selectedCurrency.symbol}
-              {formattedAtl}
-            </p>
+            <p className="text-sm ml-6 mt-1">{formattedDateAth}</p>
           </div>
-          <p className="md:ml-6 xl:ml-32 max-sm:ml-6 mt-1">
-            {formattedDateAtl}
-          </p>
+          <div className="h-11 w-full mt-4">
+            <div className="flex items-end justify-between ">
+              <div className="flex items-center">
+                <span className="mr-1">
+                  <ArrowTrendingDownIcon className="w-5 h-5 text-red-600" />
+                </span>
+                <h3>All time low:</h3>
+              </div>
+              <p className="text-xl">
+                {selectedCurrency.symbol}
+                {formattedAtl}
+              </p>
+            </div>
+            <p className="text-sm ml-6 mt-1">{formattedDateAtl}</p>
+          </div>
         </div>
       </div>
     </div>

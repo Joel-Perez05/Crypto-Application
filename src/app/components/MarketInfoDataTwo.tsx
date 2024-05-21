@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type MarketCapInfoPropsType = {
   title: string;
@@ -12,8 +11,6 @@ type MarketCapInfoPropsType = {
 const MarketInfoDataTwo: React.FC<MarketCapInfoPropsType> = (props) => {
   const { title, data, symbol } = props;
 
-  const selectedCurrency = useSelectedCurrency();
-
   return (
     <div className="flex justify-between items-center w-full mb-2">
       <div className="flex items-center justify-start w-1/2">
@@ -22,7 +19,6 @@ const MarketInfoDataTwo: React.FC<MarketCapInfoPropsType> = (props) => {
       </div>
       <div className="w-1/2 flex justify-start ml-4">
         <h3 className="md:text-lg">
-          {title !== "Volume/Market" ? selectedCurrency.symbol : null}
           {data}
           <span className="ml-2">{symbol}</span>
         </h3>

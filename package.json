@@ -41,6 +41,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-html-parser": "^2.0.6",
+    "@types/tailwindcss": "^3.1.0",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",

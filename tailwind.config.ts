@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 
+import plugin from "tailwindcss/plugin";
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -26,27 +28,41 @@ const config: Config = {
         "170": "170px",
         "265": "265px",
         "244": "244px",
+        "243": "243px",
         "110": "110px",
         "131": "131px",
         "108": "108px",
         "101": "101px",
         "356": "356px",
+        "355": "355px",
         "380": "380px",
+        "383": "383px",
         "916": "916px",
         "48": "48px",
         "886": "886px",
         "790": "790px",
         "297": "297px",
+        "692": "692px",
+        "305": "305px",
         "222.5": "222.5px",
+        "409": "409px",
       },
       height: {
+        "52": "52px",
         "56": "56px",
+        "69": "69px",
         "48": "48px",
         "45": "45px",
         "216": "216px",
         "74": "74px",
         "393": "393px",
         "241": "241px",
+        "250": "250px",
+        "265": "265px",
+        "420": "420px",
+        "333": "333px",
+        "104": "104px",
+        "204": "204px",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -64,6 +80,18 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      const newUtilities = {
+        ".line-clamp-10": {
+          display: "-webkit-box",
+          "-webkit-box-orient": "vertical",
+          "-webkit-line-clamp": "10",
+          overflow: "hidden",
+        },
+      };
+      addUtilities(newUtilities);
+    }),
+  ],
 };
 export default config;

@@ -21,8 +21,8 @@ const Assets: React.FC<CoinDataProps> = (props) => {
         coinImg={allCoins.image}
         coinSymbol={allCoins.symbol}
         currentPrice={allCoins.current_price}
-        priceWhenPurchased={asset.currentPrice}
-        purchasePrice={asset.purchasePrice}
+        priceWhenPurchased={asset.priceWhenPurchased}
+        purchasePrice={asset.purchasedAmount}
         purchaseDate={asset.date}
       />
       <MarketDataInfo allCoins={allCoins} />
