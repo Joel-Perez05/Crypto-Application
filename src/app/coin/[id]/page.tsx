@@ -23,7 +23,7 @@ type CoinPageProps = {
 
 const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const [coin, setCoin] = useState<CoinType>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | undefined>();
 
   const selectedCurrency = useSelectedCurrency();
@@ -36,10 +36,10 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
         );
         setCoin(coinResponse.data);
 
-        // setIsLoading(false);
+        setIsLoading(false);
       } catch (error: any) {
         console.error("Error fetching data:", error.message);
-        // setError(error.message);
+        setError(error.message);
       }
     };
 
