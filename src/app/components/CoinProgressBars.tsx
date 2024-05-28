@@ -1,37 +1,56 @@
 "use client";
 import React from "react";
 import ProgressBar from "@ramonak/react-progress-bar";
+import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type ProgressBarType = {
-  titleColor: string;
   titleCompleted: string;
   completed: number;
-  completedColor: string;
-  titleMaxColor: string;
   titleMaxCompleted: string;
   maxCompleted: number;
-  maxCompletedColor: string;
+  percentChangeActual: number;
 };
 
 const CoinProgressBars: React.FC<ProgressBarType> = (props) => {
+  const {
+    titleCompleted,
+    completed,
+    titleMaxCompleted,
+    maxCompleted,
+    percentChangeActual,
+  } = props;
+
+  const selectedCurrency = useSelectedCurrency();
+
   return (
-    <div className="w-36">
-      <span className="flex justify-around">
-        <p className={props.titleColor}>{props.titleCompleted}</p>
-        <p className={props.titleMaxColor}>{props.titleMaxCompleted}</p>
-      </span>
-      <span>
-        <ProgressBar
-          completed={props.completed}
-          maxCompleted={props.maxCompleted}
-          bgColor={props.completedColor}
-          baseBgColor={props.maxCompletedColor}
-          height="10px"
-          width="80%"
-          isLabelVisible={false}
-          className="flex justify-center"
-        />
-      </span>
+    <div className="w-228 h-26">
+      <div className="flex justify-between">
+        <h3
+          className={`text-xs ${
+            percentChangeActual < 0 ? "text-[#FE2264]" : "text-[#00B1A7]"
+          }`}
+        >
+          ●{selectedCurrency.symbol}
+          {titleCompleted}
+        </h3>
+        <h3
+          className={`text-xs ${
+            percentChangeActual < 0 ? "text-[#FBBAD1]" : "text-[#AFE5E5]"
+          }`}
+        >
+          ●{selectedCurrency.symbol}
+          {titleMaxCompleted}
+        </h3>
+      </div>
+      <ProgressBar
+        completed={completed}
+        maxCompleted={maxCompleted}
+        bgColor={percentChangeActual < 0 ? "#FE2264" : "#00B1A7"}
+        baseBgColor={percentChangeActual < 0 ? "#FBBAD1" : "#AFE5E5"}
+        height="6px"
+        width="100%"
+        isLabelVisible={false}
+      />
     </div>
   );
 };
