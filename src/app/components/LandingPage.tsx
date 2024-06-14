@@ -3,42 +3,33 @@ import LineChart from "./LineChart";
 import BarChart from "./BarChart";
 import Coins from "./Coins";
 import { useAppSelector } from "@/redux/store";
+import CoinConverterToggle from "./CoinConverterToggle";
 
 export default function LandingPage() {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
     <main
-      className={`h-full md:w-full max-sm:w-full xl:w-1/2 p-4 ${
-        isDarkMode ? "bg-[#13121A]" : "bg-white"
-      }`}
+      className={`h-full w-1296 ${isDarkMode ? "bg-[#13121A]" : "bg-white"}`}
     >
-      <h2
-        className={`${isDarkMode ? "text-white" : "text-black"} text-3xl mb-6`}
-      >
-        Your Overview
-      </h2>
-      <div className="flex md:justify-around max-sm:flex-col">
+      <CoinConverterToggle />
+      <div className="flex justify-between w-full h-404 max-sm:flex-col">
         <div
-          className={`rounded-2xl max-sm:mb-6 p-4 md:w-5/12 h-72 ${
-            isDarkMode
-              ? " text-white bg-custom-dark2"
-              : "text-black bg-gray-300"
+          className={`rounded-xl w-632 h-full ${
+            isDarkMode ? " text-white bg-[#1b1932]" : "text-black bg-gray-300"
           }`}
         >
           <LineChart />
         </div>
         <div
-          className={`rounded-2xl p-4 md:w-5/12 h-72 ${
-            isDarkMode ? "text-white bg-custom-dark2" : "text-black bg-gray-300"
+          className={`rounded-xl w-632 h-full ${
+            isDarkMode ? "text-white bg-[#201932]" : "text-black bg-gray-300"
           } `}
         >
           <BarChart />
         </div>
       </div>
-      <div className="flex justify-center max-sm:mt-10 md:mt-20">
-        <Coins />
-      </div>
+      <Coins />
     </main>
   );
 }
