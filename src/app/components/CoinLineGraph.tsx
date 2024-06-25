@@ -9,7 +9,6 @@ import {
   Tooltip,
   LinearScale,
 } from "chart.js";
-import { useAppSelector } from "@/redux/store";
 import getCoinGradient from "../utils/CoinColorGradient";
 
 type ChartDataType = {

@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
 import getGradient from "../utils/getGradient";
+import { useAppSelector } from "@/redux/store";
 import {
   Chart as ChartJS,
   ChartData,
@@ -35,6 +36,8 @@ export default function LineChart() {
   const [bitcoinPrice, setBitcoinPrice] = useState<[]>([]);
   const [todaysDate, setTodaysDate] = useState<string>("");
   const [todaysPrice, setTodaysPrice] = useState<number>(0);
+
+  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   const selectedCurrency = useSelectedCurrency();
 
@@ -168,7 +171,11 @@ export default function LineChart() {
   };
 
   return (
-    <div>
+    <div
+      className={`rounded-xl w-632 h-full p-6 ${
+        isDarkMode ? " text-white bg-[#1b1932]" : "text-black bg-gray-300"
+      }`}
+    >
       <div className=" z-40 absolute">
         <h3>Bitcoin</h3>
         <h2 className="text-2xl">
