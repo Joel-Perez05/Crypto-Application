@@ -5,6 +5,7 @@ import axios from "axios";
 import { Line } from "react-chartjs-2";
 import getGradient from "../utils/getGradient";
 import { useAppSelector } from "@/redux/store";
+import homepageGradient from "../utils/homePageGraphGradients";
 import {
   Chart as ChartJS,
   ChartData,
@@ -20,6 +21,7 @@ import {
   Legend,
 } from "chart.js";
 import { useSelectedCurrency } from "@/redux/features/currency-Slice";
+import { useSelectedInterval } from "@/redux/features/interval-Slice";
 
 ChartJS.register(
   CategoryScale,
@@ -41,10 +43,12 @@ export default function LineChart() {
 
   const selectedCurrency = useSelectedCurrency();
 
+  const selectedInterval = useSelectedInterval();
+
   useEffect(() => {
     axios
       .get(
-        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${selectedCurrency.currency}&days=180&interval=daily`
+        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${selectedCurrency.currency}&days=365&interval=daily`
       )
       .then((res) => {
         setBitcoinPrice(res.data.prices);
@@ -59,7 +63,7 @@ export default function LineChart() {
       })
       .catch((err) => err);
     const dateObject = new Date();
-    const formattedDate = format(dateObject, "MMM dd, yyyy");
+    const formattedDate = format(dateObject, "MMMM dd, yyyy");
     setTodaysDate(formattedDate);
   }, [selectedCurrency]);
 
@@ -114,16 +118,15 @@ export default function LineChart() {
     },
     scales: {
       x: {
-        display: true,
-        min: 151,
-        max: 180,
+        min: selectedInterval,
+        max: 365,
         grid: {
           display: false,
         },
         ticks: {
           display: true,
           font: {
-            size: 14,
+            size: 10,
           },
         },
       },
@@ -154,7 +157,7 @@ export default function LineChart() {
         label: "Bitcoin Price",
         data: bitcoinPrice.map((price) => price[1]),
         tension: 0.4,
-        borderColor: "#00FF5F",
+        borderColor: "#7878FA",
         pointStyle: false,
         fill: true,
         backgroundColor: function (context: any) {
@@ -164,7 +167,13 @@ export default function LineChart() {
           if (!chartArea) {
             return;
           }
-          return getGradient(ctx, chartArea);
+          return homepageGradient(
+            ctx,
+            chartArea,
+            "#7474f263",
+            "#7474f260",
+            "#1b1932"
+          );
         },
       } as ChartDataset<"line", number[]>,
     ],
@@ -172,19 +181,21 @@ export default function LineChart() {
 
   return (
     <div
-      className={`rounded-xl w-632 h-full p-6 ${
-        isDarkMode ? " text-white bg-[#1b1932]" : "text-black bg-gray-300"
-      }`}
+      className={`rounded-xl flex flex-col justify-between p-6 w-632 h-full ${
+        isDarkMode ? "text-[#7474f260] bg-[#1b1932]" : " bg-gray-300"
+      } `}
     >
-      <div className=" z-40 absolute">
-        <h3>Bitcoin</h3>
-        <h2 className="text-2xl">
-          {selectedCurrency.symbol}
-          {todaysPrice}
-        </h2>
-        <h3>{todaysDate}</h3>
+      <div className="w-174 h-116 flex flex-col justify-between">
+        <h3 className="w-160 h-6 text-[#D1D1D1] text-xl">Bitcoin (BTC)</h3>
+        <div className="w-174 h-68  flex flex-col justify-between">
+          <h2 className="text-white text-3xl font-bold">
+            {selectedCurrency.symbol}
+            {todaysPrice}
+          </h2>
+          <h3 className="text-[#B9B9BA]">{todaysDate}</h3>
+        </div>
       </div>
-      <div className="w-full h-full pt-24">
+      <div className="w-584 h-216">
         <Line options={options} data={data} />
       </div>
     </div>

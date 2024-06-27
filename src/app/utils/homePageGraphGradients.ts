@@ -4,7 +4,8 @@ export default function homepageGradient(
   ctx: any,
   chartArea: any,
   color: string,
-  colorTwo: string
+  colorTwo: string,
+  colorThree: string
 ): CanvasGradient {
   const chartWidth = chartArea.right - chartArea.left;
   const chartHeight = chartArea.bottom - chartArea.top;
@@ -16,7 +17,7 @@ export default function homepageGradient(
 
   gradient.addColorStop(0.35, colorTwo);
   gradient.addColorStop(0.64, color);
-  gradient.addColorStop(0.01, "#201932");
+  gradient.addColorStop(0.01, colorThree);
 
   return gradient;
 }

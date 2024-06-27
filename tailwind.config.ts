@@ -84,6 +84,8 @@ const config: Config = {
         "502": "502px",
         "116": "116px",
         "68": "68px",
+        "34": "34px",
+        "816": "816px",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

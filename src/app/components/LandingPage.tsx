@@ -9,7 +9,9 @@ export default function LandingPage() {
 
   return (
     <main
-      className={`h-full w-1296 ${isDarkMode ? "bg-[#13121A]" : "bg-white"}`}
+      className={`h-full w-1296 mt-14 mb-14 ${
+        isDarkMode ? "bg-[#13121A]" : "bg-white"
+      }`}
     >
       <CoinConverterToggle />
       <HomePageGraphs />

@@ -21,6 +21,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useSelectedInterval } from "@/redux/features/interval-Slice";
 
 ChartJS.register(
   CategoryScale,
@@ -41,10 +42,12 @@ export default function BarChart() {
 
   const selectedCurrency = useSelectedCurrency();
 
+  const selectedInterval = useSelectedInterval();
+
   useEffect(() => {
     axios
       .get(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily"
+        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=365&interval=daily"
       )
       .then((res) => {
         setBitcoinVolume(res.data.total_volumes);
@@ -125,15 +128,15 @@ export default function BarChart() {
     },
     scales: {
       x: {
-        min: 151,
-        max: 180,
+        min: selectedInterval,
+        max: 365,
         grid: {
           display: false,
         },
         ticks: {
           display: true,
           font: {
-            size: 14,
+            size: 10,
           },
         },
       },
@@ -174,7 +177,13 @@ export default function BarChart() {
           if (!chartArea) {
             return;
           }
-          return homepageGradient(ctx, chartArea, "#9D62D9", "#B374F2");
+          return homepageGradient(
+            ctx,
+            chartArea,
+            "#9D62D9",
+            "#B374F2",
+            "#201932"
+          );
         },
         borderRadius: 4,
       } as ChartDataset<"bar", number[]>,
@@ -190,7 +199,7 @@ export default function BarChart() {
       <div className="w-174 h-116 flex flex-col justify-between">
         <h3 className="w-160 h-6 text-[#D1D1D1] text-xl">Volume 24h</h3>
         <div className="w-174 h-68  flex flex-col justify-between">
-          <h2 className="text-white text-2xl">
+          <h2 className="text-white text-3xl font-bold">
             {selectedCurrency.symbol}
             {formattedVolume}
           </h2>

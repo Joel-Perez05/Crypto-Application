@@ -87,16 +87,14 @@ export default function Coins() {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div
-      className={`${isDarkMode ? "bg-[#13121A]" : "bg-white"} w-full h-full`}
-    >
+    <div className={`${isDarkMode ? "bg-[#13121A]" : "bg-white"} w-full h-816`}>
       <CoinTableHeader />
       <InfiniteScroll
         dataLength={displayCount}
         next={handleNext}
         hasMore={displayCount < 50}
         loader={<h4>Loading...</h4>}
-        height={1000}
+        height={766}
         className={classes.customInfiniteScroll}
       >
         {allCoins.map((coin, idx) => {
