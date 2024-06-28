@@ -35,7 +35,7 @@ const ErrorHandler: React.FC<ErrorPropsType> = (props) => {
     >
       <div className="text-red-500 text-3xl flex flex-col justify-center items-center">
         <h2 className="mb-4">
-          Uh oh we're having some trouble fetching your data.
+          Uh oh we are having some trouble fetching your data.
         </h2>
         <h2>{error}</h2>
         <ToastContainer />
