@@ -4,7 +4,9 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import assetsReducer from "./features/assets-Slice";
 import themeReducer from "./features/theme-Slice";
+import intervalReducer from "./features/interval-Slice";
 import currencyReducer from "./features/currency-Slice";
+
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 const persistConfig = {
@@ -17,6 +19,7 @@ const rootReducer = combineReducers({
   currencyReducer: persistReducer(persistConfig, currencyReducer),
   themeReducer,
   assetsReducer,
+  intervalReducer,
 });
 
 export const store = configureStore({
