@@ -26,14 +26,18 @@ export type InitialAssetType = {
 };
 
 export const getAssets = createAsyncThunk("assets/getAssets", async () => {
-  try {
-    const existingAssets = JSON.parse(
-      localStorage.getItem("assets") || "[]"
-    ) as AssetStateType[];
-    return existingAssets;
-  } catch (error) {
-    console.error("Error fetching assets:", error);
-    throw error;
+  if (typeof window !== "undefined") {
+    try {
+      const existingAssets = JSON.parse(
+        localStorage.getItem("assets") || "[]"
+      ) as AssetStateType[];
+      return existingAssets;
+    } catch (error) {
+      console.error("Error fetching assets:", error);
+      throw error;
+    }
+  } else {
+    return [];
   }
 });
 
@@ -49,18 +53,23 @@ export const assets = createSlice({
 
       state.value.push(newAsset);
 
-      localStorage.setItem("assets", JSON.stringify(state.value));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("assets", JSON.stringify(state.value));
+      }
     },
     deleteAsset: (state, action: PayloadAction<string>) => {
       const assetIdToDelete = action.payload;
-      const existingAssets: AssetStateType[] = JSON.parse(
-        localStorage.getItem("assets") || "[]"
-      );
+      const existingAssets: AssetStateType[] =
+        typeof window !== "undefined"
+          ? JSON.parse(localStorage.getItem("assets") || "[]")
+          : [];
       const updatedAssets = existingAssets.filter(
         (asset) => asset.id !== assetIdToDelete
       );
 
-      localStorage.setItem("assets", JSON.stringify(updatedAssets));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("assets", JSON.stringify(updatedAssets));
+      }
     },
   },
   extraReducers: (builder) => {
