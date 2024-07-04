@@ -4,19 +4,13 @@ type InitialThemeStateType = {
   isDarkMode: boolean;
 };
 
-let initialState: InitialThemeStateType = { isDarkMode: true };
-
-if (typeof window !== "undefined") {
-  const storedTheme = localStorage.getItem("theme");
-  if (storedTheme) {
-    initialState = JSON.parse(storedTheme);
-  }
-}
+const storedTheme = localStorage.getItem("theme");
+const initialState: InitialThemeStateType = storedTheme
+  ? JSON.parse(storedTheme)
+  : { isDarkMode: true };
 
 const setTheme = (theme: boolean) => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("theme", JSON.stringify({ isDarkMode: theme }));
-  }
+  localStorage.setItem("theme", JSON.stringify({ isDarkMode: theme }));
 };
 
 const theme = createSlice({

@@ -6,6 +6,7 @@ import assetsReducer from "./features/assets-Slice";
 import themeReducer from "./features/theme-Slice";
 import intervalReducer from "./features/interval-Slice";
 import currencyReducer from "./features/currency-Slice";
+import togglerReducer from "./features/convertorToggler-Slice";
 
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   themeReducer,
   assetsReducer,
   intervalReducer,
+  togglerReducer,
 });
 
 export const store = configureStore({

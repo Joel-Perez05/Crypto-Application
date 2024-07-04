@@ -47,7 +47,7 @@ export default function BarChart() {
   useEffect(() => {
     axios
       .get(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=365&interval=daily"
+        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${selectedCurrency.currency}&days=365&interval=daily`
       )
       .then((res) => {
         setBitcoinVolume(res.data.total_volumes);
@@ -55,7 +55,7 @@ export default function BarChart() {
       .catch((err) => err);
     axios
       .get(
-        "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_vol=true&precision=2"
+        `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${selectedCurrency.currency}&include_24hr_vol=true&precision=2`
       )
       .then((res) => {
         setTodaysVolume(res.data.bitcoin.usd_24h_vol);
@@ -64,7 +64,7 @@ export default function BarChart() {
     const dateObject = new Date();
     const formattedDate = format(dateObject, "MMMM dd, yyyy");
     setTodaysDate(formattedDate);
-  }, []);
+  }, [selectedCurrency.symbol]);
 
   const formatBitcoinVolume = (volume: number) => {
     if (volume >= 1000000000) {

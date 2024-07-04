@@ -6,7 +6,6 @@ import { SearchBarNamesTypes } from "../utils/CoinPageTypes";
 import Link from "next/link";
 import InfiniteScroll from "react-infinite-scroll-component";
 import classes from "../../styles/searchbar.module.css";
-import { useAppSelector } from "@/redux/store";
 
 const SearchBar = () => {
   const [error, setError] = useState<string | undefined>();
@@ -45,30 +44,22 @@ const SearchBar = () => {
     coin.toLowerCase().includes(searchInput.toLowerCase())
   );
 
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
-
   return (
     <div className="flex items-center w-356 h-48 relative">
       <div className="relative h-full w-full">
         <input
           onChange={handleSearch}
           placeholder="Search..."
-          className={`${
-            isDarkMode ? " bg-[#191925] text-white" : "bg-white text-black"
-          } rounded-md pl-10 pr-4 h-full border w-full border-[#212140] focus:outline-none`}
+          className={`dark:bg-[#191925] dark:text-white bg-[#ccccfa63] text-[#424286] rounded-md pl-10 pr-4 h-full border w-full border-white dark:border-[#212140] focus:outline-none`}
           type="text"
         />
         <MagnifyingGlassIcon
-          className={`${
-            isDarkMode ? "text-gray-500" : "text-black"
-          } absolute left-3 top-3.5 w-5 h-5 pointer-events-none`}
+          className={`dark:text-[#D1D1D6] text-[#424286] absolute left-3 top-3.5 w-5 h-5 pointer-events-none`}
         />
 
         {searchInput.trim() !== "" && error ? (
           <div
-            className={`${
-              isDarkMode ? "bg-custom-dark1" : "bg-white"
-            } p-4 w-full text-red-500 absolute top-11 left-0 z-50`}
+            className={`dark:bg-[#191925] bg-white p-4 w-full rounded-md text-red-500 absolute top-11 left-0 z-50`}
           >
             API: {error}
           </div>
@@ -76,11 +67,7 @@ const SearchBar = () => {
           searchInput.trim() !== "" &&
           !error && (
             <div
-              className={`${
-                isDarkMode
-                  ? "bg-custom-dark1 text-white"
-                  : "bg-white text-black"
-              } w-full  absolute top-11 left-0 z-50`}
+              className={`dark:bg-[#191925] dark:text-white rounded-md bg-white text-[#424286] w-full  absolute top-11 left-0 z-50`}
             >
               <InfiniteScroll
                 dataLength={displayCount}

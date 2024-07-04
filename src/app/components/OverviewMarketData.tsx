@@ -36,11 +36,11 @@ const OverviewMarketData = () => {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full dark:bg-[#13121A] bg-white flex justify-center">
       <div
-        className={`sticky border rounded-md border-gray-700 top-0 z-50 flex justify-center w-1440 h-56 py-8 ${
-          isDarkMode ? "bg-[#1E1932] text-white" : "bg-white text-black"
-        }`}
+        className="sticky border rounded-md border-gray-700 top-0 z-50 flex justify-center w-1440 h-56 py-8 
+        dark:bg-[#1E1932] text-white bg-[#353570] 
+        "
       >
         <div className="flex gap-x-8 text-xs justify-center w-full">
           <TotalCoins totalCoins={totalCoins?.active_cryptocurrencies} />

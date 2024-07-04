@@ -1,21 +1,27 @@
 "use client";
 import Coins from "./Coins";
-import { useAppSelector } from "@/redux/store";
 import CoinConverterToggle from "./CoinConverterToggle";
 import HomePageGraphs from "./HomePageGraphs";
+import { useSelectedToggler } from "@/redux/features/convertorToggler-Slice";
+import CoinConvertor from "./CoinConvertor";
 
 export default function LandingPage() {
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+  const selectedToggle = useSelectedToggler();
 
   return (
     <main
-      className={`h-full w-1296 mt-14 mb-14 ${
-        isDarkMode ? "bg-[#13121A]" : "bg-white"
-      }`}
+      className={`h-full w-1296 mt-14 mb-14 dark:bg-[#13121A] bg-[#f2f2fd]`}
     >
       <CoinConverterToggle />
-      <HomePageGraphs />
-      <Coins />
+      {selectedToggle === "coins" ? (
+        <>
+          {" "}
+          <HomePageGraphs />
+          <Coins />
+        </>
+      ) : (
+        <CoinConvertor />
+      )}
     </main>
   );
 }

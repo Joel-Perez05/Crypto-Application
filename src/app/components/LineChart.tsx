@@ -65,7 +65,7 @@ export default function LineChart() {
     const dateObject = new Date();
     const formattedDate = format(dateObject, "MMMM dd, yyyy");
     setTodaysDate(formattedDate);
-  }, [selectedCurrency]);
+  }, [selectedCurrency.symbol]);
 
   interface CustomChartOptions extends ChartOptions {
     height?: number;

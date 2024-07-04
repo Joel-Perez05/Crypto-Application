@@ -1,28 +1,32 @@
 "use client";
-import React from "react";
-import { MoonIcon, SunIcon } from "@heroicons/react/20/solid";
-import { useDispatch } from "react-redux";
-import { AppDispatch, useAppSelector } from "@/redux/store";
-import { toggleTheme } from "@/redux/features/theme-Slice";
+import React, { useEffect, useState } from "react";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 
 const ThemeToggler = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const [darkmode, setDarkmode] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("themee") === "dark";
+    }
+    return true;
+  });
 
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
-
-  const handleThemeToggler = () => {
-    dispatch(toggleTheme());
-  };
+  useEffect(() => {
+    if (darkmode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("themee", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("themee", "light");
+    }
+  }, [darkmode]);
 
   return (
-    <div className="flex items-center justify-center border-2 rounded-md border-[#212140] h-48 w-48">
+    <div className="flex items-center justify-center border-2 rounded-md border-white dark:border-[#212140] h-48 w-48">
       <button
-        className={`${
-          isDarkMode ? "bg-[#191925]" : "bg-white"
-        } h-full w-full flex justify-center items-center rounded-md`}
-        onClick={handleThemeToggler}
+        className="dark:bg-[#191925] bg-[#ccccfa63] h-full w-full flex justify-center items-center rounded-md"
+        onClick={() => setDarkmode(!darkmode)}
       >
-        {isDarkMode ? (
+        {darkmode ? (
           <SunIcon className="w-6 h-6 text-white" />
         ) : (
           <MoonIcon className="w-6 h-6 text-black" />
