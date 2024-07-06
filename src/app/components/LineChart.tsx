@@ -39,29 +39,28 @@ export default function LineChart() {
   const [todaysDate, setTodaysDate] = useState<string>("");
   const [todaysPrice, setTodaysPrice] = useState<number>(0);
 
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
-
   const selectedCurrency = useSelectedCurrency();
-
   const selectedInterval = useSelectedInterval();
 
   useEffect(() => {
-    axios
-      .get(
-        `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${selectedCurrency.currency}&days=365&interval=daily`
-      )
-      .then((res) => {
-        setBitcoinPrice(res.data.prices);
-      })
-      .catch((err) => err);
-    axios
-      .get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${selectedCurrency.currency}&precision=2`
-      )
-      .then((res) => {
-        setTodaysPrice(res.data.bitcoin[selectedCurrency.currency]);
-      })
-      .catch((err) => err);
+    const fetchData = async () => {
+      try {
+        const marketChartRes = await axios.get(
+          `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${selectedCurrency.currency}&days=365&interval=daily`
+        );
+
+        setBitcoinPrice(marketChartRes.data.prices);
+        const priceRes = await axios.get(
+          `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${selectedCurrency.currency}&precision=2`
+        );
+        setTodaysPrice(priceRes.data.bitcoin[selectedCurrency.currency]);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+
     const dateObject = new Date();
     const formattedDate = format(dateObject, "MMMM dd, yyyy");
     setTodaysDate(formattedDate);
@@ -181,18 +180,18 @@ export default function LineChart() {
 
   return (
     <div
-      className={`rounded-xl flex flex-col justify-between p-6 w-632 h-full ${
-        isDarkMode ? "text-[#7474f260] bg-[#1b1932]" : " bg-gray-300"
-      } `}
+      className={`rounded-xl flex flex-col justify-between p-6 w-632 h-full dark:text-[#7474f260] dark:bg-[#1b1932] bg-white`}
     >
       <div className="w-174 h-116 flex flex-col justify-between">
-        <h3 className="w-160 h-6 text-[#D1D1D1] text-xl">Bitcoin (BTC)</h3>
+        <h3 className="w-160 h-6 dark:text-[#D1D1D1] text-[#191932] text-xl">
+          Bitcoin (BTC)
+        </h3>
         <div className="w-174 h-68  flex flex-col justify-between">
-          <h2 className="text-white text-3xl font-bold">
+          <h2 className="dark:text-white text-[#181825] text-3xl font-bold">
             {selectedCurrency.symbol}
             {todaysPrice}
           </h2>
-          <h3 className="text-[#B9B9BA]">{todaysDate}</h3>
+          <h3 className="dark:text-[#B9B9BA] text-[#424286]">{todaysDate}</h3>
         </div>
       </div>
       <div className="w-584 h-216">

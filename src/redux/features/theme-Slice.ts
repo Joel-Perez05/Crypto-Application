@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useAppSelector } from "../store";
 
 type InitialThemeStateType = {
   isDarkMode: boolean;
