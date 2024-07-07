@@ -1,6 +1,5 @@
 import React from "react";
 import { CoinType } from "../utils/CoinPageTypes";
-import { useAppSelector } from "@/redux/store";
 import { LinkIcon } from "@heroicons/react/20/solid";
 import { Square2StackIcon } from "@heroicons/react/24/outline";
 
@@ -14,8 +13,6 @@ const CoinLinks: React.FC<CoinLinkPropsType> = (props) => {
   const linkOne = links?.blockchain_site[0];
   const linkTwo = links?.blockchain_site[1];
   const linkThree = links?.blockchain_site[2];
-
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   const copyToClipboard = async (url: string | undefined) => {
     try {
@@ -32,9 +29,7 @@ const CoinLinks: React.FC<CoinLinkPropsType> = (props) => {
     <div className="w-544 h-full">
       <div className="flex flex-col gap-6">
         <div
-          className={`${
-            isDarkMode ? "text-white bg-[#1E1932]" : "text-black bg-white"
-          } w-full h-52 rounded-xl flex justify-center items-center`}
+          className={`dark:text-white dark:bg-[#1E1932] text-black bg-white w-full h-52 rounded-xl flex justify-center items-center`}
         >
           <LinkIcon className="w-5 h-5 md:mr-2" />
           <a href={linkOne} target="_blank">
@@ -45,9 +40,7 @@ const CoinLinks: React.FC<CoinLinkPropsType> = (props) => {
           </button>
         </div>
         <div
-          className={`${
-            isDarkMode ? "text-white bg-[#1E1932]" : "text-black bg-white"
-          } w-full h-52 rounded-xl flex justify-center items-center`}
+          className={`dark:text-white dark:bg-[#1E1932] text-black bg-white w-full h-52 rounded-xl flex justify-center items-center`}
         >
           <LinkIcon className="w-5 h-5 md:mr-2" />
           <a href={linkTwo} target="_blank">
@@ -58,9 +51,7 @@ const CoinLinks: React.FC<CoinLinkPropsType> = (props) => {
           </button>
         </div>
         <div
-          className={`${
-            isDarkMode ? "text-white bg-[#1E1932]" : "text-black bg-white"
-          } w-full h-52 rounded-xl flex justify-center items-center`}
+          className={`dark:text-white dark:bg-[#1E1932] text-black bg-white w-full h-52 rounded-xl flex justify-center items-center`}
         >
           <LinkIcon className="w-5 h-5 md:mr-2" />
           <a href={linkThree} target="_blank">

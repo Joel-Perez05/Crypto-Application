@@ -9,10 +9,6 @@ import {
   ArrowTrendingDownIcon,
   ArrowTrendingUpIcon,
 } from "@heroicons/react/20/solid";
-import { deleteAsset, getAssets } from "@/redux/features/assets-Slice";
-import { AppDispatch } from "@/redux/store";
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "@/redux/store";
 import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type MyAssetInfoPropsType = {
@@ -40,8 +36,6 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
 
   const selectedCurrency = useSelectedCurrency();
 
-  const dispatch = useDispatch<AppDispatch>();
-
   const allCaps = coinSymbol.toUpperCase();
   const convertedPurchasePrice = convertToShorterNum(purchasePrice);
 
@@ -57,35 +51,22 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
     setDateFormatted(formattedDate);
   }, []);
 
-  const handleDelete = () => {
-    dispatch(deleteAsset(coinId));
-    dispatch(getAssets());
-  };
-
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
-
   const currencyAllCaps = selectedCurrency.currency.toUpperCase();
 
   return (
     <div
-      className={`flex flex-col justify-evenly h-full w-380 p-4 rounded-l-md ${
-        isDarkMode ? "bg-[#191932]" : "bg-white"
-      } `}
+      className={`flex flex-col justify-evenly h-full w-380 p-4 rounded-l-md dark:bg-[#191932] bg-white `}
     >
       <div className="flex items-center font-bold">
         <img className="w-8 h-8 mr-2" src={coinImg} alt="coin logo image" />
-        <h2 className={`${isDarkMode ? "text-white" : "text-black"} text-2xl`}>
+        <h2 className={`dark:text-white text-black text-2xl`}>
           {coinName} ({allCaps})
         </h2>
       </div>
       <div className="mt-4">
-        <h3 className="text-gray-500">Total Value</h3>
+        <h3 className="dark:text-[#D1D1D1] text-[#424286]">Total Value</h3>
         <div className="flex items-end">
-          <h3
-            className={`${
-              isDarkMode ? "text-white" : "text-black"
-            } text-3xl font-bold mr-3`}
-          >
+          <h3 className={`dark:text-white text-black text-3xl font-bold mr-3`}>
             {selectedCurrency.symbol}
             {convertedPurchasePrice} {currencyAllCaps}
           </h3>
@@ -107,7 +88,7 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
           </div>
         </div>
       </div>
-      <div className="flex text-gray-500 text-sm">
+      <div className="flex dark:text-[#D1D1D1] text-[#424286] text-sm">
         <h3 className="mr-2">Purchased</h3>
         <h3>{dateFormatted}</h3>
       </div>

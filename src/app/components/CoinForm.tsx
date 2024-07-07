@@ -87,17 +87,13 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
     <div>
       <div className="fixed top-0 left-0 w-full h-full bg-[#262437] opacity-30 z-50"></div>
       <div
-        className={`${
-          isDarkMode ? "bg-[#13121A]" : "bg-white"
-        } w-886 h-393 p-12 rounded-2xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50`}
+        className={`dark:bg-[#13121A] bg-[#e9e9f8] w-886 h-393 p-12 rounded-2xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50`}
       >
         <div
-          className={`${
-            isDarkMode ? "text-white" : "text-black"
-          } flex justify-between w-790 h-6`}
+          className={`dark:text-white text-[#232336] flex justify-between w-790 h-6`}
         >
           <h2 className="text-sm">Select Coins</h2>
-          <div className="h-6 w-6 flex justify-center items-center text-sm border border-white rounded-full">
+          <div className="h-6 w-6 flex justify-center items-center text-sm border dark:border-white border-[#232336] rounded-full">
             <button
               className="h-full w-full relative bottom-0.5"
               onClick={() => setFormToggler(!formToggler)}
@@ -119,11 +115,7 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
               <SelectDateInput assetObj={assetObj} setAssetObj={setAssetObj} />
               <div className="flex justify-between mt-4">
                 <div
-                  className={`h-45 w-222.5 ${
-                    isDarkMode
-                      ? "text-white bg-[#232336]"
-                      : "text-black bg-gray-300"
-                  } rounded-md flex justify-center items-center`}
+                  className={`h-45 w-222.5 dark:text-white dark:bg-[#232336] text-black bg-white rounded-md flex justify-center items-center`}
                 >
                   <button
                     className="w-full h-full"

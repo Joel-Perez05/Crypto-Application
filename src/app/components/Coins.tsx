@@ -87,100 +87,79 @@ export default function Coins() {
   const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
-    <div className={`${isDarkMode ? "bg-[#13121A]" : "bg-white"} w-full h-816`}>
+    <div className={`dark:bg-[#13121A] bg-[#f2f2fd] w-full h-full mb-10`}>
       <CoinTableHeader />
-      <InfiniteScroll
-        dataLength={displayCount}
-        next={handleNext}
-        hasMore={displayCount < 50}
-        loader={<h4>Loading...</h4>}
-        height={766}
-        className={classes.customInfiniteScroll}
-      >
-        {allCoins.map((coin, idx) => {
-          const allCaps = coin.symbol.toUpperCase();
-          const price = roundToSixth(coin.current_price);
-          const pricePercent1 = formatToNearestTenth(
-            coin.price_change_percentage_1h_in_currency
-          );
-          const pricePercent24 = formatToNearestTenth(
-            coin.price_change_percentage_24h_in_currency
-          );
-          const pricePercent7 = formatToNearestTenth(
-            coin.price_change_percentage_7d_in_currency
-          );
-          const totalVolume = convertToShorterNum(coin.total_volume);
-          const totalMarket = convertToShorterNum(coin.market_cap);
-          const circulating = convertToShorterNum(coin.circulating_supply);
-          const totalSupply = convertToShorterNum(coin.total_supply);
-          const color =
-            coin.price_change_percentage_7d_in_currency < 0
-              ? "#FE2264"
-              : "#00B1A7";
-          const darkmode = isDarkMode ? "#191925" : "#FFFFFF";
-          return (
-            <div
-              className={`flex mt-2 items-center justify-evenly w-full h-77 rounded-md  ${
-                isDarkMode ? "text-white bg-[#191925]" : "text-black bg-white"
-              }`}
-              key={coin.id}
-            >
-              <p className="w-4 h-6">{idx + 1}</p>
-              <CoinName
-                coinId={coin.id}
-                coinName={coin.name}
-                coinNameAllCaps={allCaps}
-                coinImg={coin.image}
-              />
-              <p className="w-20 h-6">
-                {selectedCurrency.symbol}
-                {price}
-              </p>
-              <CoinPriceChange
-                percentChangeRounded={pricePercent1}
-                percentChangeActual={
-                  coin.price_change_percentage_1h_in_currency
-                }
-              />
-              <CoinPriceChange
-                percentChangeRounded={pricePercent24}
-                percentChangeActual={
-                  coin.price_change_percentage_24h_in_currency
-                }
-              />
-              <CoinPriceChange
-                percentChangeRounded={pricePercent7}
-                percentChangeActual={
-                  coin.price_change_percentage_7d_in_currency
-                }
-              />
-              <CoinProgressBars
-                percentChangeActual={
-                  coin.price_change_percentage_7d_in_currency
-                }
-                titleCompleted={totalVolume}
-                completed={coin.total_volume}
-                titleMaxCompleted={totalMarket}
-                maxCompleted={coin.market_cap}
-              />
-              <CoinProgressBars
-                percentChangeActual={
-                  coin.price_change_percentage_7d_in_currency
-                }
-                titleCompleted={circulating}
-                completed={coin.circulating_supply}
-                titleMaxCompleted={totalSupply}
-                maxCompleted={coin.total_supply}
-              />
-              <CoinLineGraph
-                darkmode={darkmode}
-                color={color}
-                prices={coin.sparkline_in_7d.price}
-              />
-            </div>
-          );
-        })}
-      </InfiniteScroll>
+      {allCoins.map((coin, idx) => {
+        const allCaps = coin.symbol.toUpperCase();
+        const price = roundToSixth(coin.current_price);
+        const pricePercent1 = formatToNearestTenth(
+          coin.price_change_percentage_1h_in_currency
+        );
+        const pricePercent24 = formatToNearestTenth(
+          coin.price_change_percentage_24h_in_currency
+        );
+        const pricePercent7 = formatToNearestTenth(
+          coin.price_change_percentage_7d_in_currency
+        );
+        const totalVolume = convertToShorterNum(coin.total_volume);
+        const totalMarket = convertToShorterNum(coin.market_cap);
+        const circulating = convertToShorterNum(coin.circulating_supply);
+        const totalSupply = convertToShorterNum(coin.total_supply);
+        const color =
+          coin.price_change_percentage_7d_in_currency < 0
+            ? "#FE2264"
+            : "#00B1A7";
+        const darkmode = isDarkMode ? "#191925" : "#FFFFFF";
+        return (
+          <div
+            className={`flex mt-2 items-center justify-evenly w-full h-77 rounded-md dark:text-white dark:bg-[#191925] text-[#232336] bg-white`}
+            key={coin.id}
+          >
+            <p className="w-4 h-6">{idx + 1}</p>
+            <CoinName
+              coinId={coin.id}
+              coinName={coin.name}
+              coinNameAllCaps={allCaps}
+              coinImg={coin.image}
+            />
+            <p className="w-20 h-6">
+              {selectedCurrency.symbol}
+              {price}
+            </p>
+            <CoinPriceChange
+              percentChangeRounded={pricePercent1}
+              percentChangeActual={coin.price_change_percentage_1h_in_currency}
+            />
+            <CoinPriceChange
+              percentChangeRounded={pricePercent24}
+              percentChangeActual={coin.price_change_percentage_24h_in_currency}
+            />
+            <CoinPriceChange
+              percentChangeRounded={pricePercent7}
+              percentChangeActual={coin.price_change_percentage_7d_in_currency}
+            />
+            <CoinProgressBars
+              percentChangeActual={coin.price_change_percentage_7d_in_currency}
+              titleCompleted={totalVolume}
+              completed={coin.total_volume}
+              titleMaxCompleted={totalMarket}
+              maxCompleted={coin.market_cap}
+            />
+            <CoinProgressBars
+              percentChangeActual={coin.price_change_percentage_7d_in_currency}
+              titleCompleted={circulating}
+              completed={coin.circulating_supply}
+              titleMaxCompleted={totalSupply}
+              maxCompleted={coin.total_supply}
+            />
+            <CoinLineGraph
+              darkmode={darkmode}
+              color={color}
+              prices={coin.sparkline_in_7d.price}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 
 const CoinTableHeader = () => {
   return (
-    <div className="w-full h-50 flex justify-evenly items-center text-[#D1D1D1] text-sm">
+    <div className="w-full h-50 flex justify-evenly items-center dark:text-[#D1D1D1] text-[#424286] text-sm">
       <p className="h-18 w-4">#</p>
       <p className="h-18 w-52">Name</p>
       <p className="h-18 w-20">Price</p>

@@ -9,8 +9,6 @@ import CoinMainInfo from "@/app/components/CoinMainInfo";
 import CoinAtlAthInfo from "@/app/components/CoinAtlAthInfo";
 import CoinMarketInfo from "@/app/components/CoinMarketInfo";
 import CoinDescription from "@/app/components/CoinDescription";
-import CoinConvertor from "@/app/components/CoinConvertor";
-import { useAppSelector } from "@/redux/store";
 import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 import CoinLinks from "@/app/components/CoinLinks";
 import Link from "next/link";
@@ -23,7 +21,7 @@ type CoinPageProps = {
 
 const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const [coin, setCoin] = useState<CoinType>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>();
 
   const selectedCurrency = useSelectedCurrency();
@@ -36,20 +34,18 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
         );
         setCoin(coinResponse.data);
 
-        setIsLoading(false);
+        // setIsLoading(false);
       } catch (error: any) {
-        console.error("Error fetching data:", error.message);
-        setError(error.message);
+        // console.error("Error fetching data:", error.message);
+        // setError(error.message);
       }
     };
 
     fetchData();
   }, [params.id, selectedCurrency]);
 
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
-
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full dark:bg-[#13121A] bg-[#f2f2fd] flex justify-center">
       {error ? (
         <ErrorHandler error={error} />
       ) : isLoading ? (
@@ -58,20 +54,14 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
         </div>
       ) : (
         <main
-          className={`${
-            isDarkMode ? "bg-[#13121A]" : "bg-gray-300"
-          } flex min-h-screen flex-col items-center justify-between w-1296`}
+          className={`dark:bg-[#13121A] bg-[#f2f2fd] flex min-h-screen flex-col items-center justify-between w-1296`}
         >
           <div className={`h-full w-full mt-14`}>
             <div className="flex items-center">
               <Link href="/">
                 <ArrowLeftIcon className="text-white w-5 h-5 mr-2" />
               </Link>
-              <h2
-                className={`${
-                  isDarkMode ? "text-white" : "text-black"
-                } text-xl`}
-              >
+              <h2 className={`dark:text-white text-black text-xl`}>
                 Portfolio / Your {coin?.name} Summary
               </h2>
             </div>
@@ -93,11 +83,7 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
                 market_data={coin?.market_data}
               />
             </div>
-            <h2
-              className={`text-xl mb-4 mt-20 ${
-                isDarkMode ? "text-white" : "text-black"
-              }`}
-            >
+            <h2 className={`text-xl mb-4 mt-20 dark:text-white text-black`}>
               Description
             </h2>
             <div className="flex w-full justify-between  h-204">

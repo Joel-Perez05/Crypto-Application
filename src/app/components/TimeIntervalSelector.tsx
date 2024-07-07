@@ -26,7 +26,7 @@ const TimeIntervalSelector = () => {
   const selectedInterval = useSelectedInterval();
 
   return (
-    <div className="w-463 h-42 rounded-md flex justify-between items-center p-1 bg-[#232336]">
+    <div className="w-463 h-42 rounded-md flex justify-between items-center p-1 dark:bg-[#232336] bg-[#ccccfa6c]">
       {intervals.map((int) => {
         return (
           <button
@@ -36,7 +36,7 @@ const TimeIntervalSelector = () => {
               selectedInterval === int.val
                 ? "bg-[#6161d688] shadow-sm shadow-[#7878fa46]"
                 : ""
-            }  text-[#E4E4F0] text-sm `}
+            }  dark:text-[#E4E4F0] text-[#424286] text-sm `}
           >
             {int.label}
           </button>

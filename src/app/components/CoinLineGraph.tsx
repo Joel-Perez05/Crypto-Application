@@ -79,7 +79,7 @@ const CoinLineGraph: React.FC<ChartDataType> = (props) => {
         borderColor: color,
         fill: true,
         pointStyle: false,
-        borderWidth: 0.6,
+        borderWidth: 0.8,
         backgroundColor: function (context: any) {
           const chart = context.chart;
           const { ctx, chartArea } = chart;
