@@ -6,7 +6,7 @@ import { useAppSelector } from "@/redux/store";
 import TimeIntervalSelector from "./TimeIntervalSelector";
 
 const HomePageGraphs = () => {
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
 
   return (
     <div className="flex flex-col justify-between w-full h-502 mb-14 mt-14">

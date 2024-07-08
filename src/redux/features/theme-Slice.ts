@@ -1,20 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useAppSelector } from "../store";
 
 type InitialThemeStateType = {
   isDarkMode: boolean;
 };
 
-const storedTheme = localStorage.getItem("theme");
-const initialState: InitialThemeStateType = storedTheme
-  ? JSON.parse(storedTheme)
-  : { isDarkMode: true };
-
-const setTheme = (theme: boolean) => {
-  localStorage.setItem("theme", JSON.stringify({ isDarkMode: theme }));
+const getInitialTheme = (): InitialThemeStateType => {
+  if (typeof window !== "undefined") {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      return JSON.parse(storedTheme);
+    }
+  }
+  return { isDarkMode: true };
 };
 
-const theme = createSlice({
+const initialState = getInitialTheme();
+
+const setTheme = (theme: boolean) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("theme", JSON.stringify({ isDarkMode: theme }));
+  }
+};
+
+const themeSlice = createSlice({
   name: "theme",
   initialState,
   reducers: {
@@ -25,5 +33,5 @@ const theme = createSlice({
   },
 });
 
-export const { toggleTheme } = theme.actions;
-export default theme.reducer;
+export const { toggleTheme } = themeSlice.actions;
+export default themeSlice.reducer;

@@ -14,7 +14,7 @@ import getCoinGradient from "../utils/CoinColorGradient";
 type ChartDataType = {
   prices: number[];
   color: string;
-  darkmode: string;
+  colorTwo: string;
 };
 
 const CoinLineGraph: React.FC<ChartDataType> = (props) => {
@@ -26,7 +26,7 @@ const CoinLineGraph: React.FC<ChartDataType> = (props) => {
     Tooltip
   );
 
-  const { prices, color, darkmode } = props;
+  const { prices, color, colorTwo } = props;
 
   const options = {
     maintainAspectRatio: false,
@@ -77,18 +77,9 @@ const CoinLineGraph: React.FC<ChartDataType> = (props) => {
         data: prices.map((price) => price),
         tension: 0.1,
         borderColor: color,
-        fill: true,
+        fill: false,
         pointStyle: false,
         borderWidth: 0.8,
-        backgroundColor: function (context: any) {
-          const chart = context.chart;
-          const { ctx, chartArea } = chart;
-
-          if (!chartArea) {
-            return;
-          }
-          return getCoinGradient(ctx, chartArea, color, darkmode);
-        },
       },
     ],
   };

@@ -6,12 +6,26 @@ export type InitialCurrencyStateType = {
   symbol: string;
 };
 
-const initialState: InitialCurrencyStateType = {
-  currency: "usd",
-  symbol: "$",
+const getInitialCurrencyState = (): InitialCurrencyStateType => {
+  try {
+    if (typeof window !== "undefined" && window.localStorage) {
+      const storedCurrency = localStorage.getItem("selectedCurrency");
+      if (storedCurrency) {
+        return JSON.parse(storedCurrency);
+      }
+    }
+  } catch (error) {
+    console.error("Error retrieving currency from local storage:", error);
+  }
+  return {
+    currency: "USD",
+    symbol: "$",
+  };
 };
 
-const currency = createSlice({
+const initialState: InitialCurrencyStateType = getInitialCurrencyState();
+
+const currencySlice = createSlice({
   name: "currency",
   initialState,
   reducers: {
@@ -22,12 +36,23 @@ const currency = createSlice({
       const { currency, symbol } = action.payload;
       state.currency = currency;
       state.symbol = symbol;
+      try {
+        if (typeof window !== "undefined" && window.localStorage) {
+          localStorage.setItem(
+            "selectedCurrency",
+            JSON.stringify({ currency, symbol })
+          );
+        }
+      } catch (error) {
+        console.error("Error saving currency to local storage:", error);
+      }
     },
   },
 });
 
 export const useSelectedCurrency = () => {
-  return useAppSelector((state) => state.currencyReducer);
+  return useAppSelector((state) => state.currency);
 };
-export const { currencyToggler } = currency.actions;
-export default currency.reducer;
+
+export const { currencyToggler } = currencySlice.actions;
+export default currencySlice.reducer;

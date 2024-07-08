@@ -101,3 +101,24 @@ export type CurrencySelect = {
   label: string;
   symbol: string;
 };
+
+type SparklinePrice = {
+  price: [number];
+};
+
+export type Coin = {
+  id: string;
+  symbol: string;
+  name: string;
+  image: string;
+  market_cap: number;
+  current_price: number;
+  price_change_percentage_1h_in_currency: number;
+  price_change_percentage_24h_in_currency: number;
+  price_change_percentage_7d_in_currency: number;
+  total_volume: number;
+  circulating_supply: number;
+  total_supply: number;
+  sparkline_in_7d: SparklinePrice;
+  [key: string]: number | string | SparklinePrice;
+};

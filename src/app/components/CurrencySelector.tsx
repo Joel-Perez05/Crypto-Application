@@ -26,9 +26,7 @@ const CurrencySelector: React.FC = () => {
     setSelectedCurr(selectedCurrency);
   }, [selectedCurrency]);
 
-  const isDarkMode: boolean = useAppSelector(
-    (state) => state.themeReducer.isDarkMode
-  );
+  const isDarkMode: boolean = useAppSelector((state) => state.theme.isDarkMode);
 
   const handleCurrencyChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedCurrency = e.target.value;
@@ -50,7 +48,7 @@ const CurrencySelector: React.FC = () => {
         onChange={(e) => handleCurrencyChange(e)}
       >
         <option value="">
-          <span className="mr-2">{currSymbol}</span>
+          {currSymbol}
           {allCapsCurrency}
         </option>
         {options.map((currency) => {

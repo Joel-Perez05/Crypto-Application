@@ -67,7 +67,7 @@ const Portfolio = () => {
     dispatch(getAssets());
   }, [dispatch, selectedCurrency]);
 
-  const assets = useAppSelector((state) => state.assetsReducer.value);
+  const assets = useAppSelector((state) => state.assets.value);
 
   return (
     <div

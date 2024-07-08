@@ -3,7 +3,7 @@ import LandingPage from "./components/LandingPage";
 import { useAppSelector } from "@/redux/store";
 
 export default function Home() {
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
 
   return (
     <main

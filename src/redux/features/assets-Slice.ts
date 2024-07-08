@@ -83,7 +83,7 @@ export const assets = createSlice({
 });
 
 export const useAssets = () => {
-  return useAppSelector((state) => state.assetsReducer.value);
+  return useAppSelector((state) => state.assets.value);
 };
 export const { addNewAsset, deleteAsset } = assets.actions;
 export default assets.reducer;

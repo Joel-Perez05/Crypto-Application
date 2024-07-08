@@ -33,7 +33,7 @@ const OverviewMarketData = () => {
 
   const bitcoinImg: string = bitcoin;
   const ethereumImg: string = ethereum;
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
 
   return (
     <div className="w-full dark:bg-[#13121A] bg-white flex justify-center">

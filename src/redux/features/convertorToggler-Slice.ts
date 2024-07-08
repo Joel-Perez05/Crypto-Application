@@ -20,7 +20,7 @@ const toggle = createSlice({
 });
 
 export const useSelectedToggler = () => {
-  return useAppSelector((state) => state.togglerReducer.toggler);
+  return useAppSelector((state) => state.toggler.toggler);
 };
 
 export const { toggleConvertor } = toggle.actions;
