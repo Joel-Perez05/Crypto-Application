@@ -20,7 +20,6 @@ const sortSlice = createSlice({
       state.sortedCoins = action.payload;
     },
     sortCoins(state, action: PayloadAction<string>) {
-      console.log(action.payload);
       if (action.payload === "#") {
         state.sortedCoins.sort((a, b) => b.market_cap - a.market_cap);
       } else if (action.payload === "Name") {
