@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { FormCoin, FormData } from "../utils/CoinPageTypes";
 import CoinSelectPreview from "./CoinSelectPreview";
-import { useAppSelector } from "@/redux/store";
 
 type CoinFormProps = {
   coinData: FormData[];
@@ -80,8 +79,6 @@ const CoinForm: React.FC<CoinFormProps> = (props) => {
     dispatch(addNewAsset(assetObj));
     setFormToggler(!formToggler);
   };
-
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
     <div>
