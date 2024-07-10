@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useAppSelector } from "@/redux/store";
 
 type SelectedCoinPropsType = {
   selectedCoin: {
@@ -13,8 +12,6 @@ type SelectedCoinPropsType = {
 const CoinSelectPreview: React.FC<SelectedCoinPropsType> = (props) => {
   const { selectedCoin } = props;
   const allCaps = selectedCoin.symbol.toUpperCase();
-
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return selectedCoin.coin ? (
     <div

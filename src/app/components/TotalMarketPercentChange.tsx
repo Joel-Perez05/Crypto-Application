@@ -5,7 +5,6 @@ import {
 } from "@heroicons/react/20/solid";
 import React from "react";
 import { formatToNearestTenth } from "../utils/formatFunctions";
-import { useAppSelector } from "@/redux/store";
 
 type TotalMarketPercentChangePropsType = {
   percentChange: number | undefined;
@@ -17,8 +16,6 @@ const TotalMarketPercentChange: React.FC<TotalMarketPercentChangePropsType> = (
   const { percentChange } = props;
 
   const formattedPercent = formatToNearestTenth(percentChange);
-
-  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
 
   return (
     <div className="flex items-center max-sm:hidden">

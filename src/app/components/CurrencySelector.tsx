@@ -1,6 +1,6 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { AppDispatch, useAppSelector } from "@/redux/store";
+import { AppDispatch } from "@/redux/store";
 import { currencies } from "../utils/currencyData";
 import { CurrencySelect } from "../utils/CoinPageTypes";
 import {
@@ -25,8 +25,6 @@ const CurrencySelector: React.FC = () => {
   useEffect(() => {
     setSelectedCurr(selectedCurrency);
   }, [selectedCurrency]);
-
-  const isDarkMode: boolean = useAppSelector((state) => state.theme.isDarkMode);
 
   const handleCurrencyChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedCurrency = e.target.value;

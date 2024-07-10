@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
-import getGradient from "../utils/getGradient";
-import { useAppSelector } from "@/redux/store";
 import homepageGradient from "../utils/homePageGraphGradients";
 import {
   Chart as ChartJS,

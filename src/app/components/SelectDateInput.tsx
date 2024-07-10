@@ -1,6 +1,5 @@
 import React, { ChangeEvent } from "react";
 import { InitialAssetType } from "@/redux/features/assets-Slice";
-import { useAppSelector } from "@/redux/store";
 
 type SelectDateInputProps = {
   assetObj: InitialAssetType;
@@ -16,8 +15,6 @@ const SelectDateInput: React.FC<SelectDateInputProps> = (props) => {
       date: e.target.value,
     }));
   };
-
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
 
   return (
     <div
