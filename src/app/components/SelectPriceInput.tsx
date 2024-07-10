@@ -1,7 +1,6 @@
 import React from "react";
 import { NumberFormatValues, NumericFormat } from "react-number-format";
 import { InitialAssetType } from "@/redux/features/assets-Slice";
-import { useAppSelector } from "@/redux/store";
 
 type SelectPriceInputProps = {
   assetObj: InitialAssetType;
@@ -27,22 +26,16 @@ const SelectPriceInput: React.FC<SelectPriceInputProps> = (props) => {
     }
   };
 
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
-
   return (
     <div
-      className={`relative ${
-        isDarkMode ? "bg-[#191925] text-white" : "bg-gray-300 text-black"
-      } rounded-md h-11 w-full`}
+      className={`relative dark:bg-[#191925] dark:text-white bg-white text-black rounded-md h-11 w-full`}
     >
       <label
         htmlFor="purchasedAmount"
         className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white pointer-events-none transition-all duration-300"
       ></label>
       <NumericFormat
-        className={`${
-          isDarkMode ? "bg-[#191925] text-white" : "bg-gray-300 text-black"
-        } appearance-none border-none focus:outline-none text-sm w-full h-full p-2 pl-4 rounded-md`}
+        className={`dark:bg-[#191925] dark:text-white bg-white text-black appearance-none border-none focus:outline-none text-sm w-full h-full p-2 pl-4 rounded-md`}
         id="purchasedAmount"
         placeholder="$0"
         decimalScale={2}

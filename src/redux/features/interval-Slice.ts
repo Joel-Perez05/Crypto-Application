@@ -20,7 +20,7 @@ const interval = createSlice({
 });
 
 export const useSelectedInterval = () => {
-  return useAppSelector((state) => state.intervalReducer.interval);
+  return useAppSelector((state) => state.interval.interval);
 };
 
 export const { toggleInterval } = interval.actions;

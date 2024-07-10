@@ -4,14 +4,17 @@ type InitialThemeStateType = {
   isDarkMode: boolean;
 };
 
-let initialState: InitialThemeStateType = { isDarkMode: true };
-
-if (typeof window !== "undefined") {
-  const storedTheme = localStorage.getItem("theme");
-  if (storedTheme) {
-    initialState = JSON.parse(storedTheme);
+const getInitialTheme = (): InitialThemeStateType => {
+  if (typeof window !== "undefined") {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      return JSON.parse(storedTheme);
+    }
   }
-}
+  return { isDarkMode: true };
+};
+
+const initialState = getInitialTheme();
 
 const setTheme = (theme: boolean) => {
   if (typeof window !== "undefined") {
@@ -19,7 +22,7 @@ const setTheme = (theme: boolean) => {
   }
 };
 
-const theme = createSlice({
+const themeSlice = createSlice({
   name: "theme",
   initialState,
   reducers: {
@@ -30,5 +33,5 @@ const theme = createSlice({
   },
 });
 
-export const { toggleTheme } = theme.actions;
-export default theme.reducer;
+export const { toggleTheme } = themeSlice.actions;
+export default themeSlice.reducer;

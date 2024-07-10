@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { CoinType } from "../utils/CoinPageTypes";
 import ReactHtmlParser from "react-html-parser";
-import { useAppSelector } from "@/redux/store";
 
 type CoinDescriptionPropTypes = {
   description: CoinType["description"];
@@ -24,13 +23,9 @@ const CoinDescription: React.FC<CoinDescriptionPropTypes> = (props) => {
     }
   }, []);
 
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
-
   return (
     <div
-      className={`w-692 h-full ${
-        isDarkMode ? " text-white" : " text-black"
-      } rounded-xl text-sm `}
+      className={`w-692 h-full dark:text-white text-black rounded-xl text-sm `}
     >
       <p
         className={`w-full text-sm ${isOpen ? null : "line-clamp-10"}`}

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useAppSelector } from "@/redux/store";
 
 type FormTogglerProps = {
   formToggler: boolean;
@@ -10,13 +9,9 @@ type FormTogglerProps = {
 const FormToggler: React.FC<FormTogglerProps> = (props) => {
   const { formToggler, setFormToggler } = props;
 
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
-
   return (
     <div className="flex justify-between items-center mt-14">
-      <h2
-        className={`${isDarkMode ? "text-white" : "text-black"} w-101 text-2xl`}
-      >
+      <h2 className={`dark:text-white text-[#232336] w-101 text-2xl`}>
         Portfolio
       </h2>
       <button

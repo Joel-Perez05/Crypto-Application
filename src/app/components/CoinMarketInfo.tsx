@@ -12,7 +12,6 @@ import numeral from "numeral";
 import ProgressBar from "@ramonak/react-progress-bar";
 import MarketInfoDataTwo from "./MarketInfoDataTwo";
 import MarketInfoData from "./MarketInfoData";
-import { useAppSelector } from "@/redux/store";
 import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 type MarketPropsType = {
@@ -68,13 +67,9 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
     ? 100 - parseFloat(circulatingPercent)
     : 100;
 
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
-
   return (
     <div
-      className={`${
-        isDarkMode ? "text-white bg-[#1f1833]" : "text-black bg-white"
-      } w-544 h-full rounded-2xl p-10`}
+      className={`dark:text-white dark:bg-[#1E1932] text-black bg-white w-544 h-full rounded-2xl p-10`}
     >
       <div className="mb-6 w-409 h-36 ml-4">
         <div className="flex justify-center">

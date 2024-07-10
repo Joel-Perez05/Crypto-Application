@@ -3,13 +3,11 @@ import LandingPage from "./components/LandingPage";
 import { useAppSelector } from "@/redux/store";
 
 export default function Home() {
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+  const isDarkMode = useAppSelector((state) => state.theme.isDarkMode);
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between w-full ${
-        isDarkMode ? "bg-[#13121A]" : "bg-gray-300"
-      }`}
+      className={`flex min-h-screen flex-col items-center justify-between w-full dark:bg-[#13121A] bg-[#f2f2fd]`}
     >
       <LandingPage />
     </main>

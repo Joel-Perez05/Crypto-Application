@@ -1,13 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
-import { CoinType, CurrencyNumberType } from "../utils/CoinPageTypes";
+import { useEffect } from "react";
+import { CoinType } from "../utils/CoinPageTypes";
 import { Square3Stack3DIcon } from "@heroicons/react/24/solid";
 import {
   ArrowTrendingDownIcon,
   ArrowTrendingUpIcon,
 } from "@heroicons/react/20/solid";
 import numeral from "numeral";
-import { useAppSelector, AppDispatch } from "@/redux/store";
+import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 import { coinPageDateFormat } from "../utils/formatFunctions";
@@ -102,13 +102,9 @@ const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
     market_data?.atl_date[selectedCurrency.currency]
   );
 
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
-
   return (
     <div
-      className={`${
-        isDarkMode ? "text-white bg-[#1E1932]" : "text-black bg-white"
-      } w-355 h-333 rounded-xl flex items-center justify-center`}
+      className={`dark:text-white dark:bg-[#1E1932] text-black bg-white w-355 h-333 rounded-xl flex items-center justify-center`}
     >
       <div className="w-243 h72">
         <div className="h-69 w-full flex flex-col justify-between">

@@ -17,7 +17,7 @@ const Portfolio = () => {
   const selectedCurrency = useSelectedCurrency();
 
   const [error, setError] = useState<string | undefined>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [coinData, setCoinData] = useState<FormData[]>([]);
   const [formToggler, setFormToggler] = useState<boolean>(false);
   const [allCoins, setAllCoins] = useState<PortfolioCoinData[]>([]);
@@ -56,10 +56,10 @@ const Portfolio = () => {
         );
         setCoinData(formData);
         setAllCoins(coinMarketData);
-        setIsLoading(false);
+        // setIsLoading(false);
       } catch (error: any) {
-        console.error("Error fetching data:", error.message);
-        setError(error.message);
+        // console.error("Error fetching data:", error.message);
+        // setError(error.message);
       }
     };
 
@@ -67,14 +67,11 @@ const Portfolio = () => {
     dispatch(getAssets());
   }, [dispatch, selectedCurrency]);
 
-  const assets = useAppSelector((state) => state.assetsReducer.value);
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
+  const assets = useAppSelector((state) => state.assets.value);
 
   return (
     <div
-      className={`w-full flex justify-center ${
-        isDarkMode ? "bg-[[#13121A]]" : "bg-gray-300"
-      }`}
+      className={`w-full flex justify-center dark:bg-[#13121A] bg-[#f2f2fd]`}
     >
       {error ? (
         <ErrorHandler error={error} />
@@ -82,15 +79,9 @@ const Portfolio = () => {
         <LoadingSpinner />
       ) : (
         <main
-          className={`${
-            isDarkMode ? "bg-[[#13121A]]" : "bg-gray-300"
-          } flex min-h-screen flex-col items-center justify-between w-1296`}
+          className={`dark:bg-[#13121A] bg-[#f2f2fd] flex min-h-screen flex-col items-center justify-between w-1296`}
         >
-          <div
-            className={`h-full w-full ${
-              isDarkMode ? "bg-[[#13121A]]" : "bg-white"
-            }`}
-          >
+          <div className={`h-full w-full dark:bg-[#13121A] bg-[#f2f2fd]`}>
             <FormToggler
               formToggler={formToggler}
               setFormToggler={setFormToggler}
