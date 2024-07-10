@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAppSelector } from "@/redux/store";
 
 type ErrorPropsType = {
   error: string | undefined;
@@ -25,13 +24,9 @@ const ErrorHandler: React.FC<ErrorPropsType> = (props) => {
     }
   }, [error]);
 
-  const isDarkMode = useAppSelector((state) => state.themeReducer.isDarkMode);
-
   return (
     <div
-      className={`${
-        isDarkMode ? "bg-custom-dark2" : "bg-gray-300"
-      } flex justify-center items-center h-screen w-full`}
+      className={`dark:bg-custom-dark bg-gray-300 flex justify-center items-center h-screen w-full`}
     >
       <div className="text-red-500 text-3xl flex flex-col justify-center items-center">
         <h2 className="mb-4">
