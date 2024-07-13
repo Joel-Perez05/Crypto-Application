@@ -12,7 +12,7 @@ import numeral from "numeral";
 import ProgressBar from "@ramonak/react-progress-bar";
 import MarketInfoDataTwo from "./MarketInfoDataTwo";
 import MarketInfoData from "./MarketInfoData";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
+import { useAppSelector } from "@/redux/store";
 
 type MarketPropsType = {
   symbol: CoinType["symbol"];
@@ -22,7 +22,7 @@ type MarketPropsType = {
 const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
   const { symbol, market_data } = props;
 
-  const selectedCurrency = useSelectedCurrency();
+  const selectedCurrency = useAppSelector((state) => state.currency);
 
   const allCaps = symbol?.toUpperCase();
 

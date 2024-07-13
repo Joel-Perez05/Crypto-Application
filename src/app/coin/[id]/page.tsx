@@ -9,9 +9,9 @@ import CoinMainInfo from "@/app/components/CoinMainInfo";
 import CoinAtlAthInfo from "@/app/components/CoinAtlAthInfo";
 import CoinMarketInfo from "@/app/components/CoinMarketInfo";
 import CoinDescription from "@/app/components/CoinDescription";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 import CoinLinks from "@/app/components/CoinLinks";
 import Link from "next/link";
+import { useAppSelector } from "@/redux/store";
 
 type CoinPageProps = {
   params: {
@@ -24,7 +24,7 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>();
 
-  const selectedCurrency = useSelectedCurrency();
+  const selectedCurrency = useAppSelector((state) => state.currency);
 
   useEffect(() => {
     const fetchData = async () => {

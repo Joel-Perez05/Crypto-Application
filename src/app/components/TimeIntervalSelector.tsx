@@ -1,9 +1,6 @@
 "use client";
-import {
-  toggleInterval,
-  useSelectedInterval,
-} from "@/redux/features/interval-Slice";
-import { AppDispatch } from "@/redux/store";
+import { toggleInterval } from "@/redux/features/interval-Slice";
+import { AppDispatch, useAppSelector } from "@/redux/store";
 import React from "react";
 import { useDispatch } from "react-redux";
 
@@ -23,7 +20,7 @@ const TimeIntervalSelector = () => {
     dispatch(toggleInterval(interval));
   };
 
-  const selectedInterval = useSelectedInterval();
+  const selectedInterval = useAppSelector((state) => state.interval.interval);
 
   return (
     <div className="w-463 h-42 rounded-md flex justify-between items-center p-1 dark:bg-[#232336] bg-[#ccccfa6c]">

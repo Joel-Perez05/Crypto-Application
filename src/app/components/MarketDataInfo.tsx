@@ -11,7 +11,7 @@ import {
   ArrowTrendingUpIcon,
 } from "@heroicons/react/20/solid";
 import ProgressBar from "@ramonak/react-progress-bar";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
+import { useAppSelector } from "@/redux/store";
 
 type MarketDataInfoPropsTypes = {
   allCoins: PortfolioCoinData;
@@ -20,7 +20,7 @@ type MarketDataInfoPropsTypes = {
 const MarketDataInfo: React.FC<MarketDataInfoPropsTypes> = (props) => {
   const { allCoins } = props;
 
-  const selectedCurrency = useSelectedCurrency();
+  const selectedCurrency = useAppSelector((state) => state.currency);
 
   const supply = allCoins.max_supply
     ? allCoins.max_supply

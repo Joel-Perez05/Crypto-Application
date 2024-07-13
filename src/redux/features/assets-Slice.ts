@@ -41,7 +41,7 @@ export const getAssets = createAsyncThunk("assets/getAssets", async () => {
   }
 });
 
-export const assets = createSlice({
+const assets = createSlice({
   name: "assets",
   initialState,
   reducers: {
@@ -59,16 +59,10 @@ export const assets = createSlice({
     },
     deleteAsset: (state, action: PayloadAction<string>) => {
       const assetIdToDelete = action.payload;
-      const existingAssets: AssetStateType[] =
-        typeof window !== "undefined"
-          ? JSON.parse(localStorage.getItem("assets") || "[]")
-          : [];
-      const updatedAssets = existingAssets.filter(
-        (asset) => asset.id !== assetIdToDelete
-      );
+      state.value = state.value.filter((asset) => asset.id !== assetIdToDelete);
 
       if (typeof window !== "undefined") {
-        localStorage.setItem("assets", JSON.stringify(updatedAssets));
+        localStorage.setItem("assets", JSON.stringify(state.value));
       }
     },
   },
@@ -85,5 +79,6 @@ export const assets = createSlice({
 export const useAssets = () => {
   return useAppSelector((state) => state.assets.value);
 };
+
 export const { addNewAsset, deleteAsset } = assets.actions;
 export default assets.reducer;

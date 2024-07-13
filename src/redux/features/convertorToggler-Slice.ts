@@ -1,11 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { useAppSelector } from "../store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type InitialTogglerStateType = {
   toggler: string;
 };
 
-const initialState = {
+const initialState: InitialTogglerStateType = {
   toggler: "coins",
 };
 
@@ -13,15 +12,11 @@ const toggle = createSlice({
   name: "toggle",
   initialState,
   reducers: {
-    toggleConvertor: (state, action) => {
+    toggleConvertor: (state, action: PayloadAction<string>) => {
       state.toggler = action.payload;
     },
   },
 });
-
-export const useSelectedToggler = () => {
-  return useAppSelector((state) => state.toggler.toggler);
-};
 
 export const { toggleConvertor } = toggle.actions;
 export default toggle.reducer;

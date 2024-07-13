@@ -2,11 +2,11 @@
 import Coins from "./Coins";
 import CoinConverterToggle from "./CoinConverterToggle";
 import HomePageGraphs from "./HomePageGraphs";
-import { useSelectedToggler } from "@/redux/features/convertorToggler-Slice";
 import CoinConvertor from "./CoinConvertor";
+import { useAppSelector } from "@/redux/store";
 
 export default function LandingPage() {
-  const selectedToggle = useSelectedToggler();
+  const selectedToggle = useAppSelector((state) => state.toggler.toggler);
 
   return (
     <main

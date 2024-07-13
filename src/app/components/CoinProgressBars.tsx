@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import ProgressBar from "@ramonak/react-progress-bar";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
+import { useAppSelector } from "@/redux/store";
 
 type ProgressBarType = {
   titleCompleted: string;
@@ -20,7 +20,7 @@ const CoinProgressBars: React.FC<ProgressBarType> = (props) => {
     percentChangeActual,
   } = props;
 
-  const selectedCurrency = useSelectedCurrency();
+  const selectedCurrency = useAppSelector((state) => state.currency);
 
   return (
     <div className="w-228 h-26">

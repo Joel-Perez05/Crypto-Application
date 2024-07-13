@@ -11,10 +11,9 @@ import { getAssets } from "@/redux/features/assets-Slice";
 import ErrorHandler from "./ErrorHandler";
 import LoadingSpinner from "../components/LoadingSpinner";
 import NoSavedCoins from "../components/NoSavedCoins";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 const Portfolio = () => {
-  const selectedCurrency = useSelectedCurrency();
+  const selectedCurrency = useAppSelector((state) => state.currency);
 
   const [error, setError] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState<boolean>(false);

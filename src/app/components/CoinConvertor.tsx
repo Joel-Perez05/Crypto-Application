@@ -4,7 +4,6 @@ import { CoinType } from "../utils/CoinPageTypes";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/solid";
 import numeral from "numeral";
 import { useAppSelector } from "@/redux/store";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 
 const CoinConvertor: React.FC = () => {
   // const selectedCurrency = useSelectedCurrency();

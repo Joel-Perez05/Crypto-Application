@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useAppSelector } from "../store";
 
 type InitialIntervalStateType = {
   interval: number;
@@ -18,10 +17,5 @@ const interval = createSlice({
     },
   },
 });
-
-export const useSelectedInterval = () => {
-  return useAppSelector((state) => state.interval.interval);
-};
-
 export const { toggleInterval } = interval.actions;
 export default interval.reducer;

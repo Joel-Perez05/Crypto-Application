@@ -1,10 +1,9 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch, useAppSelector } from "@/redux/store";
 import { currencies } from "../utils/currencyData";
 import { CurrencySelect } from "../utils/CoinPageTypes";
 import {
-  useSelectedCurrency,
   currencyToggler,
   InitialCurrencyStateType,
 } from "@/redux/features/currency-Slice";
@@ -20,7 +19,8 @@ const CurrencySelector: React.FC = () => {
   const currSymbol = selectedCurr?.symbol;
 
   const dispatch = useDispatch<AppDispatch>();
-  const selectedCurrency = useSelectedCurrency();
+
+  const selectedCurrency = useAppSelector((state) => state.currency);
 
   useEffect(() => {
     setSelectedCurr(selectedCurrency);

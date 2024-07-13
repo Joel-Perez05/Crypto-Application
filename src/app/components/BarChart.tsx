@@ -5,7 +5,6 @@ import { format } from "date-fns";
 import axios from "axios";
 import { Bar } from "react-chartjs-2";
 import homepageGradient from "../utils/homePageGraphGradients";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 import {
   Chart as ChartJS,
   ChartData,
@@ -20,8 +19,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useSelectedInterval } from "@/redux/features/interval-Slice";
-
+import { useAppSelector } from "@/redux/store";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -38,8 +36,8 @@ export default function BarChart() {
   const [todaysDate, setTodaysDate] = useState<string>("");
   const [todaysVolume, setTodaysVolume] = useState<number>(0);
 
-  const selectedCurrency = useSelectedCurrency();
-  const selectedInterval = useSelectedInterval();
+  const selectedCurrency = useAppSelector((state) => state.currency);
+  const selectedInterval = useAppSelector((state) => state.interval.interval);
 
   useEffect(() => {
     const fetchData = async () => {

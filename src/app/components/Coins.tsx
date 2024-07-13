@@ -6,22 +6,16 @@ import numeral from "numeral";
 import axios from "axios";
 import CoinProgressBars from "./CoinProgressBars";
 import CoinLineGraph from "./CoinLineGraph";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 import CoinTableHeader from "./CoinTableHeader";
-import { Coin } from "../utils/CoinPageTypes";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
-import {
-  setSortedCoins,
-  sortCoins,
-  useSortedCoins,
-} from "@/redux/features/sort-Slice";
+import { setSortedCoins } from "@/redux/features/sort-Slice";
+import { useAppSelector } from "@/redux/store";
 
 export default function Coins() {
-  const [allCoins, setAllCoins] = useState<Coin[]>([]);
   const [displayCount, setDisplayCount] = useState<number>(10);
 
-  const selectedCurrency = useSelectedCurrency();
+  const selectedCurrency = useAppSelector((state) => state.currency);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -68,7 +62,7 @@ export default function Coins() {
     setDisplayCount((prevCount) => prevCount + 10);
   };
 
-  const sortedCoins = useSortedCoins();
+  const sortedCoins = useAppSelector((state) => state.sort.sortedCoins);
 
   return (
     <div className={`dark:bg-[#13121A] bg-[#f2f2fd] w-full h-full mb-10`}>

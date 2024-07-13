@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
+import { useAppSelector } from "@/redux/store";
 
 type MarketCapInfoPropsType = {
   title: string;
@@ -11,7 +11,7 @@ type MarketCapInfoPropsType = {
 const MarketInfoData: React.FC<MarketCapInfoPropsType> = (props) => {
   const { title, data } = props;
 
-  const selectedCurrency = useSelectedCurrency();
+  const selectedCurrency = useAppSelector((state) => state.currency);
 
   return (
     <div className="flex justify-between items-center w-full mb-2">

@@ -9,7 +9,7 @@ import {
   ArrowTrendingDownIcon,
   ArrowTrendingUpIcon,
 } from "@heroicons/react/20/solid";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
+import { useAppSelector } from "@/redux/store";
 
 type MyAssetInfoPropsType = {
   coinId: string;
@@ -34,7 +34,7 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
     purchaseDate,
   } = props;
 
-  const selectedCurrency = useSelectedCurrency();
+  const selectedCurrency = useAppSelector((state) => state.currency);
 
   const allCaps = coinSymbol.toUpperCase();
   const convertedPurchasePrice = convertToShorterNum(purchasePrice);

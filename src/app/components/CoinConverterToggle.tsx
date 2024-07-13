@@ -1,10 +1,7 @@
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch, useAppSelector } from "@/redux/store";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  toggleConvertor,
-  useSelectedToggler,
-} from "@/redux/features/convertorToggler-Slice";
+import { toggleConvertor } from "@/redux/features/convertorToggler-Slice";
 
 const CoinConverterToggle: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -13,7 +10,7 @@ const CoinConverterToggle: React.FC = () => {
     dispatch(toggleConvertor(toggle));
   };
 
-  const selectedToggle = useSelectedToggler();
+  const selectedToggle = useAppSelector((state) => state.toggler.toggler);
 
   return (
     <div className="w-506 h-53 flex justify-center items-center text-white dark:bg-[#191925] bg-white rounded-lg">

@@ -18,9 +18,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
-import { useSelectedInterval } from "@/redux/features/interval-Slice";
-
+import { useAppSelector } from "@/redux/store";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -37,8 +35,8 @@ export default function LineChart() {
   const [todaysDate, setTodaysDate] = useState<string>("");
   const [todaysPrice, setTodaysPrice] = useState<number>(0);
 
-  const selectedCurrency = useSelectedCurrency();
-  const selectedInterval = useSelectedInterval();
+  const selectedCurrency = useAppSelector((state) => state.currency);
+  const selectedInterval = useAppSelector((state) => state.interval.interval);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +60,7 @@ export default function LineChart() {
     const dateObject = new Date();
     const formattedDate = format(dateObject, "MMMM dd, yyyy");
     setTodaysDate(formattedDate);
-  }, [selectedCurrency.symbol]);
+  }, [selectedCurrency.currency]);
 
   interface CustomChartOptions extends ChartOptions {
     height?: number;

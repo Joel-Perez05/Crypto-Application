@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Coin } from "@/app/utils/CoinPageTypes";
-import { useAppSelector } from "../store";
 
 type SortState = {
   field: keyof Coin | "";
@@ -52,10 +51,6 @@ const sortSlice = createSlice({
     },
   },
 });
-
-export const useSortedCoins = () => {
-  return useAppSelector((state) => state.sort.sortedCoins);
-};
 
 export const { setSortedCoins, sortCoins } = sortSlice.actions;
 export default sortSlice.reducer;

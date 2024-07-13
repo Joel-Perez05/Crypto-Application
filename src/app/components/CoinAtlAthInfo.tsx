@@ -7,9 +7,8 @@ import {
   ArrowTrendingUpIcon,
 } from "@heroicons/react/20/solid";
 import numeral from "numeral";
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
-import { useSelectedCurrency } from "@/redux/features/currency-Slice";
 import { coinPageDateFormat } from "../utils/formatFunctions";
 import { useAssets, getAssets } from "@/redux/features/assets-Slice";
 
@@ -21,7 +20,7 @@ type MarketDataPropsType = {
 const CoinAtlAthInfo: React.FC<MarketDataPropsType> = (props) => {
   const { market_data, name } = props;
 
-  const selectedCurrency = useSelectedCurrency();
+  const selectedCurrency = useAppSelector((state) => state.currency);
 
   const dispatch = useDispatch<AppDispatch>();
 
