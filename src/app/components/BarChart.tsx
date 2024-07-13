@@ -50,7 +50,9 @@ export default function BarChart() {
         const priceRes = await axios.get(
           `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${selectedCurrency.currency}&include_24hr_vol=true&precision=2`
         );
-        setTodaysVolume(priceRes.data.bitcoin.usd_24h_vol);
+        setTodaysVolume(
+          priceRes.data.bitcoin[`${selectedCurrency.currency}_24_vol`]
+        );
       } catch (err) {
         console.error(err);
       }
