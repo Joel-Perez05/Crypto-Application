@@ -4,6 +4,7 @@ import intervalReducer from "./features/interval-Slice";
 import currencyReducer from "./features/currency-Slice";
 import togglerReducer from "./features/convertorToggler-Slice";
 import sortReducer from "./features/sort-Slice";
+import convertReducer from "./features/conversion-Slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer } from "redux-persist";
 import storage from "./createNoopStorage";
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   interval: intervalReducer,
   toggler: togglerReducer,
   sort: sortReducer,
+  convert: convertReducer,
 });
 
 export const store = configureStore({
