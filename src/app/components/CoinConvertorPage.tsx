@@ -1,7 +1,7 @@
 "use client";
-import TimeIntervalSelector from "./TimeIntervalSelector";
 import ConvertorLineGraph from "./ConvertorLineGraph";
 import CoinConvertor from "./CoinConvertor";
+import ConverterChartInterval from "./ConverterChartInterval";
 
 const CoinConvertorPage: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const CoinConvertorPage: React.FC = () => {
       <CoinConvertor />
       <div className="w-full h-375 flex flex-col justify-between">
         <ConvertorLineGraph />
-        <TimeIntervalSelector />
+        <ConverterChartInterval />
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ export type SelectedCoinType = {
   price: number;
   qty: number | string;
   symbol: string;
+  prices: [number];
 };
 
 type InitialConvertStateTypes = {
@@ -19,12 +20,14 @@ const initialState: InitialConvertStateTypes = {
     price: 0,
     qty: 0,
     symbol: "",
+    prices: [0],
   },
   coinB: {
     name: "",
     price: 0,
     qty: 0,
     symbol: "",
+    prices: [0],
   },
 };
 

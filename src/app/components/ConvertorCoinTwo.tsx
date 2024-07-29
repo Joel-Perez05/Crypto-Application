@@ -27,6 +27,7 @@ const ConvertorCoinTwo: React.FC<CoinPropTypes> = (props) => {
           price: selectedCoin.current_price,
           qty: 0,
           symbol: allcaps,
+          prices: selectedCoin.sparkline_in_7d.price,
         })
       );
     }

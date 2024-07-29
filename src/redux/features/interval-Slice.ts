@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toggleConvertor } from "./convertorToggler-Slice";
 
 type InitialIntervalStateType = {
   interval: number;
+  converterInterval: number;
 };
 
 const initialState: InitialIntervalStateType = {
   interval: 334,
+  converterInterval: 168,
 };
 
 const interval = createSlice({
@@ -15,7 +18,10 @@ const interval = createSlice({
     toggleInterval: (state, action) => {
       state.interval = action.payload;
     },
+    toggleConvertorInterval: (state, action) => {
+      state.converterInterval = action.payload;
+    },
   },
 });
-export const { toggleInterval } = interval.actions;
+export const { toggleInterval, toggleConvertorInterval } = interval.actions;
 export default interval.reducer;
