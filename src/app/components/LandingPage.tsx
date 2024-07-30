@@ -2,7 +2,7 @@
 import Coins from "./Coins";
 import CoinConverterToggle from "./CoinConverterToggle";
 import HomePageGraphs from "./HomePageGraphs";
-import CoinConvertor from "./CoinConvertor";
+import CoinConvertorPage from "./CoinConvertorPage";
 import { useAppSelector } from "@/redux/store";
 
 export default function LandingPage() {
@@ -20,7 +20,7 @@ export default function LandingPage() {
           <Coins />
         </>
       ) : (
-        <CoinConvertor />
+        <CoinConvertorPage />
       )}
     </main>
   );
