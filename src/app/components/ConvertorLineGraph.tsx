@@ -149,7 +149,6 @@ const ConvertorLineGraph = () => {
       },
     ],
   };
-  console.log(pricesA.length);
 
   return (
     <div className="w-full h-293 flex flex-col justify-center items-center dark:bg-[#191932] bg-white rounded-2xl">

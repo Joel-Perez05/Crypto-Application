@@ -17,7 +17,14 @@ export const convertToShorterNum = (num: number | undefined) => {
   }
 };
 
-export const formatToNearestTenth = (num: number | undefined) => {
+export const roundToSixth = (number: number) => {
+  const rounded = Math.round(number * 1e6) / 1e6;
+  if (number < 1) {
+    return numeral(rounded).format("0.000000");
+  } else return numeral(rounded).format("0,000");
+};
+
+export const formatToNearestHundreth = (num: number | undefined) => {
   if (num !== undefined) {
     return numeral(num).format("0.00");
   }

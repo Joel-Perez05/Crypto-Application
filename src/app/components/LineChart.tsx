@@ -31,31 +31,20 @@ ChartJS.register(
 );
 
 export default function LineChart() {
-  const [bitcoinPrice, setBitcoinPrice] = useState<[]>([]);
   const [todaysDate, setTodaysDate] = useState<string>("");
-  const [todaysPrice, setTodaysPrice] = useState<number>(0);
+  const [todaysPrice, setTodaysPrice] = useState<number | undefined>(0);
 
   const selectedCurrency = useAppSelector((state) => state.currency);
   const selectedInterval = useAppSelector((state) => state.interval.interval);
+  const defaultPrices = useAppSelector((state) => state.graphs.coinA.prices);
+  const coinPrice = useAppSelector((state) => state.sort.sortedCoins);
+  const defaultCoinName = useAppSelector((state) => state.graphs.coinA.name);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const marketChartRes = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${selectedCurrency.currency}&days=365&interval=daily`
-        );
-
-        setBitcoinPrice(marketChartRes.data.prices);
-        const priceRes = await axios.get(
-          `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${selectedCurrency.currency}&precision=2`
-        );
-        setTodaysPrice(priceRes.data.bitcoin[selectedCurrency.currency]);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchData();
+    const getTodaysPrice = coinPrice.find(
+      (coin) => coin.id === defaultCoinName
+    );
+    setTodaysPrice(getTodaysPrice?.current_price);
 
     const dateObject = new Date();
     const formattedDate = format(dateObject, "MMMM dd, yyyy");
@@ -137,7 +126,7 @@ export default function LineChart() {
     },
   };
 
-  const labels = bitcoinPrice.map((date) => {
+  const labels = defaultPrices.map((date) => {
     const utcTimestamp = date[0];
     const dateObj = new Date(utcTimestamp);
 
@@ -150,7 +139,7 @@ export default function LineChart() {
     datasets: [
       {
         label: "Bitcoin Price",
-        data: bitcoinPrice.map((price) => price[1]),
+        data: defaultPrices.map((price) => price[1]),
         tension: 0.4,
         borderColor: "#7878FA",
         pointStyle: false,
@@ -183,10 +172,17 @@ export default function LineChart() {
           Bitcoin (BTC)
         </h3>
         <div className="w-174 h-68  flex flex-col justify-between">
-          <h2 className="dark:text-white text-[#181825] text-3xl font-bold">
-            {selectedCurrency.symbol}
-            {todaysPrice}
-          </h2>
+          {todaysPrice ? (
+            <h2 className="dark:text-white text-[#181825] text-3xl font-bold">
+              {selectedCurrency.symbol}
+              {todaysPrice}
+            </h2>
+          ) : (
+            <h2 className="dark:text-white text-[#181825] text-3xl font-bold">
+              {selectedCurrency.symbol} 0
+            </h2>
+          )}
+
           <h3 className="dark:text-[#B9B9BA] text-[#424286]">{todaysDate}</h3>
         </div>
       </div>
