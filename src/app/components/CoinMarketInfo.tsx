@@ -2,7 +2,7 @@
 import React from "react";
 import {
   convertMarketCap,
-  formatToNearestTenth,
+  formatToNearestHundreth,
   getCircVsMaxWhole,
   getTotalVol,
   getVolToMarket,
@@ -29,7 +29,7 @@ const CoinMarketInfo: React.FC<MarketPropsType> = (props) => {
   const roundedMarketCap = convertMarketCap(
     market_data?.market_cap[selectedCurrency.currency]
   );
-  const roundedPercentChange = formatToNearestTenth(
+  const roundedPercentChange = formatToNearestHundreth(
     market_data?.market_cap_change_percentage_24h
   );
   const roundedValuation = convertMarketCap(

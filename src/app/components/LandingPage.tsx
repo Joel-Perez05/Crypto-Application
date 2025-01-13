@@ -1,9 +1,11 @@
 "use client";
 import Coins from "./Coins";
+import { useEffect, useState } from "react";
 import CoinConverterToggle from "./CoinConverterToggle";
 import HomePageGraphs from "./HomePageGraphs";
 import CoinConvertorPage from "./CoinConvertorPage";
 import { useAppSelector } from "@/redux/store";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function LandingPage() {
   const selectedToggle = useAppSelector((state) => state.toggler.toggler);

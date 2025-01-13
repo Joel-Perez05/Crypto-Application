@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import axios from "axios";
 import { Line } from "react-chartjs-2";
 import homepageGradient from "../utils/homePageGraphGradients";
 import {
@@ -19,6 +18,7 @@ import {
   Legend,
 } from "chart.js";
 import { useAppSelector } from "@/redux/store";
+import { roundToSixth } from "../utils/formatFunctions";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -32,20 +32,14 @@ ChartJS.register(
 
 export default function LineChart() {
   const [todaysDate, setTodaysDate] = useState<string>("");
-  const [todaysPrice, setTodaysPrice] = useState<number | undefined>(0);
 
   const selectedCurrency = useAppSelector((state) => state.currency);
   const selectedInterval = useAppSelector((state) => state.interval.interval);
-  const defaultPrices = useAppSelector((state) => state.graphs.coinA.prices);
-  const coinPrice = useAppSelector((state) => state.sort.sortedCoins);
-  const defaultCoinName = useAppSelector((state) => state.graphs.coinA.name);
+  const defaultPrices = useAppSelector((state) => state.graphs.coinA.pricesArr);
+  const coinPrice = useAppSelector((state) => state.graphs.coinA.price);
+  const roundedPrice = roundToSixth(coinPrice);
 
   useEffect(() => {
-    const getTodaysPrice = coinPrice.find(
-      (coin) => coin.id === defaultCoinName
-    );
-    setTodaysPrice(getTodaysPrice?.current_price);
-
     const dateObject = new Date();
     const formattedDate = format(dateObject, "MMMM dd, yyyy");
     setTodaysDate(formattedDate);
@@ -126,7 +120,7 @@ export default function LineChart() {
     },
   };
 
-  const labels = defaultPrices.map((date) => {
+  const labels = defaultPrices?.map((date) => {
     const utcTimestamp = date[0];
     const dateObj = new Date(utcTimestamp);
 
@@ -139,7 +133,7 @@ export default function LineChart() {
     datasets: [
       {
         label: "Bitcoin Price",
-        data: defaultPrices.map((price) => price[1]),
+        data: defaultPrices?.map((price) => price[1]),
         tension: 0.4,
         borderColor: "#7878FA",
         pointStyle: false,
@@ -172,17 +166,16 @@ export default function LineChart() {
           Bitcoin (BTC)
         </h3>
         <div className="w-174 h-68  flex flex-col justify-between">
-          {todaysPrice ? (
+          {coinPrice ? (
             <h2 className="dark:text-white text-[#181825] text-3xl font-bold">
               {selectedCurrency.symbol}
-              {todaysPrice}
+              {roundedPrice}
             </h2>
           ) : (
             <h2 className="dark:text-white text-[#181825] text-3xl font-bold">
               {selectedCurrency.symbol} 0
             </h2>
           )}
-
           <h3 className="dark:text-[#B9B9BA] text-[#424286]">{todaysDate}</h3>
         </div>
       </div>

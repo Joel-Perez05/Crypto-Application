@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import {
   convertToShorterNum,
-  formatToNearestTenth,
+  formatToNearestHundreth,
   dateFormatter,
 } from "../utils/formatFunctions";
 import {
@@ -45,7 +45,7 @@ const MyAssetInfo: React.FC<MyAssetInfoPropsType> = (props) => {
   useEffect(() => {
     const result = currentPrice / priceWhenPurchased;
 
-    const formatted = formatToNearestTenth(result);
+    const formatted = formatToNearestHundreth(result);
     setpnlPercent(formatted!);
     const formattedDate = dateFormatter(purchaseDate);
     setDateFormatted(formattedDate);

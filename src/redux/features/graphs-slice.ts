@@ -2,8 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type CoinObjTypes = {
   name: string;
-  prices: [number, number][];
-  volume: [number, number][];
+  pricesArr: [number, number][];
+  volumeArr: [number, number][];
+  price: number;
+  volume: number;
 };
 
 type InitialGraphDataStateTypes = {
@@ -14,13 +16,17 @@ type InitialGraphDataStateTypes = {
 const initialGraphState: InitialGraphDataStateTypes = {
   coinA: {
     name: "",
-    prices: [],
-    volume: [],
+    pricesArr: [],
+    volumeArr: [],
+    price: 0,
+    volume: 0,
   },
   coinB: {
     name: "",
-    prices: [],
-    volume: [],
+    pricesArr: [],
+    volumeArr: [],
+    price: 0,
+    volume: 0,
   },
 };
 
@@ -28,11 +34,16 @@ const graphs = createSlice({
   name: "graphs",
   initialState: initialGraphState,
   reducers: {
-    toggleGraph: (state, action) => {
+    toggleInitialGraph: (state, action) => {
       state.coinA = action.payload;
+    },
+    selectCoinNames: (state, action) => {
+      console.log(action.payload);
+
+      state = action.payload;
     },
   },
 });
 
-export const { toggleGraph } = graphs.actions;
+export const { toggleInitialGraph, selectCoinNames } = graphs.actions;
 export default graphs.reducer;

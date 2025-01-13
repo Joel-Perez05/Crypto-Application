@@ -6,7 +6,7 @@ import BarChart from "./BarChart";
 import TimeIntervalSelector from "./TimeIntervalSelector";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
-import { toggleGraph } from "@/redux/features/graphs-slice";
+import { toggleInitialGraph } from "@/redux/features/graphs-slice";
 import CoinCarousel from "./CoinCarousel";
 
 const HomePageGraphs = () => {
@@ -17,15 +17,30 @@ const HomePageGraphs = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const marketChartRes = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${selectedCurrency.currency}&days=365&interval=daily`
+        const chartData = await axios.get(
+          `/api/landingPage/getHomePageGraphsData`,
+          {
+            params: {
+              vs_currency: selectedCurrency.currency,
+            },
+          }
         );
-
+        const priceAndVol = await axios.get(
+          "/api/landingPage/getHomePageDailyData",
+          {
+            params: {
+              vs_currency: selectedCurrency.currency,
+            },
+          }
+        );
         dispatch(
-          toggleGraph({
+          toggleInitialGraph({
             name: "bitcoin",
-            prices: marketChartRes.data.prices,
-            volume: marketChartRes.data.volume,
+            pricesArr: chartData.data.prices,
+            volumeArr: chartData.data.total_volumes,
+            price: priceAndVol.data.bitcoin[`${selectedCurrency.currency}`],
+            volume:
+              priceAndVol.data.bitcoin[`${selectedCurrency.currency}_24h_vol`],
           })
         );
       } catch (err) {
@@ -34,7 +49,7 @@ const HomePageGraphs = () => {
     };
 
     fetchData();
-  }, [selectedCurrency.currency]);
+  }, [selectedCurrency.currency, dispatch]);
 
   return (
     <div className="flex flex-col justify-between w-full h-694 mb-14 mt-14">
