@@ -1,39 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
 import CoinName from "./CoinName";
 import CoinPriceChange from "./CoinPriceChange";
 import numeral from "numeral";
-import axios from "axios";
 import CoinProgressBars from "./CoinProgressBars";
 import CoinLineGraph from "./CoinLineGraph";
 import CoinTableHeader from "./CoinTableHeader";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
-import { setSortedCoins } from "@/redux/features/sort-Slice";
 import { useAppSelector } from "@/redux/store";
 
 const Coins = () => {
-  const [displayCount, setDisplayCount] = useState<number>(10);
-
   const selectedCurrency = useAppSelector((state) => state.currency);
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const coinResponse = await axios.get("/api/landingPage/getCoinsTable", {
-          params: {
-            vs_currency: selectedCurrency.currency,
-            per_page: 50,
-          },
-        });
-        dispatch(setSortedCoins(coinResponse.data));
-      } catch (error: any) {
-        console.error("Error fetching coin table data:", error.message);
-      }
-    };
-    fetchData();
-  }, [displayCount, selectedCurrency.currency, dispatch]);
 
   const roundToSixth = (number: number) => {
     const rounded = Math.round(number * 1e6) / 1e6;
@@ -59,10 +34,6 @@ const Coins = () => {
     } else {
       return numeral(number).format("0,0");
     }
-  };
-
-  const handleNext = () => {
-    setDisplayCount((prevCount) => prevCount + 10);
   };
 
   const sortedCoins = useAppSelector((state) => state.sort.sortedCoins);
