@@ -1,6 +1,4 @@
 "use client";
-import React, { useEffect } from "react";
-import axios from "axios";
 import LineChart from "./LineChart";
 import BarChart from "./BarChart";
 import TimeIntervalSelector from "./TimeIntervalSelector";

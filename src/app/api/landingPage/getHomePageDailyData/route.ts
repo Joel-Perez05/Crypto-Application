@@ -4,10 +4,11 @@ import axios from "axios";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const currency = searchParams.get("vs_currency") || "usd";
+  const coin = searchParams.get("coinName") || "bitcoin";
 
   try {
     const priceAndVolRes = await axios.get(
-      `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${currency}&include_24hr_vol=true&precision=2`,
+      `https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=${currency}&include_24hr_vol=true&precision=2`,
       {
         headers: {
           accept: "application/json",

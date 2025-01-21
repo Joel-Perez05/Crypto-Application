@@ -34,16 +34,21 @@ const graphs = createSlice({
   name: "graphs",
   initialState: initialGraphState,
   reducers: {
+    resetGraphs: (state) => {
+      state.coinA = initialGraphState.coinA;
+      state.coinB = initialGraphState.coinB;
+    },
     toggleInitialGraph: (state, action) => {
       state.coinA = action.payload;
+      state.coinB = initialGraphState.coinB;
     },
     selectCoinNames: (state, action) => {
-      console.log(action.payload);
-
-      state = action.payload;
+      state.coinA = action.payload.coinA;
+      state.coinB = action.payload.coinB;
     },
   },
 });
 
-export const { toggleInitialGraph, selectCoinNames } = graphs.actions;
+export const { toggleInitialGraph, selectCoinNames, resetGraphs } =
+  graphs.actions;
 export default graphs.reducer;

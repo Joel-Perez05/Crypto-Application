@@ -4,10 +4,11 @@ import axios from "axios";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const currency = searchParams.get("vs_currency") || "usd";
+  const coin = searchParams.get("coinName") || "bitcoin";
 
   try {
     const chartsDataRes = await axios.get(
-      `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=365&interval=daily`,
+      `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=${currency}&days=365&interval=daily`,
       {
         headers: {
           accept: "application/json",

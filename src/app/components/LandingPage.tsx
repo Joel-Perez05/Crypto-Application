@@ -9,6 +9,7 @@ import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { toggleInitialGraph } from "@/redux/features/graphs-slice";
 import { setSortedCoins } from "@/redux/features/sort-Slice";
+import { store } from "@/redux/store";
 import LoadingSpinner from "./LoadingSpinner";
 
 export default function LandingPage() {
@@ -20,6 +21,10 @@ export default function LandingPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const stateCoinA = store.getState().graphs.coinA.name;
+        const stateCoinB = store.getState().graphs.coinB.name;
+        if (stateCoinA && stateCoinB) return;
+
         const chartData = await axios.get(
           `/api/landingPage/getHomePageGraphsData`,
           {

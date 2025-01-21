@@ -114,3 +114,9 @@ export const coinPageDateFormat = (date: string | undefined) => {
 
   return `${dayOfWeek}, ${day} ${month} ${year} ${time} GMT`;
 };
+
+export const capitalizeName = (name: string | undefined) => {
+  if (!name) return "";
+  const trimmedName = name.trim();
+  return trimmedName.charAt(0).toUpperCase() + trimmedName.slice(1);
+};

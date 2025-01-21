@@ -18,7 +18,7 @@ import {
   Legend,
 } from "chart.js";
 import { useAppSelector } from "@/redux/store";
-import { roundToSixth } from "../utils/formatFunctions";
+import { capitalizeName, roundToSixth } from "../utils/formatFunctions";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -35,15 +35,22 @@ export default function LineChart() {
 
   const selectedCurrency = useAppSelector((state) => state.currency);
   const selectedInterval = useAppSelector((state) => state.interval.interval);
-  const defaultPrices = useAppSelector((state) => state.graphs.coinA.pricesArr);
-  const coinPrice = useAppSelector((state) => state.graphs.coinA.price);
-  const roundedPrice = roundToSixth(coinPrice);
+  const coinAData = useAppSelector((state) => state.graphs.coinA);
+  const coinBData = useAppSelector((state) => state.graphs.coinB);
+
+  const pricesArrA = coinAData.pricesArr;
+  const coinPriceA = coinAData.price;
+  const coinAName = capitalizeName(coinAData.name);
+  const coinBName = capitalizeName(coinBData.name);
+  const pricesArrB = coinBData.pricesArr;
+  const coinPriceB = coinBData.price;
+  const roundedPrice = roundToSixth(coinPriceA);
 
   useEffect(() => {
     const dateObject = new Date();
     const formattedDate = format(dateObject, "MMMM dd, yyyy");
     setTodaysDate(formattedDate);
-  }, [selectedCurrency.currency]);
+  }, [selectedCurrency.currency, coinAData, coinBData]);
 
   interface CustomChartOptions extends ChartOptions {
     height?: number;
@@ -91,11 +98,12 @@ export default function LineChart() {
         enabled: true,
       },
       subtitle: {
-        display: true,
+        display: false,
       },
     },
     scales: {
       x: {
+        display: true,
         min: selectedInterval,
         max: 365,
         grid: {
@@ -120,7 +128,47 @@ export default function LineChart() {
     },
   };
 
-  const labels = defaultPrices?.map((date) => {
+  const optionsTwo = {
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      title: {
+        display: false,
+      },
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
+    scales: {
+      x: {
+        min: selectedInterval,
+        max: 365,
+        display: false,
+        grid: {
+          display: false,
+          borderWidth: 0,
+        },
+        ticks: {
+          display: false,
+        },
+      },
+      y: {
+        display: false,
+        ticks: {
+          display: false,
+        },
+        grid: {
+          display: false,
+          borderWidth: 0,
+        },
+      },
+    },
+  };
+
+  const labels = pricesArrA?.map((date) => {
     const utcTimestamp = date[0];
     const dateObj = new Date(utcTimestamp);
 
@@ -132,8 +180,8 @@ export default function LineChart() {
     labels,
     datasets: [
       {
-        label: "Bitcoin Price",
-        data: defaultPrices?.map((price) => price[1]),
+        label: coinAData.name,
+        data: pricesArrA?.map((price) => price[1]),
         tension: 0.4,
         borderColor: "#7878FA",
         pointStyle: false,
@@ -157,7 +205,64 @@ export default function LineChart() {
     ],
   };
 
-  return (
+  const dataTwo: ChartData<"line", number[], string> = {
+    labels,
+    datasets: [
+      {
+        label: coinBData.name,
+        data: pricesArrB?.map((price) => price[1]),
+        tension: 0.4,
+        borderColor: "#9D62D9",
+        pointStyle: false,
+        fill: true,
+        backgroundColor: function (context: any) {
+          const chart = context.chart;
+          const { ctx, chartArea } = chart;
+
+          if (!chartArea) {
+            return;
+          }
+          return homepageGradient(
+            ctx,
+            chartArea,
+            "#9D62D9",
+            "#B374F2",
+            "#201932"
+          );
+        },
+      } as ChartDataset<"line", number[]>,
+    ],
+  };
+
+  return coinAData.name.length > 1 && coinBData.name.length > 1 ? (
+    <div
+      className={`rounded-xl flex flex-col justify-between p-6 w-632 h-full dark:text-[#7474f260] dark:bg-[#1b1932] bg-white`}
+    >
+      <h3 className="h-7 w-272 text-3xl dark:text-[#FFFFFF] text-[#181825]">
+        {todaysDate}
+      </h3>
+      <div className="w-584 h-216">
+        <div className="h-1/2">
+          <Line options={optionsTwo} data={dataTwo} />
+        </div>
+        <div className="h-1/2">
+          <Line options={options} data={data} />
+        </div>
+      </div>
+      <div className="w-full h-6 text-xl flex">
+        <div className="w-6 h-6 rounded-sm mr-2 bg-[#7878FA]"></div>
+        <div className="w-1/2 dark:text-[#D1D1D1] text-[#424286]">
+          {coinAName}: {selectedCurrency.symbol}
+          {coinPriceA}
+        </div>
+        <div className="w-6 h-6 rounded-sm mr-2 bg-[#9D62D9]"></div>
+        <div className="w-1/2 dark:text-[#D1D1D1] text-[#424286]">
+          {coinBName}: {selectedCurrency.symbol}
+          {coinPriceB}
+        </div>
+      </div>
+    </div>
+  ) : (
     <div
       className={`rounded-xl flex flex-col justify-between p-6 w-632 h-full dark:text-[#7474f260] dark:bg-[#1b1932] bg-white`}
     >
@@ -166,16 +271,10 @@ export default function LineChart() {
           Bitcoin (BTC)
         </h3>
         <div className="w-174 h-68  flex flex-col justify-between">
-          {coinPrice ? (
-            <h2 className="dark:text-white text-[#181825] text-3xl font-bold">
-              {selectedCurrency.symbol}
-              {roundedPrice}
-            </h2>
-          ) : (
-            <h2 className="dark:text-white text-[#181825] text-3xl font-bold">
-              {selectedCurrency.symbol} 0
-            </h2>
-          )}
+          <h2 className="dark:text-white text-[#181825] text-3xl font-bold">
+            {selectedCurrency.symbol}
+            {roundedPrice}
+          </h2>
           <h3 className="dark:text-[#B9B9BA] text-[#424286]">{todaysDate}</h3>
         </div>
       </div>
