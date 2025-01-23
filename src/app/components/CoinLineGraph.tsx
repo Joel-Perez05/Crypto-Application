@@ -47,6 +47,7 @@ const CoinLineGraph: React.FC<ChartDataType> = (props) => {
       x: {
         min: 120,
         max: 180,
+        display: false,
         grid: {
           display: false,
           borderWidth: 0,

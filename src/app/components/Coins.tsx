@@ -1,36 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
 import CoinName from "./CoinName";
 import CoinPriceChange from "./CoinPriceChange";
 import numeral from "numeral";
-import axios from "axios";
 import CoinProgressBars from "./CoinProgressBars";
 import CoinLineGraph from "./CoinLineGraph";
 import CoinTableHeader from "./CoinTableHeader";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
-import { setSortedCoins } from "@/redux/features/sort-Slice";
 import { useAppSelector } from "@/redux/store";
 
-export default function Coins() {
-  const [displayCount, setDisplayCount] = useState<number>(10);
-
+const Coins = () => {
   const selectedCurrency = useAppSelector((state) => state.currency);
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const coinResponse = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency.currency}&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
-        );
-        dispatch(setSortedCoins(coinResponse.data));
-      } catch (error: any) {
-        console.error("Error fetching data:", error.message);
-      }
-    };
-    fetchData();
-  }, [displayCount, selectedCurrency, dispatch]);
 
   const roundToSixth = (number: number) => {
     const rounded = Math.round(number * 1e6) / 1e6;
@@ -56,10 +34,6 @@ export default function Coins() {
     } else {
       return numeral(number).format("0,0");
     }
-  };
-
-  const handleNext = () => {
-    setDisplayCount((prevCount) => prevCount + 10);
   };
 
   const sortedCoins = useAppSelector((state) => state.sort.sortedCoins);
@@ -143,4 +117,6 @@ export default function Coins() {
       })}
     </div>
   );
-}
+};
+
+export default Coins;

@@ -4,7 +4,7 @@ import {
   ArrowTrendingUpIcon,
 } from "@heroicons/react/20/solid";
 import React from "react";
-import { formatToNearestTenth } from "../utils/formatFunctions";
+import { formatToNearestHundreth } from "../utils/formatFunctions";
 
 type TotalMarketPercentChangePropsType = {
   percentChange: number | undefined;
@@ -15,7 +15,7 @@ const TotalMarketPercentChange: React.FC<TotalMarketPercentChangePropsType> = (
 ) => {
   const { percentChange } = props;
 
-  const formattedPercent = formatToNearestTenth(percentChange);
+  const formattedPercent = formatToNearestHundreth(percentChange);
 
   return (
     <div className="flex items-center max-sm:hidden">

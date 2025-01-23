@@ -21,7 +21,7 @@ type CoinPageProps = {
 
 const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   const [coin, setCoin] = useState<CoinType>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | undefined>();
 
   const selectedCurrency = useAppSelector((state) => state.currency);
@@ -29,15 +29,17 @@ const CoinPage: React.FC<CoinPageProps> = ({ params }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const coinResponse = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/${params.id}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`
-        );
+        const coinResponse = await axios.get("/api/individualCoinPage", {
+          params: {
+            coin: params.id,
+          },
+        });
         setCoin(coinResponse.data);
 
-        // setIsLoading(false);
+        setIsLoading(false);
       } catch (error: any) {
-        // console.error("Error fetching data:", error.message);
-        // setError(error.message);
+        console.error("Error fetching data:", error.message);
+        setError(error.message);
       }
     };
 

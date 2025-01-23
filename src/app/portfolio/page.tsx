@@ -16,7 +16,7 @@ const Portfolio = () => {
   const selectedCurrency = useAppSelector((state) => state.currency);
 
   const [error, setError] = useState<string | undefined>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [coinData, setCoinData] = useState<FormData[]>([]);
   const [formToggler, setFormToggler] = useState<boolean>(false);
   const [allCoins, setAllCoins] = useState<PortfolioCoinData[]>([]);
@@ -26,9 +26,11 @@ const Portfolio = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const coinDataResponse = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${selectedCurrency.currency}&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
-        );
+        const coinDataResponse = await axios.get("/api/portfolioPage", {
+          params: {
+            vs_currency: selectedCurrency.currency,
+          },
+        });
         const formData: FormData[] = coinDataResponse.data.map(
           (coin: FormCoin) => ({
             id: coin.id,
@@ -55,10 +57,10 @@ const Portfolio = () => {
         );
         setCoinData(formData);
         setAllCoins(coinMarketData);
-        // setIsLoading(false);
+        setIsLoading(false);
       } catch (error: any) {
-        // console.error("Error fetching data:", error.message);
-        // setError(error.message);
+        console.error("Error fetching data:", error.message);
+        setError(error.message);
       }
     };
 
@@ -66,7 +68,7 @@ const Portfolio = () => {
     dispatch(getAssets());
   }, [dispatch, selectedCurrency]);
 
-  const assets = useAppSelector((state) => state.assets.value);
+  const assets = useAppSelector((state) => state.assets?.value);
 
   return (
     <div

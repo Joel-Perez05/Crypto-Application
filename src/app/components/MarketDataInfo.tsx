@@ -2,7 +2,7 @@
 import React from "react";
 import { PortfolioCoinData } from "../utils/CoinPageTypes";
 import {
-  formatToNearestTenth,
+  formatToNearestHundreth,
   getCircVsMax,
   getMarketToVolume,
 } from "../utils/formatFunctions";
@@ -30,10 +30,10 @@ const MarketDataInfo: React.FC<MarketDataInfoPropsTypes> = (props) => {
     allCoins.market_cap,
     allCoins.total_volume
   );
-  const formattedPercent = formatToNearestTenth(
+  const formattedPercent = formatToNearestHundreth(
     allCoins.price_change_percentage_24h
   );
-  const formattedPrice = formatToNearestTenth(allCoins.current_price);
+  const formattedPrice = formatToNearestHundreth(allCoins.current_price);
 
   return (
     <div

@@ -17,7 +17,14 @@ export const convertToShorterNum = (num: number | undefined) => {
   }
 };
 
-export const formatToNearestTenth = (num: number | undefined) => {
+export const roundToSixth = (number: number) => {
+  const rounded = Math.round(number * 1e6) / 1e6;
+  if (number < 1) {
+    return numeral(rounded).format("0.000000");
+  } else return numeral(rounded).format("0,000");
+};
+
+export const formatToNearestHundreth = (num: number | undefined) => {
   if (num !== undefined) {
     return numeral(num).format("0.00");
   }
@@ -106,4 +113,10 @@ export const coinPageDateFormat = (date: string | undefined) => {
   const time = format(parsedDate, "HH:mm:ss");
 
   return `${dayOfWeek}, ${day} ${month} ${year} ${time} GMT`;
+};
+
+export const capitalizeName = (name: string | undefined) => {
+  if (!name) return "";
+  const trimmedName = name.trim();
+  return trimmedName.charAt(0).toUpperCase() + trimmedName.slice(1);
 };

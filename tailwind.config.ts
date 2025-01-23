@@ -64,6 +64,12 @@ const config: Config = {
         "330": "330px",
         "1248": "1248px",
         "600": "600px",
+        "252.8": "252.8px",
+        "255": "255px",
+        "143": "143px",
+        "192": "192px",
+        "165": "165px",
+        "272": "272px",
       },
       height: {
         "52": "52px",
@@ -101,6 +107,10 @@ const config: Config = {
         "293": "293px",
         "375": "375px",
         "197": "197px",
+        "694": "694px",
+        "152": "152px",
+        "78": "78px",
+        "46": "46px",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

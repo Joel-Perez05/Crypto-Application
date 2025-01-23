@@ -5,6 +5,7 @@ import currencyReducer from "./features/currency-Slice";
 import togglerReducer from "./features/convertorToggler-Slice";
 import sortReducer from "./features/sort-Slice";
 import convertReducer from "./features/conversion-Slice";
+import graphReducer from "./features/graphs-slice";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer } from "redux-persist";
 import storage from "./createNoopStorage";
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   toggler: togglerReducer,
   sort: sortReducer,
   convert: convertReducer,
+  graphs: graphReducer,
 });
 
 export const store = configureStore({

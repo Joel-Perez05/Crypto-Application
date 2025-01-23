@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toggleConvertor } from "./convertorToggler-Slice";
 
 type InitialIntervalStateType = {
   interval: number;

@@ -19,7 +19,7 @@ const OverviewMarketData = () => {
     const fetchData = async () => {
       try {
         const marketDataResponse = await axios.get(
-          `https://api.coingecko.com/api/v3/global`
+          "/api/landingPage/getMarketOverviewData"
         );
         setTotalCoins(marketDataResponse.data.data);
         setMarketCap(marketDataResponse.data.data.market_cap_percentage);
