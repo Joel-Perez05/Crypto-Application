@@ -94,6 +94,7 @@ export type MarketPercentageTypes = {
 
 export type SearchBarNamesTypes = {
   name: string;
+  id: string;
 };
 
 export type CurrencySelect = {

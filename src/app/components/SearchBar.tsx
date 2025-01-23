@@ -20,7 +20,12 @@ const SearchBar = () => {
           "/api/landingPage/getSearchBarData"
         );
         const coinNames = coinDataResponse.data.map(
-          (coin: SearchBarNamesTypes) => coin.name
+          (coin: SearchBarNamesTypes) => {
+            return {
+              name: coin.name,
+              id: coin.id,
+            };
+          }
         );
         setCoinListData(coinNames);
       } catch (error: any) {
@@ -40,9 +45,10 @@ const SearchBar = () => {
     setSearchInput(e.target.value);
   };
 
-  const filteredCoins = coinListData.filter((coin: string) =>
-    coin.toLowerCase().includes(searchInput.toLowerCase())
-  );
+  const filteredCoins = coinListData?.filter((coin: SearchBarNamesTypes) => {
+    let coinName = coin.name;
+    return coinName.toLowerCase().includes(searchInput.toLowerCase());
+  });
 
   return (
     <div className="flex items-center w-356 h-48 relative">
@@ -77,13 +83,13 @@ const SearchBar = () => {
                 height={300}
                 className={classes.customInfiniteScroll}
               >
-                {filteredCoins.map((coin: string) => (
-                  <div key={coin} className="p-4 border-b border-gray-600">
+                {filteredCoins.map((coin: SearchBarNamesTypes) => (
+                  <div key={coin.id} className="p-4 border-b border-gray-600">
                     <Link
                       onClick={() => setSearchInput("")}
-                      href={`/coin/${coin.toLowerCase()}`}
+                      href={`/coin/${coin.id}`}
                     >
-                      {coin}
+                      {coin.name}
                     </Link>
                   </div>
                 ))}
